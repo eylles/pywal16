@@ -204,8 +204,8 @@ def get(cache_dir=CACHE_DIR):
     if os.path.isfile(current_wall):
         # make sure the file has some content in it,
         contents = util.read_file(current_wall)
-        
+
         if len(contents) > 0:
-            return contents [0]
+            return contents[0]
 
     return "None"
