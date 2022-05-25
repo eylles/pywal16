@@ -28,6 +28,11 @@ class Color:
         return "%s,%s,%s" % (*hex_to_rgb(self.hex_color),)
 
     @property
+    def rgbspace(self):
+        """Convert a hex color to rgb."""
+        return "%s %s %s" % (*hex_to_rgb(self.hex_color),)
+
+    @property
     def xrgba(self):
         """Convert a hex color to xrdb rgba."""
         return hex_to_xrgba(self.hex_color)
