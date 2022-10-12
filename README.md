@@ -1,3 +1,4 @@
+## This project is a 16 colors fork of [pywal](https://github.com/dylanaraps/pywal)
 <h3 align="center"><img src="https://i.imgur.com/5WgMACe.gif" width="200px"></h3>
 <p align="center">Generate and change color-schemes on the fly.</p>
 
@@ -18,4 +19,4 @@ The goal of Pywal was to be as out of the way as possible. It doesn't modify any
 
 Terminal emulators and TTYs have their color-schemes updated in real-time with no delay. With minimal configuration this functionality can be extended to almost anything running on your system.
 
-### More: \[[Installation](https://github.com/dylanaraps/pywal/wiki/Installation)] \[[Getting Started](https://github.com/dylanaraps/pywal/wiki/Getting-Started)] \[[Customization](https://github.com/dylanaraps/pywal/wiki/Customization)] \[[Wiki](https://github.com/dylanaraps/pywal/wiki)] \[[Screenshots](https://www.reddit.com/r/unixporn/search?q=wal&restrict_sr=on&sort=relevance&t=all)]
+### More: \[[Installation](https://github.com/eylles/pywal16/wiki/Installation)] \[[Getting Started](https://github.com/eylles/pywal16/wiki/Getting-Started)] \[[Customization](https://github.com/eylles/pywal16/wiki/Customization)] \[[Wiki](https://github.com/eylles/pywal16/wiki)] \[[Screenshots](https://www.reddit.com/r/unixporn/search?q=wal&restrict_sr=on&sort=relevance&t=all)]
