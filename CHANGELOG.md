@@ -9,6 +9,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [3.4.0] - 2022-07-?
 
+## [3.2.1] - 2018-10-24
+
+- Improved light colors (brighter colors)
+- Fixed `urxvt` background
+
 ## [3.2.0] - 2018-10-23
 
 - Simplified `colorz` backend
