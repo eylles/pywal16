@@ -689,6 +689,9 @@ Note to self: Don't flag releases before coffee.
 
 
 [Unreleased]: https://github.com/dylanaraps/pywal/compare/3.1.0...HEAD
+[3.3.0]: https://github.com/dylanaraps/pywal/compare/3.2.1...3.3.0
+[3.2.1]: https://github.com/dylanaraps/pywal/compare/3.2.0...3.2.1
+[3.2.0]: https://github.com/dylanaraps/pywal/compare/3.1.0...3.2.0
 [3.1.0]: https://github.com/dylanaraps/pywal/compare/3.0.1...3.1.0
 [3.0.1]: https://github.com/dylanaraps/pywal/compare/3.0.0...3.0.1
 [3.0.0]: https://github.com/dylanaraps/pywal/compare/2.1.0...3.0.0
