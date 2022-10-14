@@ -9,6 +9,23 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [3.4.0] - 2022-07-?
 
+## [3.2.0] - 2018-10-23
+
+- Simplified `colorz` backend
+- Fixed `-c` now exits
+- broken theme file removed `colorschemes/dark/dkeg-conv.sh.json`
+- wal shows usage when no args are passed.
+- Added `--preview flag` for current color palette.
+- Added `kitty` support (reload and template).
+- Fixed quiet mode with cached schemes.
+- Fixed reloading by pid.
+- Fixed Alpha setting.
+- Added support for awesomewm to set wallpaper `set_desktop_wallpaper(desktop, img)`.
+- Fixed reload `get_pid(name)` function.
+- Added hash name for cache filename.
+- Increased background contrast (darken set to 0.80, was 0.75)
+- Fixed `putty` template.
+
 ## [3.1.0] - 2018-06-21
 
 - Added `--saturate` to change color saturation.
