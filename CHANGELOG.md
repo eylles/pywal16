@@ -9,6 +9,20 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [3.4.0] - 2022-07-?
 
+## [3.3.0] - 2018-10-24
+
+- Fixed `urxvt` borders not respecting background opacity
+- Added ENVAR PYWAL_CACHE_DIR to change cache dir.
+- Added `colors.hs` template for xmonad.
+- Added `colors-wal-dmenu.h` template for dmenu.
+- Added rgba support, funciton `rgba()`.
+- Fixed `rofi` templates.
+- Removed `oomox` support, use `wpgtk` instead.
+- Added `colors-speedcrunch.json` template.
+- Added `colors-waybar.css` template.
+- Added `--vte` to fix artifacts on vte terminals.
+- Fixed template `templates/colors-vivid.yml`.
+
 ## [3.2.1] - 2018-10-24
 
 - Improved light colors (brighter colors)
