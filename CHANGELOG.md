@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [3.4.0] - 2022-07-?
 
-## [3.3.0] - 2018-10-24
+## [3.3.0] - 2019-01-21
 
 - Fixed `urxvt` borders not respecting background opacity
 - Added ENVAR PYWAL_CACHE_DIR to change cache dir.
