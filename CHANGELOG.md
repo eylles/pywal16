@@ -25,7 +25,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Added KDE `plasma` support, wallpaper setting and template colors-nqq.css.
 - Added decimal output support, `decimal`, `decimal_strip` for templates.
 - Fixed template export, replace "." with "_".
-- Added `hsetroot` support to set wallpaper.
+- Added `hsetroot` support to set wallpaper AGAIN.
 - Added `xwallpaper` support to set wallpaper.
 - Fixed `xrdb` reload, wait until reloading is finished.
 - Added red green and blue properties to color class.
