@@ -7,7 +7,53 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
-## [3.4.0] - 2022-07-?
+## [3.4.0] - 2022-10-?
+
+- Added support for gnome dark wallpapers.
+- Fixed crash when '~/.cache/wal' is empty.
+- Fixed `xmonad` support template Colors.hs added.
+- Added support for ARGB hex strings, `hexargb` and `alpha_hex`
+- Fixed color setting on OpenBSD.
+- Fixed `kitty` reloading.
+- Added `alacritty` templates colors--alacritty.yml and colors--nodim-alacritty.yml.
+- Added `--cols16` flag to generate 16 color schemes.
+- Added `fast_colorthief` backend.
+- Fixed `rofi` template for rofi >v1.7.0
+- Fixed wallpaper path on microsoft windows.
+- Added `themer` template colors-themer.js.
+- Added KDE `plasma` wallpaper support.
+- Added decimal output support, `decimal`, `decimal_strip` for templates.
+- Fixed template export, replace "." with "_".
+- Added `hsetroot` support to set wallpaper.
+- Added `xwallpaper` support to set wallpaper.
+- Fixed `xrdb` reload, wait until reloading is finished.
+- Added red green and blue properties to color class.
+- Fixed template exporting issue.
+- Added `tilix` template colors-tilix.json.
+- Added support `st` on sequences.py
+- Added ability to modify colors using `lighten`, `darken` and `saturate` in templates.
+- Added indicator to last used theme on `--theme` flag (only for provided themes).
+- Fixed eror if theme has never been set.
+- Added `stylus` template colors.styl.
+- Added base16-snazzy colorscheme.
+- Fixed `pidof` in MacOS.
+- Added support `xfce` 4.12 and later.
+- Fixed `kitty` support.
+- Added `--recursive` option to search images in all subdird of the given dir.
+- Fixed template `colors.sh` wallpaper quoting.
+- Fixed `iterm2` cursor color.
+- Fixed MacOS mojave Dock Crash.
+- Added ability to load random user theme.
+- Added ability to load random theme.
+- Added ability to saving user themes.
+- Added `bspwm` color setting support.
+- Improved file size caching to avoid image name collisions.
+- Fixed skip .swp files.
+- Improved print error message when template cannot be read
+- Improved use XDG dirs.
+- Fixed error if `pidof` is not installed.
+- Fixed `awesomewm` wallpaper setting.
+- Added vscode template `colors-vscode.json`
 
 ## [3.3.0] - 2019-01-21
 
@@ -688,7 +734,8 @@ Note to self: Don't flag releases before coffee.
 
 
 
-[Unreleased]: https://github.com/dylanaraps/pywal/compare/3.1.0...HEAD
+[Unreleased]: https://github.com/eylles/pywal16/compare/3.3.0...HEAD
+[3.4.0]: https://github.com/eylles/pywal16/compare/3.3.0...3.4.0
 [3.3.0]: https://github.com/dylanaraps/pywal/compare/3.2.1...3.3.0
 [3.2.1]: https://github.com/dylanaraps/pywal/compare/3.2.0...3.2.1
 [3.2.0]: https://github.com/dylanaraps/pywal/compare/3.1.0...3.2.0
