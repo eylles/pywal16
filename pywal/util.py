@@ -29,7 +29,7 @@ class Color:
 
     @property
     def rgbspace(self):
-        """Convert a hex color to rgb."""
+        """Convert a hex color to rgb separated by spaces."""
         return "%s %s %s" % (*hex_to_rgb(self.hex_color),)
 
     @property
