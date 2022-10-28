@@ -36,6 +36,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Added indicator to last used theme on `--theme` flag (only for provided themes).
 - Fixed eror if theme has never been set.
 - Added `stylus` template colors.styl.
+- Added `-w` flag to use last wallpaper for color generation.
 - Added base16-snazzy colorscheme.
 - Fixed `pidof` in MacOS.
 - Added support `xfce` 4.12 and later.
