@@ -55,15 +55,10 @@ def template(colors, input_file, output_file=None):
 
             if isinstance(new_color, util.Color):
                 new_color = new_color.strip
-            # If the color was changed, replace with a unique identifier.
+            # If replace the format placeholder with the new color
             if new_color is not colors[cname]:
                 new_color = str(new_color)
-                new_color_clean = (new_color.replace('[', '_')
-                                            .replace(']', '_')
-                                            .replace('.', '_'))
-                template_data[i] = l.replace(replace_str,
-                                             "color" + new_color_clean)
-                colors["color" + new_color_clean] = new_color
+                template_data[i] = l.replace("{"+replace_str+"}", new_color)
     try:
         template_data = "".join(template_data).format(**colors)
     except (ValueError, KeyError, AttributeError) as exc:
