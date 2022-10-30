@@ -119,6 +119,21 @@ class Color:
         """Blue value as hex."""
         return "%s" % (self.hex_color)[5:]
 
+    @property
+    def red_dec(self):
+        """Red value as decimal."""
+        return "%3s" % hex_to_rgb(self.hex_color)[0]
+
+    @property
+    def green_dec(self):
+        """Green value as decimal."""
+        return "%3s" % hex_to_rgb(self.hex_color)[1]
+
+    @property
+    def blue_dec(self):
+        """Blue value as decimal."""
+        return "%3s" % hex_to_rgb(self.hex_color)[2]
+
     def lighten(self, percent):
         """Lighten color by percent."""
         percent = float(re.sub(r'[\D\.]', '', str(percent)))
