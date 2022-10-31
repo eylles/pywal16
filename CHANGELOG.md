@@ -7,6 +7,96 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.4.0] - 2022-10-?
+
+- Fixed template exporting issue, rewriting may be necessary for a proper fix.
+- Added new properties red_dec, green_dec and blue_dec.
+- Added new properties red_hex, green_hex and blue_hex.
+- Added new property for templates `rgbspace`.
+- Added `leftwm` support template colors-leftwm-theme.ron.
+- Added support for gnome dark wallpapers.
+- Fixed crash when '~/.cache/wal' is empty.
+- Fixed `xmonad` support template Colors.hs added.
+- Added support for ARGB hex strings, `hexargb` and `alpha_hex`
+- Fixed color setting on OpenBSD.
+- Fixed `kitty` reloading.
+- Added `alacritty` templates colors--alacritty.yml and colors--nodim-alacritty.yml.
+- Added `--cols16` flag to generate 16 color schemes.
+- Added `fast_colorthief` backend.
+- Fixed `rofi` template for rofi >v1.7.0
+- Fixed wallpaper path on microsoft windows.
+- Added `themer` template colors-themer.js.
+- Fixed gruvbox colorscheme.
+- Added KDE `plasma` support, wallpaper setting and template colors-nqq.css.
+- Added decimal output support, `decimal`, `decimal_strip` for templates.
+- Fixed template export, replace "." with "_".
+- Fixed `hsetroot` support to set wallpaper, was duplicated.
+- Added `xwallpaper` support to set wallpaper.
+- Fixed `xrdb` reload, wait until reloading is finished.
+- Added red green and blue properties to color class.
+- Fixed template exporting issue.
+- Added `tilix` template colors-tilix.json.
+- Added support `st` on sequences.py
+- Added ability to modify colors using `lighten`, `darken` and `saturate` in templates.
+- Added indicator to last used theme on `--theme` flag (only for provided themes).
+- Fixed eror if theme has never been set.
+- Added `stylus` template colors.styl.
+- Added `-w` flag to use last wallpaper for color generation.
+- Added base16-snazzy colorscheme.
+- Fixed `pidof` in MacOS.
+- Added support `xfce` 4.12 and later.
+- Fixed `kitty` support.
+- Added `--recursive` option to search images in all subdird of the given dir.
+- Fixed template `colors.sh` wallpaper quoting.
+- Fixed `iterm2` cursor color.
+- Fixed MacOS mojave Dock Crash.
+- Added ability to load random user theme.
+- Added ability to load random theme.
+- Added ability to saving user themes.
+- Added `bspwm` color setting support.
+- Improved file size caching to avoid image name collisions.
+- Fixed skip .swp files.
+- Improved print error message when template cannot be read
+- Improved use XDG dirs.
+- Fixed error if `pidof` is not installed.
+- Fixed `awesomewm` wallpaper setting.
+- Added vscode template `colors-vscode.json`
+
+## [3.3.0] - 2019-01-21
+
+- Fixed `urxvt` borders not respecting background opacity
+- Added ENVAR PYWAL_CACHE_DIR to change cache dir.
+- Added `colors.hs` template for xmonad.
+- Added `colors-wal-dmenu.h` template for dmenu.
+- Added rgba support, funciton `rgba()`.
+- Fixed `rofi` templates.
+- Removed `oomox` support, use `wpgtk` instead.
+- Added `colors-speedcrunch.json` template.
+- Added `colors-waybar.css` template.
+- Added `--vte` to fix artifacts on vte terminals.
+- Fixed template `templates/colors-vivid.yml`.
+
+## [3.2.1] - 2018-10-24
+
+- Improved light colors (brighter colors)
+- Fixed `urxvt` background
+
+## [3.2.0] - 2018-10-23
+
+- Simplified `colorz` backend
+- Fixed `-c` now exits
+- broken theme file removed `colorschemes/dark/dkeg-conv.sh.json`
+- wal shows usage when no args are passed.
+- Added `--preview flag` for current color palette.
+- Added `kitty` support (reload and template).
+- Fixed quiet mode with cached schemes.
+- Fixed reloading by pid.
+- Fixed Alpha setting.
+- Added support for awesomewm to set wallpaper `set_desktop_wallpaper(desktop, img)`.
+- Fixed reload `get_pid(name)` function.
+- Added hash name for cache filename.
+- Increased background contrast (darken set to 0.80, was 0.75)
+- Fixed `putty` template.
 
 ## [3.1.0] - 2018-06-21
 
@@ -651,7 +741,11 @@ Note to self: Don't flag releases before coffee.
 
 
 
-[Unreleased]: https://github.com/dylanaraps/pywal/compare/3.1.0...HEAD
+[Unreleased]: https://github.com/eylles/pywal16/compare/3.3.0...HEAD
+[3.4.0]: https://github.com/eylles/pywal16/compare/3.3.0...3.4.0
+[3.3.0]: https://github.com/dylanaraps/pywal/compare/3.2.1...3.3.0
+[3.2.1]: https://github.com/dylanaraps/pywal/compare/3.2.0...3.2.1
+[3.2.0]: https://github.com/dylanaraps/pywal/compare/3.1.0...3.2.0
 [3.1.0]: https://github.com/dylanaraps/pywal/compare/3.0.1...3.1.0
 [3.0.1]: https://github.com/dylanaraps/pywal/compare/3.0.0...3.0.1
 [3.0.0]: https://github.com/dylanaraps/pywal/compare/2.1.0...3.0.0

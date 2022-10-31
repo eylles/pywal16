@@ -65,9 +65,6 @@ def set_wm_wallpaper(img):
     elif shutil.which("xwallpaper"):
         util.disown(["xwallpaper", "--zoom", img])
 
-    elif shutil.which("hsetroot"):
-        util.disown(["hsetroot", "-fill", img])
-
     elif shutil.which("nitrogen"):
         util.disown(["nitrogen", "--set-zoom-fill", img])
 
