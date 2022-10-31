@@ -4,10 +4,12 @@
 
 <p align="center">
 <a href="./LICENSE.md"><img src="https://img.shields.io/badge/license-MIT-blue.svg"></a>
-<a href="https://pypi.python.org/pypi/pywal/"><img src="https://img.shields.io/pypi/v/pywal.svg"></a>
+<a href="https://pypi.python.org/pypi/pywal16/"><img src="https://img.shields.io/pypi/v/pywal16.svg"></a>
 </p>
 
 <img src="https://i.imgur.com/HhK3LDv.jpg" alt="img" align="right" width="400px">
+
+<img src="https://i.imgur.com/yLFlPaQ.png" alt="img 16 cols" align="right" width="400px">
 
 Pywal is a tool that generates a color palette from the dominant colors in an image. It then applies the colors system-wide and on-the-fly in all of your favourite programs.  
 
