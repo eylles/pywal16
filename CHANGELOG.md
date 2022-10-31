@@ -9,6 +9,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [3.4.0] - 2022-10-?
 
+- Fixed template exporting issue, rewriting may be necessary for a proper fix.
+- Added new properties red_dec, green_dec and blue_dec.
+- Added new properties red_hex, green_hex and blue_hex.
+- Added new property for templates `rgbspace`.
+- Added `leftwm` support template colors-leftwm-theme.ron.
 - Added support for gnome dark wallpapers.
 - Fixed crash when '~/.cache/wal' is empty.
 - Fixed `xmonad` support template Colors.hs added.
