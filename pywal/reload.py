@@ -6,6 +6,7 @@ import logging
 import os
 import shutil
 import subprocess
+import time
 
 from .settings import CACHE_DIR, MODULE_DIR, OS
 from . import util
@@ -92,6 +93,14 @@ def sway():
     if shutil.which("swaymsg") and util.get_pid("sway"):
         util.disown(["swaymsg", "reload"])
 
+def waybar():
+    "Reload waybar colors"
+    if shutil.which("waybar") and util.get_pid("waybar"):
+        util.disown(["killall", "waybar"])
+        time.sleep(0.1)
+        subprocess.call("waybar")
+        # subprocess.Popen("waybar").pid()
+        # print(shutil.which("waybar"))
 
 def colors(cache_dir=CACHE_DIR):
     """Reload colors. (Deprecated)"""
@@ -111,5 +120,6 @@ def env(xrdb_file=None, tty_reload=True):
     kitty()
     sway()
     polybar()
+    waybar()
     logging.info("Reloaded environment.")
     tty(tty_reload)
