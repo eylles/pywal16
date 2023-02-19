@@ -93,6 +93,13 @@ def sway():
     if shutil.which("swaymsg") and util.get_pid("sway"):
         util.disown(["swaymsg", "reload"])
 
+
+def firefox():
+    """reload pywalfox"""
+    if shutil.which("pywalfox"):
+        util.disown(["pywalfox", "update"])
+
+
 def waybar():
     "Reload waybar colors"
     if shutil.which("waybar") and util.get_pid("waybar"):
@@ -121,5 +128,6 @@ def env(xrdb_file=None, tty_reload=True):
     sway()
     polybar()
     waybar()
+    firefox()
     logging.info("Reloaded environment.")
     tty(tty_reload)
