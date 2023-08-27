@@ -101,6 +101,7 @@ def get_export_type(export_type):
         "css": "colors.css",
         "dmenu": "colors-wal-dmenu.h",
         "dwm": "colors-wal-dwm.h",
+        "dwm_urg": "colors-wal-dwm-urg.h",
         "st": "colors-wal-st.h",
         "tabbed": "colors-wal-tabbed.h",
         "gtk2": "colors-gtk2.rc",
