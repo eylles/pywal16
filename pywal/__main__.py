@@ -53,8 +53,11 @@ def get_args():
                           "flag is used: Go through the images in order "
                           "instead of shuffled.")
 
-    arg.add_argument("--cols16", action="store_true",
-                     help="Use 16 color output. ")
+    arg.add_argument("--cols16", metavar="method", required=False, nargs='?',
+                     default=False, const="darken",
+                     choices=['darken', 'lighten'],
+                     help='Use 16 color output'
+                          'darken or lighten default: darken')
 
     arg.add_argument("--recursive", action="store_true",
                      help="When pywal is given a directory as input and this "
