@@ -56,8 +56,8 @@ def get_args():
     arg.add_argument("--cols16", metavar="method", required=False, nargs='?',
                      default=False, const="darken",
                      choices=['darken', 'lighten'],
-                     help='Use 16 color output'
-                          'darken or lighten default: darken')
+                     help='Use 16 color output '
+                          '\"darken\" or \"lighten\" default: darken')
 
     arg.add_argument("--recursive", action="store_true",
                      help="When pywal is given a directory as input and this "
