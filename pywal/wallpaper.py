@@ -62,7 +62,7 @@ def set_wm_wallpaper(img):
     if shutil.which("swww"):
         util.disown(["swww", "img", img])
 
-    elif shutil.which("swayb"):
+    elif shutil.which("swaybg"):
         subprocess.call(["killall", "swaybg"])
         util.disown(["swaybg", "-m", "fill", "-i", img])
 
