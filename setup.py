@@ -10,10 +10,10 @@ except ImportError:
 
 LONG_DESC = open('README.md').read()
 VERSION = pywal.__version__
-DOWNLOAD = "https://github.com/dylanaraps/pywal/archive/%s.tar.gz" % VERSION
+DOWNLOAD = "https://github.com/eylles/pywal16/archive/%s.tar.gz" % VERSION
 
 setuptools.setup(
-    name="pywal",
+    name="pywal16",
     version=VERSION,
     author="Dylan Araps",
     author_email="dylan.araps@gmail.com",
@@ -22,7 +22,7 @@ setuptools.setup(
     long_description=LONG_DESC,
     keywords="wal colorscheme terminal-emulators changing-colorschemes",
     license="MIT",
-    url="https://github.com/dylanaraps/pywal",
+    url="https://github.com/eylles/pywal16",
     download_url=DOWNLOAD,
     classifiers=[
         "Environment :: X11 Applications",
