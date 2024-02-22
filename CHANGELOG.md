@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.5.0] - 2024-02-xx
+
+- Added rgb color template.
+- Added support for `swww`.
+- Added wallpaper override when using a theme.
+- Change `alacritty` template to match v11.0+ config.
+- Change wallpaper path on microsoft windows uses bytestring.
+- Change when pywal is used as module allow using user templates.
+- Added swaybg wallpaper support.
+- Change `--cols16` flag now supports arguments `darken` and `lighten` to generate the color palette.
+
 ## [3.4.0] - 2022-10-31
 
 - Fixed template exporting issue, rewriting may be necessary for a proper fix.
@@ -741,7 +752,8 @@ Note to self: Don't flag releases before coffee.
 
 
 
-[Unreleased]: https://github.com/eylles/pywal16/compare/3.4.0...HEAD
+[Unreleased]: https://github.com/eylles/pywal16/compare/3.5.0...HEAD
+[3.5.0]: https://github.com/eylles/pywal16/compare/3.4.0...3.5.0
 [3.4.0]: https://github.com/eylles/pywal16/compare/3.3.0...3.4.0
 [3.3.0]: https://github.com/dylanaraps/pywal/compare/3.2.1...3.3.0
 [3.2.1]: https://github.com/dylanaraps/pywal/compare/3.2.0...3.2.1
