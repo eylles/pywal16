@@ -1,6 +1,7 @@
 """
 Misc helper functions.
 """
+
 import colorsys
 import json
 import logging
@@ -10,10 +11,12 @@ import re
 import shutil
 import subprocess
 import sys
+from hashlib import md5
 
 
 class Color:
     """Color formats."""
+
     alpha_num = "100"
 
     def __init__(self, hex_color):
@@ -40,14 +43,12 @@ class Color:
     @property
     def rgba(self):
         """Convert a hex color to rgba."""
-        return "rgba(%s,%s,%s,%s)" % (*hex_to_rgb(self.hex_color),
-                                      self.alpha_dec)
+        return "rgba(%s,%s,%s,%s)" % (*hex_to_rgb(self.hex_color), self.alpha_dec)
 
     @property
     def hex_argb(self):
         """Convert an alpha hex color to argb hex."""
-        return "#%02X%s" % (int(int(self.alpha_num) * 255 / 100),
-                            self.hex_color[1:])
+        return "#%02X%s" % (int(int(self.alpha_num) * 255 / 100), self.hex_color[1:])
 
     @property
     def alpha(self):
@@ -92,17 +93,17 @@ class Color:
     @property
     def red(self):
         """Red value as float between 0 and 1."""
-        return "%.3f" % (hex_to_rgb(self.hex_color)[0]/255.)
+        return "%.3f" % (hex_to_rgb(self.hex_color)[0] / 255.0)
 
     @property
     def green(self):
         """Green value as float between 0 and 1."""
-        return "%.3f" % (hex_to_rgb(self.hex_color)[1]/255.)
+        return "%.3f" % (hex_to_rgb(self.hex_color)[1] / 255.0)
 
     @property
     def blue(self):
         """Blue value as float between 0 and 1."""
-        return "%.3f" % (hex_to_rgb(self.hex_color)[2]/255.)
+        return "%.3f" % (hex_to_rgb(self.hex_color)[2] / 255.0)
 
     @property
     def red_hex(self):
@@ -136,17 +137,17 @@ class Color:
 
     def lighten(self, percent):
         """Lighten color by percent."""
-        percent = float(re.sub(r'[\D\.]', '', str(percent)))
+        percent = float(re.sub(r"[\D\.]", "", str(percent)))
         return Color(lighten_color(self.hex_color, percent / 100))
 
     def darken(self, percent):
         """Darken color by percent."""
-        percent = float(re.sub(r'[\D\.]', '', str(percent)))
+        percent = float(re.sub(r"[\D\.]", "", str(percent)))
         return Color(darken_color(self.hex_color, percent / 100))
 
     def saturate(self, percent):
         """Saturate a color."""
-        percent = float(re.sub(r'[\D\.]', '', str(percent)))
+        percent = float(re.sub(r"[\D\.]", "", str(percent)))
         return Color(saturate_color(self.hex_color, percent / 100))
 
 
@@ -164,7 +165,7 @@ def read_file_json(input_file):
 
 def read_file_raw(input_file):
     """Read data from a file as is, don't strip
-       newlines or other special characters."""
+    newlines or other special characters."""
     with open(input_file, "r") as file:
         return file.readlines()
 
@@ -188,6 +189,14 @@ def save_file_json(data, export_file):
         json.dump(data, file, indent=4)
 
 
+def get_img_checksum(img):
+    checksum = md5(usedforsecurity=False)
+    with open(img, "rb") as f:
+        for chunk in iter(lambda: f.read(4096), b""):
+            checksum.update(chunk)
+    return checksum.hexdigest()
+
+
 def create_dir(directory):
     """Alias to create the cache dir."""
     os.makedirs(directory, exist_ok=True)
@@ -195,14 +204,16 @@ def create_dir(directory):
 
 def setup_logging():
     """Logging config."""
-    logging.basicConfig(format=("[%(levelname)s\033[0m] "
-                                "\033[1;31m%(module)s\033[0m: "
-                                "%(message)s"),
-                        level=logging.INFO,
-                        stream=sys.stdout)
-    logging.addLevelName(logging.ERROR, '\033[1;31mE')
-    logging.addLevelName(logging.INFO, '\033[1;32mI')
-    logging.addLevelName(logging.WARNING, '\033[1;33mW')
+    logging.basicConfig(
+        format=(
+            "[%(levelname)s\033[0m] " "\033[1;31m%(module)s\033[0m: " "%(message)s"
+        ),
+        level=logging.INFO,
+        stream=sys.stdout,
+    )
+    logging.addLevelName(logging.ERROR, "\033[1;31mE")
+    logging.addLevelName(logging.INFO, "\033[1;32mI")
+    logging.addLevelName(logging.WARNING, "\033[1;33mW")
 
 
 def hex_to_rgb(color):
@@ -264,10 +275,8 @@ def rgb_to_yiq(color):
 
 def disown(cmd):
     """Call a system command in the background,
-       disown it and hide it's output."""
-    subprocess.Popen(cmd,
-                     stdout=subprocess.DEVNULL,
-                     stderr=subprocess.DEVNULL)
+    disown it and hide it's output."""
+    subprocess.Popen(cmd, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 
 
 def get_pid(name):
@@ -276,7 +285,7 @@ def get_pid(name):
         return False
 
     try:
-        if platform.system() != 'Darwin':
+        if platform.system() != "Darwin":
             subprocess.check_output(["pidof", "-s", name])
         else:
             subprocess.check_output(["pidof", name])
