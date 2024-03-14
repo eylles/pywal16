@@ -1,6 +1,7 @@
 """
 Theme file handling.
 """
+
 import logging
 import os
 import random
@@ -12,31 +13,44 @@ from . import util
 
 def list_out():
     """List all themes in a pretty format."""
-    dark_themes = [theme.name.replace(".json", "")
-                   for theme in list_themes()]
-    ligh_themes = [theme.name.replace(".json", "")
-                   for theme in list_themes(dark=False)]
-    user_themes = [theme.name.replace(".json", "")
-                   for theme in list_themes_user()]
+    dark_themes = [theme.name.replace(".json", "") for theme in list_themes()]
+    ligh_themes = [theme.name.replace(".json", "") for theme in list_themes(dark=False)]
+    user_themes = [theme.name.replace(".json", "") for theme in list_themes_user()]
 
     try:
-        last_used_theme = util.read_file(os.path.join(
-            CACHE_DIR, "last_used_theme"))[0].replace(".json", "")
+        last_used_theme = util.read_file(os.path.join(CACHE_DIR, "last_used_theme"))[
+            0
+        ].replace(".json", "")
     except FileNotFoundError:
         last_used_theme = ""
 
     if user_themes:
         print("\033[1;32mUser Themes\033[0m:")
-        print(" -", "\n - ".join(t + " (last used)" if t == last_used_theme
-                                 else t for t in sorted(user_themes)))
+        print(
+            " -",
+            "\n - ".join(
+                t + " (last used)" if t == last_used_theme else t
+                for t in sorted(user_themes)
+            ),
+        )
 
     print("\033[1;32mDark Themes\033[0m:")
-    print(" -", "\n - ".join(t + " (last used)" if t == last_used_theme else t
-                             for t in sorted(dark_themes)))
+    print(
+        " -",
+        "\n - ".join(
+            t + " (last used)" if t == last_used_theme else t
+            for t in sorted(dark_themes)
+        ),
+    )
 
     print("\033[1;32mLight Themes\033[0m:")
-    print(" -", "\n - ".join(t + " (last used)" if t == last_used_theme else t
-                             for t in sorted(ligh_themes)))
+    print(
+        " -",
+        "\n - ".join(
+            t + " (last used)" if t == last_used_theme else t
+            for t in sorted(ligh_themes)
+        ),
+    )
 
     print("\033[1;32mExtra\033[0m:")
     print(" - random (select a random dark theme)")
@@ -54,8 +68,10 @@ def list_themes(dark=True):
 
 def list_themes_user():
     """List user theme files."""
-    themes = [*os.scandir(os.path.join(CONF_DIR, "colorschemes/dark/")),
-              *os.scandir(os.path.join(CONF_DIR, "colorschemes/light/"))]
+    themes = [
+        *os.scandir(os.path.join(CONF_DIR, "colorschemes/dark/")),
+        *os.scandir(os.path.join(CONF_DIR, "colorschemes/light/")),
+    ]
     return [t for t in themes if os.path.isfile(t.path)]
 
 
@@ -65,7 +81,7 @@ def terminal_sexy_to_wal(data):
     data["special"] = {
         "foreground": data["foreground"],
         "background": data["background"],
-        "cursor": data["color"][9]
+        "cursor": data["color"][9],
     }
 
     for i, color in enumerate(data["color"]):
@@ -77,6 +93,9 @@ def terminal_sexy_to_wal(data):
 def parse(theme_file):
     """Parse the theme file."""
     data = util.read_file_json(theme_file)
+
+    if "checksum" not in data:
+        data["checksum"] = "None"
 
     if "wallpaper" not in data:
         data["wallpaper"] = "None"
@@ -134,10 +153,10 @@ def file(input_file, light=False):
 
     # Parse the theme file.
     if os.path.isfile(theme_file):
-        logging.info("Set theme to \033[1;37m%s\033[0m.",
-                     os.path.basename(theme_file))
-        util.save_file(os.path.basename(theme_file),
-                       os.path.join(CACHE_DIR, "last_used_theme"))
+        logging.info("Set theme to \033[1;37m%s\033[0m.", os.path.basename(theme_file))
+        util.save_file(
+            os.path.basename(theme_file), os.path.join(CACHE_DIR, "last_used_theme")
+        )
         return parse(theme_file)
 
     logging.error("No %s colorscheme file found.", bri)
@@ -149,6 +168,7 @@ def file(input_file, light=False):
 def save(colors, theme_name, light=False):
     """Save colors to a theme file."""
     theme_file = theme_name + ".json"
-    theme_path = os.path.join(CONF_DIR, "colorschemes",
-                              "light" if light else "dark", theme_file)
+    theme_path = os.path.join(
+        CONF_DIR, "colorschemes", "light" if light else "dark", theme_file
+    )
     util.save_file_json(colors, theme_path)

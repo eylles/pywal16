@@ -1,6 +1,7 @@
 """
 Generate a palette using various backends.
 """
+
 import logging
 import os
 import random
@@ -14,31 +15,34 @@ from .settings import CACHE_DIR, MODULE_DIR, __cache_version__
 
 def list_backends():
     """List color backends."""
-    return [b.name.replace(".py", "") for b in
-            os.scandir(os.path.join(MODULE_DIR, "backends"))
-            if "__" not in b.name]
+    return [
+        b.name.replace(".py", "")
+        for b in os.scandir(os.path.join(MODULE_DIR, "backends"))
+        if "__" not in b.name
+    ]
+
 
 def normalize_img_path(img: str):
     """Normalizes the image path for output."""
-    if os.name == 'nt':
+    if os.name == "nt":
         # On Windows, the JSON.dump ends up outputting un-escaped backslash breaking
         # the ability to read colors.json. Windows supports forward slash, so we can
         # use that for now
-        return img.replace('\\', '/')
+        return img.replace("\\", "/")
     return img
+
 
 def colors_to_dict(colors, img):
     """Convert list of colors to pywal format."""
     return {
+        "checksum": util.get_img_checksum(img),
         "wallpaper": normalize_img_path(img),
         "alpha": util.Color.alpha_num,
-
         "special": {
             "background": colors[0],
             "foreground": colors[15],
-            "cursor": colors[15]
+            "cursor": colors[15],
         },
-
         "colors": {
             "color0": colors[0],
             "color1": colors[1],
@@ -55,8 +59,8 @@ def colors_to_dict(colors, img):
             "color12": colors[12],
             "color13": colors[13],
             "color14": colors[14],
-            "color15": colors[15]
-        }
+            "color15": colors[15],
+        },
     }
 
 
@@ -126,7 +130,6 @@ def generic_adjust(colors, light, cols16):
             colors[8] = util.lighten_color(colors[0], 0.25)
             colors[15] = colors[7]
 
-
     return colors
 
 
@@ -147,8 +150,15 @@ def cache_fname(img, backend, cols16, light, cache_dir, sat=""):
     file_name = re.sub("[/|\\|.]", "_", img)
     file_size = os.path.getsize(img)
 
-    file_parts = [file_name, color_num, color_type, backend,
-                  sat, file_size, __cache_version__]
+    file_parts = [
+        file_name,
+        color_num,
+        color_type,
+        backend,
+        sat,
+        file_size,
+        __cache_version__,
+    ]
     return [cache_dir, "schemes", "%s_%s_%s_%s_%s_%s_%s.json" % (*file_parts,)]
 
 
@@ -182,7 +192,10 @@ def get(img, light=False, cols16=False, backend="wal", cache_dir=CACHE_DIR, sat=
     cache_name = cache_fname(img, backend, cols16, light, cache_dir, sat)
     cache_file = os.path.join(*cache_name)
 
-    if os.path.isfile(cache_file):
+    # Check the wallpaper's checksum against the cache'
+    if os.path.isfile(cache_file) and theme.parse(cache_file)[
+        "checksum"
+    ] == util.get_img_checksum(img):
         colors = theme.file(cache_file)
         colors["alpha"] = util.Color.alpha_num
         logging.info("Found cached colorscheme.")
