@@ -38,6 +38,9 @@ def get_args():
     arg.add_argument("-b", metavar="background",
                      help="Custom background color to use.")
 
+    arg.add_argument("--fg", metavar="foreground",
+                     help="Custom foreground color to use.")
+
     arg.add_argument("--backend", metavar="backend",
                      help="Which color backend to use. \
                            Use 'wal --backend' to list backends.",
@@ -198,6 +201,11 @@ def parse_args(parser):
         args.b = "#%s" % (args.b.strip("#"))
         colors_plain["special"]["background"] = args.b
         colors_plain["colors"]["color0"] = args.b
+
+    if args.fg:
+        args.fg = "#%s" % (args.fg.strip("#"))
+        colors_plain["special"]["foreground"] = args.fg
+        colors_plain["colors"]["color15"] = args.fg
 
     if not args.n:
         wallpaper.change(colors_plain["wallpaper"])
