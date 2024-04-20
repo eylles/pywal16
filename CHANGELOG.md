@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.5.1] - 2024-04-20
+
+- Added wallpaper checksum generation and comparison for cached color schemes.
+- Added toml template for new `alacritty` versions.
+
 ## [3.5.0] - 2024-02-xx
 
 - Added rgb color template.
@@ -752,7 +757,8 @@ Note to self: Don't flag releases before coffee.
 
 
 
-[Unreleased]: https://github.com/eylles/pywal16/compare/3.5.0...HEAD
+[Unreleased]: https://github.com/eylles/pywal16/compare/3.5.1...HEAD
+[3.5.1]: https://github.com/eylles/pywal16/compare/3.5.0...3.5.1
 [3.5.0]: https://github.com/eylles/pywal16/compare/3.4.0...3.5.0
 [3.4.0]: https://github.com/eylles/pywal16/compare/3.3.0...3.4.0
 [3.3.0]: https://github.com/dylanaraps/pywal/compare/3.2.1...3.3.0
