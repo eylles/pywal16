@@ -71,61 +71,57 @@ def generic_adjust(colors, light, cols16):
             color = util.saturate_color(color, 0.60)
             color = util.darken_color(color, 0.5)
 
-        if cols16 == "darken":
             colors[0] = util.lighten_color(colors[0], 0.95)
+        if cols16:
             colors[7] = util.darken_color(colors[0], 0.50)
             colors[8] = util.darken_color(colors[0], 0.25)
-            colors[1] = util.darken_color(colors[1], 0.25)
-            colors[2] = util.darken_color(colors[2], 0.25)
-            colors[3] = util.darken_color(colors[3], 0.25)
-            colors[4] = util.darken_color(colors[4], 0.25)
-            colors[5] = util.darken_color(colors[5], 0.25)
-            colors[6] = util.darken_color(colors[6], 0.25)
-            colors[15] = util.darken_color(colors[0], 0.75)
-        elif cols16 == "lighten":
-            colors[0] = util.lighten_color(colors[0], 0.95)
-            colors[7] = util.darken_color(colors[0], 0.50)
-            colors[8] = util.darken_color(colors[0], 0.25)
-            colors[9] = util.lighten_color(colors[1], 0.25)
-            colors[10] = util.lighten_color(colors[2], 0.25)
-            colors[11] = util.lighten_color(colors[3], 0.25)
-            colors[12] = util.lighten_color(colors[4], 0.25)
-            colors[13] = util.lighten_color(colors[5], 0.25)
-            colors[14] = util.lighten_color(colors[6], 0.25)
-            colors[15] = util.darken_color(colors[0], 0.75)
+            if cols16 == "darken":
+                colors[1] = util.darken_color(colors[1], 0.25)
+                colors[2] = util.darken_color(colors[2], 0.25)
+                colors[3] = util.darken_color(colors[3], 0.25)
+                colors[4] = util.darken_color(colors[4], 0.25)
+                colors[5] = util.darken_color(colors[5], 0.25)
+                colors[6] = util.darken_color(colors[6], 0.25)
+                colors[15] = util.darken_color(colors[0], 0.75)
+            elif cols16 == "lighten":
+                colors[9] = util.lighten_color(colors[1], 0.25)
+                colors[10] = util.lighten_color(colors[2], 0.25)
+                colors[11] = util.lighten_color(colors[3], 0.25)
+                colors[12] = util.lighten_color(colors[4], 0.25)
+                colors[13] = util.lighten_color(colors[5], 0.25)
+                colors[14] = util.lighten_color(colors[6], 0.25)
+                colors[15] = util.darken_color(colors[0], 0.75)
 
         else:
-            colors[0] = util.lighten_color(colors[0], 0.95)
             colors[7] = util.darken_color(colors[0], 0.75)
             colors[8] = util.darken_color(colors[0], 0.25)
             colors[15] = colors[7]
 
     else:
-        if cols16 == "darken":
-            colors[0] = util.darken_color(colors[0], 0.80)
+        if colors[0][1] != "0":  # the color may already be dark enough
+            colors[0] = util.darken_color(colors[0], 0.40)  # just a bit darker
+        if cols16:
             colors[7] = util.lighten_color(colors[0], 0.50)
             colors[8] = util.lighten_color(colors[0], 0.25)
-            colors[1] = util.darken_color(colors[1], 0.25)
-            colors[2] = util.darken_color(colors[2], 0.25)
-            colors[3] = util.darken_color(colors[3], 0.25)
-            colors[4] = util.darken_color(colors[4], 0.25)
-            colors[5] = util.darken_color(colors[5], 0.25)
-            colors[6] = util.darken_color(colors[6], 0.25)
             colors[15] = util.lighten_color(colors[0], 0.75)
-        elif cols16 == "lighten":
-            colors[0] = util.darken_color(colors[0], 0.80)
-            colors[7] = util.lighten_color(colors[0], 0.50)
-            colors[8] = util.lighten_color(colors[0], 0.25)
-            colors[9] = util.lighten_color(colors[1], 0.25)
-            colors[10] = util.lighten_color(colors[2], 0.25)
-            colors[11] = util.lighten_color(colors[3], 0.25)
-            colors[12] = util.lighten_color(colors[4], 0.25)
-            colors[13] = util.lighten_color(colors[5], 0.25)
-            colors[14] = util.lighten_color(colors[6], 0.25)
-            colors[15] = util.lighten_color(colors[0], 0.75)
+            if cols16 == "darken":
+                colors[1] = util.darken_color(colors[1], 0.25)
+                colors[2] = util.darken_color(colors[2], 0.25)
+                colors[3] = util.darken_color(colors[3], 0.25)
+                colors[4] = util.darken_color(colors[4], 0.25)
+                colors[5] = util.darken_color(colors[5], 0.25)
+                colors[6] = util.darken_color(colors[6], 0.25)
+            elif cols16 == "lighten":
+                colors[9] = util.lighten_color(colors[1], 0.25)
+                colors[10] = util.lighten_color(colors[2], 0.25)
+                colors[11] = util.lighten_color(colors[3], 0.25)
+                colors[12] = util.lighten_color(colors[4], 0.25)
+                colors[13] = util.lighten_color(colors[5], 0.25)
+                colors[14] = util.lighten_color(colors[6], 0.25)
+                for i in range(9, 15):
+                    colors[i] = util.saturate_color(colors[i], 0.60)
 
         else:
-            colors[0] = util.darken_color(colors[0], 0.80)
             colors[7] = util.lighten_color(colors[0], 0.75)
             colors[8] = util.lighten_color(colors[0], 0.25)
             colors[15] = colors[7]
