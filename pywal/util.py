@@ -6,6 +6,7 @@ import colorsys
 import json
 import logging
 import os
+import fcntl
 import platform
 import re
 import shutil
@@ -176,9 +177,17 @@ def save_file(data, export_file):
 
     try:
         with open(export_file, "w") as file:
+            # Get the current flags and add non-blocking mode
+            # to skip TTYs suspended by Flow Control
+            # https://www.gnu.org/software/libc/manual/html_node/Getting-File-Status-Flags.html
+            # https://www.gnu.org/software/libc/manual/html_node/Open_002dtime-Flags.html
+            flags = fcntl.fcntl(file, fcntl.F_GETFL)
+            fcntl.fcntl(file, fcntl.F_SETFL, flags | os.O_NONBLOCK)
             file.write(data)
     except PermissionError:
         logging.warning("Couldn't write to %s.", export_file)
+    except BlockingIOError:
+        logging.warning("Couldn't write to %s, not accepting data", export_file)
 
 
 def save_file_json(data, export_file):
