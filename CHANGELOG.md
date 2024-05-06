@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.5.2] - 2024-05-06
+
+- modified generic_adjust and added a pre-adjust to the colorthief backend to match legacy background colors
+
 ## [3.5.1] - 2024-04-20
 
 - Added wallpaper checksum generation and comparison for cached color schemes.
@@ -757,7 +761,8 @@ Note to self: Don't flag releases before coffee.
 
 
 
-[Unreleased]: https://github.com/eylles/pywal16/compare/3.5.1...HEAD
+[Unreleased]: https://github.com/eylles/pywal16/compare/3.5.2...HEAD
+[3.5.2]: https://github.com/eylles/pywal16/compare/3.5.1...3.5.2
 [3.5.1]: https://github.com/eylles/pywal16/compare/3.5.0...3.5.1
 [3.5.0]: https://github.com/eylles/pywal16/compare/3.4.0...3.5.0
 [3.4.0]: https://github.com/eylles/pywal16/compare/3.3.0...3.4.0
