@@ -75,4 +75,8 @@ def adjust(cols, light, cols16):
 def get(img, light=False, cols16=False):
     """Get colorscheme."""
     colors = gen_colors(img)
+    # it is possible we could have picked garbage data
+    garbage = "# Image"
+    if garbage in colors:
+        colors.remove(garbage)
     return adjust(colors, light, cols16)
