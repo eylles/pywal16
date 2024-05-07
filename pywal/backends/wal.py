@@ -17,7 +17,16 @@ def imagemagick(color_count, img, magick_command):
              "-unique-colors", "txt:-"]
     img += "[0]"
 
-    return subprocess.check_output([*magick_command, img, *flags]).splitlines()
+    try:
+        output = subprocess.check_output([*magick_command, img, *flags],
+                                         stderr=subprocess.STDOUT).splitlines()
+    except subprocess.CalledProcessError as Err:
+        logging.error("Imagemagick error: %s", Err)
+        logging.error(
+          "IM 7 disables stdout by default, check the wiki for the fix."
+        )
+        sys.exit(1)
+    return output
 
 
 def has_im():
