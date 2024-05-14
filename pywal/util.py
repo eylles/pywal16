@@ -12,7 +12,7 @@ import re
 import shutil
 import subprocess
 import sys
-from hashlib import md5
+import hashlib 
 
 
 class Color:
@@ -199,7 +199,7 @@ def save_file_json(data, export_file):
 
 
 def get_img_checksum(img):
-    checksum = md5(usedforsecurity=False)
+    checksum = hashlib.new('md5', usedforsecurity=False)
     with open(img, "rb") as f:
         for chunk in iter(lambda: f.read(4096), b""):
             checksum.update(chunk)
