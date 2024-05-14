@@ -1,0 +1,8 @@
+background = d9{color0.strip}
+background-alt = {color8.strip}
+foreground = {color7.strip}
+foreground-alt = {color7.strip}
+primary = {color1.strip}
+secondary = {color2.strip}
+alert = {color3.strip}
+disabled = {color15.strip}
