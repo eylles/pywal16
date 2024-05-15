@@ -1,5 +1,5 @@
 """
-Generate a colorscheme using fast_colorthief.
+Generate a colorscheme using modern_colorthief.
 """
 
 import logging
