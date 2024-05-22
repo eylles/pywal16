@@ -20,6 +20,7 @@ def imagemagick(color_count, img, magick_command):
     try:
         output = subprocess.check_output([*magick_command, img, *flags],
                                          stderr=subprocess.STDOUT).splitlines()
+        print(output)
     except subprocess.CalledProcessError as Err:
         logging.error("Imagemagick error: %s", Err)
         logging.error(
@@ -79,4 +80,7 @@ def get(img, light=False, cols16=False):
     garbage = "# Image"
     if garbage in colors:
         colors.remove(garbage)
-    return adjust(colors, light, cols16)
+    print(colors)
+    result = adjust(colors, light, cols16)
+    print(result)
+    return result
