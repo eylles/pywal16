@@ -42,11 +42,7 @@ def has_im():
     sys.exit(1)
 
 
-def gen_colors(img):
-    """Format the output from imagemagick into a list
-       of hex colors."""
-    magick_command = has_im()
-
+def try_gen_in_range(img, magick_command):
     for i in range(0, 20, 1):
         raw_colors = imagemagick(16 + i, img, magick_command)
 
@@ -60,8 +56,27 @@ def gen_colors(img):
         else:
             logging.warning("Imagemagick couldn't generate a palette.")
             logging.warning("Trying a larger palette size %s", 16 + i)
+    return raw_colors
 
-    return [re.search("#.{6}", str(col)).group(0) for col in raw_colors[1:]]
+
+def gen_colors(img):
+    """Format the output from imagemagick into a list
+       of hex colors."""
+    magick_command = has_im()
+
+    raw_colors = try_gen_in_range(img, magick_command)
+
+    try:
+        out = [re.search("#.{6}", str(col)).group(0) for col in raw_colors[1:]]
+    except AttributeError:
+        if magick_command == ["magick", "convert"]:
+            logging.warning("magick convert failed, using only magick")
+            magick_command = ["magick"]
+            raw_colors = try_gen_in_range(img, magick_command)
+            out = [re.search("#.{6}",
+                             str(col)).group(0) for col in raw_colors[1:]]
+
+    return out
 
 
 def adjust(cols, light, cols16):
