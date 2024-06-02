@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.5.3] - 2024-06-02
+
+- fixed issue with `wal` backend on arch where it would fail to generate a colorscheme.
+
 ## [3.5.3] - 2024-05-07
 
 - Fixed issue with `wal` backend sometimes reading garbage data form imagemagick.
@@ -768,7 +772,8 @@ Note to self: Don't flag releases before coffee.
 
 
 
-[Unreleased]: https://github.com/eylles/pywal16/compare/3.5.3...HEAD
+[Unreleased]: https://github.com/eylles/pywal16/compare/3.5.4...HEAD
+[3.5.4]: https://github.com/eylles/pywal16/compare/3.5.3...3.5.4
 [3.5.3]: https://github.com/eylles/pywal16/compare/3.5.2...3.5.3
 [3.5.2]: https://github.com/eylles/pywal16/compare/3.5.1...3.5.2
 [3.5.1]: https://github.com/eylles/pywal16/compare/3.5.0...3.5.1
