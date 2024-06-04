@@ -89,6 +89,9 @@ def send(colors, cache_dir=CACHE_DIR, to_send=True, vte_fix=False):
     # Send data to open terminal devices.
     if to_send:
         for dev in devices:
+            if dev == "/dev/pts/0":
+                if os.environ["DESKTOP_SESSION"] == "plasma":
+                    continue
             util.save_file(sequences, dev)
 
     util.save_file(sequences, os.path.join(cache_dir, "sequences"))
