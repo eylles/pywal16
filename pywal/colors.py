@@ -112,7 +112,7 @@ def generic_adjust(colors, light, cols16):
                 colors[13] = util.lighten_color(colors[5], 0.25)
                 colors[14] = util.lighten_color(colors[6], 0.25)
                 for i in range(9, 15):
-                    colors[i] = util.saturate_color(colors[i], 0.60)
+                    colors[i] = util.saturate_color(colors[i], 0.40)
             else:
                 colors[1] = util.darken_color(colors[1], 0.25)
                 colors[2] = util.darken_color(colors[2], 0.25)
