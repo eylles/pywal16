@@ -23,11 +23,13 @@ def gen_colors(img):
     cols.extend(cols.copy())
     return cols
 
-def adjust(cols, light):
-    """Create palette."""
-    return cols
 
-def get(img, light=False):
+def adjust(cols, light, cols16):
+    """Create palette."""
+    return colors.generic_adjust(cols, light, cols16)
+
+
+def get(img, light=False, cols16=False):
     """Get colorscheme."""
     if not shutil.which("okthief"):
         logging.error("okthief wasn't found on your system.")
@@ -35,4 +37,4 @@ def get(img, light=False):
         sys.exit(1)
 
     cols = gen_colors(img)
-    return adjust(cols, light)
+    return adjust(cols, light, cols16)
