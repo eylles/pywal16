@@ -86,6 +86,9 @@ def send(colors, cache_dir=CACHE_DIR, to_send=True, vte_fix=False):
 
     sequences = create_sequences(colors, vte_fix)
 
+    if not util.has_fcntl:
+        logging.warning(util.fcntl_warning)
+
     # Send data to open terminal devices.
     if to_send:
         for dev in devices:
