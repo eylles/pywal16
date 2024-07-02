@@ -146,16 +146,29 @@ def cache_fname(img, backend, cols16, light, cache_dir, sat=""):
     file_name = re.sub("[/|\\|.]", "_", img)
     file_size = os.path.getsize(img)
 
-    file_parts = [
-        file_name,
-        color_num,
-        color_type,
-        backend,
-        sat,
-        file_size,
-        __cache_version__,
-    ]
-    return [cache_dir, "schemes", "%s_%s_%s_%s_%s_%s_%s.json" % (*file_parts,)]
+    if cols16:
+        file_parts = [
+            file_name,
+            color_num,
+            cols16,
+            color_type,
+            backend,
+            sat,
+            file_size,
+            __cache_version__,
+        ]
+        return [cache_dir, "schemes", "%s_%s_%s_%s_%s_%s_%s_%s.json" % (*file_parts,)]
+    else:
+        file_parts = [
+            file_name,
+            color_num,
+            color_type,
+            backend,
+            sat,
+            file_size,
+            __cache_version__,
+        ]
+        return [cache_dir, "schemes", "%s_%s_%s_%s_%s_%s_%s.json" % (*file_parts,)]
 
 
 def get_backend(backend):
