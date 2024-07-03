@@ -37,4 +37,5 @@ def get(img, light=False, cols16=False):
         sys.exit(1)
 
     cols = gen_colors(img)
+    cols[0] = util.darken_color(cols[0], 0.80)
     return adjust(cols, light, cols16)

@@ -27,6 +27,7 @@ def adjust(cols, light, cols16):
     """Create palette."""
     cols.sort(key=util.rgb_to_yiq)
     raw_colors = [*cols, *cols]
+    raw_colors[0] = util.darken_color(cols[0], 0.80)
 
     return colors.generic_adjust(raw_colors, light, cols16)
 
