@@ -101,8 +101,10 @@ def generic_adjust(colors, light, cols16):
         if colors[0][1] != "0":  # the color may already be dark enough
             colors[0] = util.darken_color(colors[0], 0.40)  # just a bit darker
         if cols16:
-            colors[7] = util.lighten_color(colors[0], 0.50)
-            colors[8] = util.lighten_color(colors[0], 0.25)
+            colors[7] = util.lighten_color(colors[0], 0.55)
+            colors[7] = util.saturate_color(colors[7], 0.05)
+            colors[8] = util.lighten_color(colors[0], 0.35)
+            colors[8] = util.saturate_color(colors[8], 0.10)
             colors[15] = util.lighten_color(colors[0], 0.75)
             if cols16 == "lighten":
                 colors[9] = util.lighten_color(colors[1], 0.25)
@@ -123,7 +125,8 @@ def generic_adjust(colors, light, cols16):
 
         else:
             colors[7] = util.lighten_color(colors[0], 0.75)
-            colors[8] = util.lighten_color(colors[0], 0.25)
+            colors[8] = util.lighten_color(colors[0], 0.35)
+            colors[8] = util.saturate_color(colors[8], 0.10)
             colors[15] = colors[7]
 
     return colors
