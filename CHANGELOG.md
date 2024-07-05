@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.6.0] - 2024-07-04
+
+- Fixed empty message on KDE plasma when sending sequences.
+- Add the `okthief` backend.
+- Fix issue with `fcntl` in unsupported platforms.
+- Explicitly add the method by which 16 colors scheme is created to the file name.
+- Fix the darkness of color 0
+- Fix the darkness and saturation of colors 7 and 8
+
 ## [3.5.3] - 2024-06-02
 
 - fixed issue with `wal` backend on arch where it would fail to generate a colorscheme.
@@ -772,7 +781,8 @@ Note to self: Don't flag releases before coffee.
 
 
 
-[Unreleased]: https://github.com/eylles/pywal16/compare/3.5.4...HEAD
+[Unreleased]: https://github.com/eylles/pywal16/compare/3.6.0...HEAD
+[3.6.0]: https://github.com/eylles/pywal16/compare/3.5.4...3.6.0
 [3.5.4]: https://github.com/eylles/pywal16/compare/3.5.3...3.5.4
 [3.5.3]: https://github.com/eylles/pywal16/compare/3.5.2...3.5.3
 [3.5.2]: https://github.com/eylles/pywal16/compare/3.5.1...3.5.2
