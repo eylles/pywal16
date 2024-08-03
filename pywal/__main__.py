@@ -121,6 +121,12 @@ def get_args():
     arg.add_argument("-e", action="store_true",
                      help="Skip reloading gtk/xrdb/i3/sway/polybar")
 
+    arg.add_argument("--contrast", metavar="1.0-21.0",
+                     help="Specify a minimum contrast ratio between palette "
+                          "colors and the source image according to W3 "
+                          "contrast specifications. Values between 1.5-4.5 "
+                          "typically work best.")
+
     return arg
 
 
@@ -182,7 +188,7 @@ def parse_args(parser):
         image_file = image.get(args.i, iterative=args.iterative,
                                recursive=args.recursive)
         colors_plain = colors.get(image_file, args.l, args.cols16, args.backend,
-                                  sat=args.saturate)
+                                  sat=args.saturate, contrast=args.contrast)
 
     if args.theme:
         colors_plain = theme.file(args.theme, args.l)
