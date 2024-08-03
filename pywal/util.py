@@ -11,7 +11,7 @@ import re
 import shutil
 import subprocess
 import sys
-import hashlib 
+import hashlib
 
 has_fcntl = False
 fcntl_warning = ""
@@ -321,3 +321,30 @@ def get_pid(name):
         return False
 
     return True
+
+def image_average_color(img):
+    """ Get the average color of an image using imagemagick
+    by resizing to 1x1"""
+    # Attempt to run the imagemagick command
+    # Resizes to 1x1 and enumerates all pixel data (one pixel) to stdout
+    # Command adapted from a stackoverflow thread, but tinkered with because the
+    # thread was a decade old:
+    # # https://stackoverflow.com/questions/25488338/how-to-find-average-color-of-an-image-with-imagemagick
+    cmd_flags = [
+        "magick",
+        img,
+        "-resize",
+        "1x1!",
+        "-format",
+        "\"%[fx:int(255*r+.5)],%[fx:int(255*g+.5)],%[fx:int(255*b+.5)]\"",
+        "txt:-"
+    ]
+    try:
+        magick_output = subprocess.run(["magick", img] + cmd_flags, stdout=subprocess.PIPE)
+    except subprocess.CalledProcessError as Err:
+        logging.error("Problem running image averaging command. Is imagemagick installed?")
+        logging.error("Imagemagick error: %s", Err)
+        return ""
+
+    # Regex hex code from the command output
+    return re.search("#[0-9A-Fa-f]{6}", magick_output.stdout.decode("utf-8"))[0]

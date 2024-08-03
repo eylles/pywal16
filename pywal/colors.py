@@ -141,6 +141,78 @@ def saturate_colors(colors, amount):
 
     return colors
 
+def ensure_contrast(colors, contrast, light, image):
+    """Ensure user-specified W3 contrast of colors depending on dark or light theme."""
+    # If no contrast checking was specified, do nothing
+    if contrast == "": return colors
+
+    # Get the image background color
+    background_color = util.Color(util.image_average_color(image))
+    background_luminance = background_color.w3_luminance
+
+    # Calculate the required W3 luminance for the desired contrast ratio
+    # This will modify all of the colors to be brighter or darker than the background
+    # image depending on whether the user has specified for a dark or light theme
+    if light: luminance_desired = (background_luminance + 0.05) / float(contrast) - 0.05
+    else: luminance_desired = (background_luminance + 0.05) * float(contrast) - 0.05
+
+    if luminance_desired >= 0.99:
+        print("Can't contrast this palette without changing colors to white")
+        return colors
+    if luminance_desired <= 0.01:
+        print("Can't contrast this palette without changing colors to black")
+        return colors
+
+    # Determine which colors should be modified / checked based on whether
+    # the theme is light or dark. Contrast lighter colors on dark theme and
+    # darker colors on light theme.
+    # ! For the time being this is just going to modify all the colors except 0 and 15
+    colors_to_contrast = range(1,15)
+
+    # Modify colors
+    for index in colors_to_contrast:
+        color = util.Color(colors[index])
+
+        # If the color already has sufficient contrast, do nothing
+        if light and color.w3_luminance <= luminance_desired: continue
+        elif color.w3_luminance >= luminance_desired: continue
+
+        h, s, v = rgb_to_hsv(color.red, color.green, color.blue)
+
+        # Determine how to modify the color based on its HSV characteristics
+
+        # If the color is to be lighter than background, and the HSV color with value 1
+        # has sufficient luminance, adjust by increasing value
+        if not light and util.Color(rgb_to_hex([int(channel * 255) for channel in hsv_to_rgb(h, s, 1)])).w3_luminance >= luminance_desired:
+            color[index] = binary_luminance_adjust(luminance_desired, h, s, s, v, 1)
+        # If the color is to be lighter than background and increasing value to 1 doesn't
+        #  produce the desired luminance, additionally decrease saturation
+        elif not light:
+            color[index] = binary_luminance_adjust(luminance_desired, h, 0, s, 1, 1)
+        # If the color is to be darker than background, produce desired luminance by decreasing value
+        else:
+            color[index] = binary_luminance_adjust(luminance_desired, h, s, s, 0, v)
+
+    return colors
+
+def binary_luminance_adjust(luminance_desired, hue, s_min, s_max, v_min, v_max, iterations=10):
+    """Use a binary method to adjust a color's value and/or saturation to produce the desired luminance"""
+    for i in range(iterations):
+        # Obtain a new color by averaging saturation and value
+        s = (s_min + s_max) / 2
+        v = (v_min + v_max) / 2
+
+        # Compare the luminance of this color to the target luminance
+        # If the color is too light, clamp the minimum saturation and maximum value
+        if util.Color(rgb_to_hex([int(channel * 255) for channel in hsv_to_rgb(hue, s, v)])).w3_luminance >= luminance_desired:
+            s_min = s
+            v_max = v
+        # If the color is too dark, clamp the maximum saturation and minimum value
+        else:
+            s_max = s
+            v_min = v
+
+    return rgb_to_hex([int(channel * 255) for channel in hsv_to_rgb(hue, s, v)])
 
 def cache_fname(img, backend, cols16, light, cache_dir, sat=""):
     """Create the cache file name."""
@@ -198,7 +270,7 @@ def palette():
     print("\n")
 
 
-def get(img, light=False, cols16=False, backend="wal", cache_dir=CACHE_DIR, sat=""):
+def get(img, light=False, cols16=False, backend="wal", cache_dir=CACHE_DIR, sat="", contrast=""):
     """Generate a palette."""
     # home_dylan_img_jpg_backend_1.2.2.json
     cache_name = cache_fname(img, backend, cols16, light, cache_dir, sat)
@@ -227,7 +299,12 @@ def get(img, light=False, cols16=False, backend="wal", cache_dir=CACHE_DIR, sat=
         logging.info("Using %s backend.", backend)
         backend = sys.modules["pywal.backends.%s" % backend]
         colors = getattr(backend, "get")(img, light, cols16)
-        colors = colors_to_dict(saturate_colors(colors, sat), img)
+
+        # Post-processing steps from command-line arguments
+        colors = saturate_colors(colors, sat)
+        colors = ensure_contrast(colors, contrast, light, img)
+
+        colors = colors_to_dict(contrast, img)
 
         util.save_file_json(colors, cache_file)
         logging.info("Generation complete.")
