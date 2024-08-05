@@ -147,6 +147,11 @@ def ensure_contrast(colors, contrast, light, image):
     # If no contrast checking was specified, do nothing
     if not contrast or contrast == "": return colors
 
+    # Contrast must be within a predefined range
+    if float(contrast) < 1 or float(contrast) > 21:
+        logging.error("Specified contrast ratio is too extreme")
+        return colors
+
     # Get the image background color
     background_color = util.Color(util.image_average_color(image))
     background_luminance = background_color.w3_luminance
