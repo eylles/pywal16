@@ -2,6 +2,7 @@
 Generate a palette using various backends.
 """
 
+import colorsys
 import logging
 import os
 import random
@@ -144,7 +145,7 @@ def saturate_colors(colors, amount):
 def ensure_contrast(colors, contrast, light, image):
     """Ensure user-specified W3 contrast of colors depending on dark or light theme."""
     # If no contrast checking was specified, do nothing
-    if contrast == "": return colors
+    if not contrast or contrast == "": return colors
 
     # Get the image background color
     background_color = util.Color(util.image_average_color(image))
@@ -179,21 +180,21 @@ def ensure_contrast(colors, contrast, light, image):
         if light and color.w3_luminance <= luminance_desired: continue
         elif color.w3_luminance >= luminance_desired: continue
 
-        h, s, v = rgb_to_hsv(color.red, color.green, color.blue)
+        h, s, v = colorsys.rgb_to_hsv(float(color.red), float(color.green), float(color.blue))
 
         # Determine how to modify the color based on its HSV characteristics
 
         # If the color is to be lighter than background, and the HSV color with value 1
         # has sufficient luminance, adjust by increasing value
-        if not light and util.Color(rgb_to_hex([int(channel * 255) for channel in hsv_to_rgb(h, s, 1)])).w3_luminance >= luminance_desired:
-            color[index] = binary_luminance_adjust(luminance_desired, h, s, s, v, 1)
+        if not light and util.Color(util.rgb_to_hex([int(channel * 255) for channel in colorsys.hsv_to_rgb(h, s, 1)])).w3_luminance >= luminance_desired:
+            colors[index] = binary_luminance_adjust(luminance_desired, h, s, s, v, 1)
         # If the color is to be lighter than background and increasing value to 1 doesn't
         #  produce the desired luminance, additionally decrease saturation
         elif not light:
-            color[index] = binary_luminance_adjust(luminance_desired, h, 0, s, 1, 1)
+            colors[index] = binary_luminance_adjust(luminance_desired, h, 0, s, 1, 1)
         # If the color is to be darker than background, produce desired luminance by decreasing value
         else:
-            color[index] = binary_luminance_adjust(luminance_desired, h, s, s, 0, v)
+            colors[index] = binary_luminance_adjust(luminance_desired, h, s, s, 0, v)
 
     return colors
 
@@ -206,7 +207,7 @@ def binary_luminance_adjust(luminance_desired, hue, s_min, s_max, v_min, v_max, 
 
         # Compare the luminance of this color to the target luminance
         # If the color is too light, clamp the minimum saturation and maximum value
-        if util.Color(rgb_to_hex([int(channel * 255) for channel in hsv_to_rgb(hue, s, v)])).w3_luminance >= luminance_desired:
+        if util.Color(util.rgb_to_hex([int(channel * 255) for channel in colorsys.hsv_to_rgb(hue, s, v)])).w3_luminance >= luminance_desired:
             s_min = s
             v_max = v
         # If the color is too dark, clamp the maximum saturation and minimum value
@@ -214,7 +215,7 @@ def binary_luminance_adjust(luminance_desired, hue, s_min, s_max, v_min, v_max, 
             s_max = s
             v_min = v
 
-    return rgb_to_hex([int(channel * 255) for channel in hsv_to_rgb(hue, s, v)])
+    return util.rgb_to_hex([int(channel * 255) for channel in colorsys.hsv_to_rgb(hue, s, v)])
 
 def cache_fname(img, backend, cols16, light, cache_dir, sat=""):
     """Create the cache file name."""
@@ -306,7 +307,7 @@ def get(img, light=False, cols16=False, backend="wal", cache_dir=CACHE_DIR, sat=
         colors = saturate_colors(colors, sat)
         colors = ensure_contrast(colors, contrast, light, img)
 
-        colors = colors_to_dict(contrast, img)
+        colors = colors_to_dict(colors, img)
 
         util.save_file_json(colors, cache_file)
         logging.info("Generation complete.")
