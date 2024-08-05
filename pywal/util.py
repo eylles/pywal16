@@ -331,8 +331,6 @@ def image_average_color(img):
     # thread was a decade old:
     # # https://stackoverflow.com/questions/25488338/how-to-find-average-color-of-an-image-with-imagemagick
     cmd_flags = [
-        "magick",
-        img,
         "-resize",
         "1x1!",
         "-format",
