@@ -217,7 +217,7 @@ def binary_luminance_adjust(luminance_desired, hue, s_min, s_max, v_min, v_max, 
 
     return util.rgb_to_hex([int(channel * 255) for channel in colorsys.hsv_to_rgb(hue, s, v)])
 
-def cache_fname(img, backend, cols16, light, cache_dir, sat=""):
+def cache_fname(img, backend, cols16, light, cache_dir, sat="", contrast=""):
     """Create the cache file name."""
     color_type = "light" if light else "dark"
     color_num = "16" if cols16 else "9"
@@ -232,10 +232,11 @@ def cache_fname(img, backend, cols16, light, cache_dir, sat=""):
             color_type,
             backend,
             sat,
+            contrast,
             file_size,
             __cache_version__,
         ]
-        return [cache_dir, "schemes", "%s_%s_%s_%s_%s_%s_%s_%s.json" % (*file_parts,)]
+        return [cache_dir, "schemes", "%s_%s_%s_%s_%s_%s_%s_%s_%s.json" % (*file_parts,)]
     else:
         file_parts = [
             file_name,
@@ -243,10 +244,11 @@ def cache_fname(img, backend, cols16, light, cache_dir, sat=""):
             color_type,
             backend,
             sat,
+            contrast,
             file_size,
             __cache_version__,
         ]
-        return [cache_dir, "schemes", "%s_%s_%s_%s_%s_%s_%s.json" % (*file_parts,)]
+        return [cache_dir, "schemes", "%s_%s_%s_%s_%s_%s_%s_%s.json" % (*file_parts,)]
 
 
 def get_backend(backend):
@@ -276,7 +278,7 @@ def palette():
 def get(img, light=False, cols16=False, backend="wal", cache_dir=CACHE_DIR, sat="", contrast=""):
     """Generate a palette."""
     # home_dylan_img_jpg_backend_1.2.2.json
-    cache_name = cache_fname(img, backend, cols16, light, cache_dir, sat)
+    cache_name = cache_fname(img, backend, cols16, light, cache_dir, sat, contrast)
     cache_file = os.path.join(*cache_name)
 
     # Check the wallpaper's checksum against the cache'
