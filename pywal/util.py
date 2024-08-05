@@ -146,6 +146,19 @@ class Color:
         """Blue value as decimal."""
         return "%s" % hex_to_rgb(self.hex_color)[2]
 
+    @property
+    def w3_luminance(self):
+        """Luminance value of the color according to W3 formula"""
+
+        color_channels = [float(self.red), float(self.green), float(self.blue)]
+        for index, channel in enumerate(color_channels):
+            if channel <= 0.04045:
+                color_channels[index] = channel / 12.92
+            else:
+                color_channels[index] = ((channel + 0.055) / 1.055) ** 2.4
+
+        return (0.2126 * color_channels[0]) + (0.7152 * color_channels[1]) + (0.0722 * color_channels[2])
+
     def lighten(self, percent):
         """Lighten color by percent."""
         percent = float(re.sub(r"[\D\.]", "", str(percent)))
