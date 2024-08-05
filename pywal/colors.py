@@ -153,8 +153,12 @@ def ensure_contrast(colors, contrast, light, image):
     # Calculate the required W3 luminance for the desired contrast ratio
     # This will modify all of the colors to be brighter or darker than the background
     # image depending on whether the user has specified for a dark or light theme
-    if light: luminance_desired = (background_luminance + 0.05) / float(contrast) - 0.05
-    else: luminance_desired = (background_luminance + 0.05) * float(contrast) - 0.05
+    try:
+        if light: luminance_desired = (background_luminance + 0.05) / float(contrast) - 0.05
+        else: luminance_desired = (background_luminance + 0.05) * float(contrast) - 0.05
+    except ValueError:
+        logging.error("ensure_contrast(): Contrast valued could not be parsed")
+        return colors
 
     if luminance_desired >= 0.99:
         print("Can't contrast this palette without changing colors to white")
@@ -163,9 +167,7 @@ def ensure_contrast(colors, contrast, light, image):
         print("Can't contrast this palette without changing colors to black")
         return colors
 
-    # Determine which colors should be modified / checked based on whether
-    # the theme is light or dark. Contrast lighter colors on dark theme and
-    # darker colors on light theme.
+    # Determine which colors should be modified / checked
     # ! For the time being this is just going to modify all the colors except 0 and 15
     colors_to_contrast = range(1,15)
 
