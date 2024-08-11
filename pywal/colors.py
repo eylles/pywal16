@@ -283,7 +283,7 @@ def palette():
 def get(img, light=False, cols16=False, backend="wal", cache_dir=CACHE_DIR, sat="", contrast=""):
     """Generate a palette."""
     # home_dylan_img_jpg_backend_1.2.2.json
-    cache_name = cache_fname(img, backend, cols16, light, cache_dir, sat, contrast)
+    cache_name = cache_fname(img, backend, cols16, light, cache_dir, sat, float(contrast))
     cache_file = os.path.join(*cache_name)
 
     # Check the wallpaper's checksum against the cache'
