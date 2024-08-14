@@ -22,3 +22,11 @@ Terminal emulators and TTYs have their color-schemes updated in real-time with n
 ### More: \[[Installation](https://github.com/eylles/pywal16/wiki/Installation)] \[[Getting Started](https://github.com/eylles/pywal16/wiki/Getting-Started)] \[[Customization](https://github.com/eylles/pywal16/wiki/Customization)] \[[Wiki](https://github.com/eylles/pywal16/wiki)] \[[Screenshots](https://www.reddit.com/r/unixporn/search?q=wal&restrict_sr=on&sort=relevance&t=all)] \[[Extras](https://github.com/eylles/pywal-extra)]
 
 [![Packaging status](https://repology.org/badge/vertical-allrepos/pywal16.svg)](https://repology.org/project/pywal16/versions)
+
+<p align="right">
+support me at:
+<br>
+<noscript><a href="https://liberapay.com/eylles/donate"><img alt="Donate using Liberapay" src="https://liberapay.com/assets/widgets/donate.svg"></a></noscript>
+<br>
+<img src="https://img.shields.io/liberapay/patrons/eylles.svg?logo=liberapay">
+</p>
