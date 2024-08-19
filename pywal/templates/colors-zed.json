@@ -1,0 +1,105 @@
+{{
+    "$schema": "https://zed.dev/schema/themes/v0.1.0.json",
+    "name": "pywal",
+    "author": "pywal",
+    "themes": [
+        {{
+            "name": "pywal",
+            "appearance": "dark",
+            "style": {{
+                "background": "{background}90",
+                "editor.background": "{background}90",
+                "editor.foreground": "{foreground}",
+                "text": "{foreground}",
+                "text.muted": "{foreground}70",
+                "text.ignored": "{foreground}40",
+                "text.placeholder": "{foreground}50",
+                "ignored": "{foreground}30",
+                "element.hover": "{foreground}30",
+                "ghost_element.hover": "{color1}30",
+                "ghost_element.selected": "{color1}30",
+                "ghost_element.active": "{color1}60",
+                "border": "{background}",
+                "editor.highlighted_line.background": "{color1}10",
+                "editor.active_line.background": "{color1}10",
+                "panel.background": "{background}90",
+                "title_bar.background": "{background}90",
+                "title_bar.inactive_background": "{background}90",
+                "status_bar.background": "{background}90",
+                "drop_target.background": "{background}90",
+                "elevated_surface.background": "{background}",
+                "toolbar.background": "{background}90",
+                "tab_bar.background": "{background}90",
+                "tab.inactive_background": "{background}90",
+                "tab.active_background": "{color1}30",
+                "scrollbar.track.background": "transparent",
+                "scrollbar.track.border": "{background}",
+                "scrollbar.thumb.background": "{color1}",
+                "editor.gutter.background": "{background}90",
+                "terminal.background": "{background}10",
+                "terminal.foreground": "{foreground}",
+                "terminal.dim_foreground": "{foreground}",
+                "terminal.bright_foreground": "{foreground}",
+                "terminal.ansi.black": "{color0}",
+                "terminal.ansi.red": "{color1}",
+                "terminal.ansi.green": "{color2}",
+                "terminal.ansi.yellow": "{color3}",
+                "terminal.ansi.blue": "{color4}",
+                "terminal.ansi.magenta": "{color5}",
+                "terminal.ansi.cyan": "{color6}",
+                "terminal.ansi.white": "{color7}",
+                "terminal.ansi.bright_black": "{color8}",
+                "terminal.ansi.bright_red": "{color9}",
+                "terminal.ansi.bright_green": "{color10}",
+                "terminal.ansi.bright_yellow": "{color11}",
+                "terminal.ansi.bright_blue": "{color12}",
+                "terminal.ansi.bright_magenta": "{color13}",
+                "terminal.ansi.bright_cyan": "{color14}",
+                "terminal.ansi.bright_white": "{color15}",
+                "modified": "{color1}",
+                "syntax": {{
+                    "attribute": {{
+                        "color": "{color1}"
+                    }},
+                    "boolean": {{
+                      "color": "{color2}"
+                    }},
+                    "comment": {{
+                      "color": "{color8}"
+                    }},
+                    "comment.doc": {{
+                      "color": "{color8}"
+                    }},
+                    "constant": {{
+                      "color": "{color10}"
+                    }},
+                    "function": {{
+                      "color": "{color14}"
+                    }},
+                    "keyword": {{
+                      "color": "{color4}"
+                    }},
+                    "number": {{
+                      "color": "{color5}"
+                    }},
+                    "operator": {{
+                      "color": "{color4}"
+                    }},
+                    "string": {{
+                      "color": "{color1}"
+                    }},
+                    "variable": {{
+                      "color": "{color2}"
+                    }}
+                }},
+                "players": [
+                  {{
+                    "cursor": "{color1}",
+                    "background": "{background}",
+                    "selection": "{color1}30"
+                  }}
+                ]
+            }}
+        }}
+    ]
+}}
