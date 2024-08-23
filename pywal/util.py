@@ -12,6 +12,7 @@ import shutil
 import subprocess
 import sys
 import hashlib
+import copy
 
 has_fcntl = False
 fcntl_warning = ""
@@ -185,6 +186,11 @@ class Color:
         """Saturate a color."""
         percent = float(re.sub(r"[\D\.]", "", str(percent)))
         return Color(saturate_color(self.hex_color, percent / 100))
+
+    def adjust_alpha(self, alpha = "100"):
+        adjusted = copy.copy(self)
+        adjusted.alpha_num = alpha
+        return adjusted
 
 
 def read_file(input_file):
