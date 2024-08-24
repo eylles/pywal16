@@ -197,9 +197,9 @@ def ensure_contrast(colors, contrast, light, image):
         #  produce the desired luminance, additionally decrease saturation
         elif not light:
             colors[index] = binary_luminance_adjust(luminance_desired, h, 0, s, 1, 1)
-        # If the color is to be darker than background, produce desired luminance by decreasing value
+        # If the color is to be darker than background, produce desired luminance by decreasing value, and raising saturation
         else:
-            colors[index] = binary_luminance_adjust(luminance_desired, h, s, s, 0, v)
+            colors[index] = binary_luminance_adjust(luminance_desired, h, s, 1, 0, v)
 
     return colors
 
@@ -283,7 +283,11 @@ def palette():
 def get(img, light=False, cols16=False, backend="wal", cache_dir=CACHE_DIR, sat="", contrast=""):
     """Generate a palette."""
     # home_dylan_img_jpg_backend_1.2.2.json
-    cache_name = cache_fname(img, backend, cols16, light, cache_dir, sat, float(contrast))
+    if not contrast or contrast == "":
+        cache_name = cache_fname(img, backend, cols16, light, cache_dir, sat, "None")
+    else:
+        cache_name = cache_fname(img, backend, cols16, light, cache_dir, sat, float(contrast))
+    
     cache_file = os.path.join(*cache_name)
 
     # Check the wallpaper's checksum against the cache'
