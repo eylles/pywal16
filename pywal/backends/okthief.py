@@ -12,7 +12,7 @@ from .. import util
 
 
 def gen_colors(img):
-    """Generate a colorscheme using Colorz."""
+    """Generate a colorscheme using okthief."""
     cmd = ["okthief", "--num-colors", "8", "--file"]
     out = subprocess.check_output([*cmd, img])
     cols = [x["hex"] for x in json.loads(out)]
