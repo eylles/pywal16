@@ -8,9 +8,15 @@ except ImportError:
     print("error: pywal requires Python 3.5 or greater.")
     sys.exit(1)
 
+is_win = sys.platform.startswith('win')
+
 LONG_DESC = open('README.md').read()
 VERSION = pywal.__version__
 DOWNLOAD = "https://github.com/eylles/pywal16/archive/%s.tar.gz" % VERSION
+
+install_requires = []
+if is_win:
+    install_requires += ['colorama']
 
 setuptools.setup(
     name="pywal16",
@@ -34,6 +40,7 @@ setuptools.setup(
     packages=["pywal"],
     entry_points={"console_scripts": ["wal=pywal.__main__:main"]},
     python_requires=">=3.5",
+    install_requires=install_requires,
     extras_require={
         'colorthief': ['colorthief', ],  # known to work with 0.2.1
         'colorz': ['colorz', ],  # NOTE heavy, scipy dependency
