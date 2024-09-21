@@ -34,6 +34,14 @@ setuptools.setup(
     packages=["pywal"],
     entry_points={"console_scripts": ["wal=pywal.__main__:main"]},
     python_requires=">=3.5",
+    extras_require={
+        'colorthief': ['colorthief', ],  # known to work with 0.2.1
+        'colorz': ['colorz', ],  # NOTE heavy, scipy dependency
+        'fast-colorthief': ['fast-colorthief', ],
+        'haishoku': ['haishoku', ],
+        'modern_colorthief': ['modern_colorthief', ],
+        'all': ['colorthief', 'colorz', 'fast-colorthief', 'haishoku', 'modern_colorthief'],  # convience, all of the above
+    },
     test_suite="tests",
     include_package_data=True,
     zip_safe=False)
