@@ -23,6 +23,37 @@ Terminal emulators and TTYs have their color-schemes updated in real-time with n
 
 [![Packaging status](https://repology.org/badge/vertical-allrepos/pywal16.svg)](https://repology.org/project/pywal16/versions)
 
+### Developement notes
+
+#### Regular install
+
+No dependencies, MUST provided native executables:
+
+    pip install "pywal16"
+
+Install colorthief dependency automatically:
+
+    pip install "pywal16[colorthief]"
+
+Install all dependencies:
+
+    pip install "pywal16[all]"
+
+#### Developement checkout install
+
+No dependencies, MUST provided native executables:
+
+    python -m pip install -e .
+
+Install colorthief dependency automatically:
+
+    python -m pip install -e ".[colorthief]"
+
+Install all dependencies:
+
+    python -m pip install -e ".[all]"
+
+
 <p align="right">
 support me at:
 <br>
