@@ -145,36 +145,40 @@ def set_mac_wallpaper(img):
     db_file = "Library/Application Support/Dock/desktoppicture.db"
     db_path = os.path.join(HOME, db_file)
 
-    # Put the image path in the database
-    sql = "insert into data values(\"%s\"); " % img
-    subprocess.call(["sqlite3", db_path, sql])
+    # Fresh installs of Sonoma will not have this file.
+    # Check if file exists to make backwards compatibility forwards compatable.
+    if os.path.isfile(db_path):
 
-    # Get the index of the new entry
-    sql = "select max(rowid) from data;"
-    new_entry = subprocess.check_output(["sqlite3", db_path, sql])
-    new_entry = new_entry.decode('utf8').strip('\n')
+        # Put the image path in the database
+        sql = "insert into data values(\"%s\"); " % img
+        subprocess.call(["sqlite3", db_path, sql])
 
-    # Get all picture ids (monitor/space pairs)
-    get_pics_cmd = ['sqlite3', db_path, "select rowid from pictures;"]
-    pictures = subprocess.check_output(get_pics_cmd)
-    pictures = pictures.decode('utf8').split('\n')
+        # Get the index of the new entry
+        sql = "select max(rowid) from data;"
+        new_entry = subprocess.check_output(["sqlite3", db_path, sql])
+        new_entry = new_entry.decode('utf8').strip('\n')
 
-    # Clear all existing preferences
-    sql += "delete from preferences; "
+        # Get all picture ids (monitor/space pairs)
+        get_pics_cmd = ['sqlite3', db_path, "select rowid from pictures;"]
+        pictures = subprocess.check_output(get_pics_cmd)
+        pictures = pictures.decode('utf8').split('\n')
 
-    # Write all pictures to the new image
-    for pic in pictures:
-        if pic:
-            sql += 'insert into preferences (key, data_id, picture_id) '
-            sql += 'values(1, %s, %s); ' % (new_entry, pic)
+        # Clear all existing preferences
+        sql += "delete from preferences; "
 
-    subprocess.call(["sqlite3", db_path, sql])
+        # Write all pictures to the new image
+        for pic in pictures:
+            if pic:
+                sql += 'insert into preferences (key, data_id, picture_id) '
+                sql += 'values(1, %s, %s); ' % (new_entry, pic)
 
-    # Kill the dock to fix issues with cached wallpapers.
-    # macOS caches wallpapers and if a wallpaper is set that shares
-    # the filename with a cached wallpaper, the cached wallpaper is
-    # used instead.
-    subprocess.call(["killall", "Dock"])
+        subprocess.call(["sqlite3", db_path, sql])
+
+        # Kill the dock to fix issues with cached wallpapers.
+        # macOS caches wallpapers and if a wallpaper is set that shares
+        # the filename with a cached wallpaper, the cached wallpaper is
+        # used instead.
+        subprocess.call(["killall", "Dock"])
 
 
     # MacOS Sonomoa uses a plist file instead.  Interestingly the database referenced above
