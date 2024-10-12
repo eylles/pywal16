@@ -119,13 +119,15 @@ def every(colors, output_dir=CACHE_DIR):
     util.create_dir(template_dir_user)
 
     join = os.path.join  # Minor optimization.
+    logging.info("Reading system templates from: %s", template_dir)
+    logging.info("Reading user templates from: %s", template_dir_user)
     for file in [*os.scandir(template_dir),
                  *os.scandir(template_dir_user)]:
         if file.name != ".DS_Store" and not file.name.endswith(".swp"):
             template(colors, file.path, join(output_dir, file.name))
 
     logging.info("Exported all files.")
-    logging.info("Exported all user files.")
+    logging.info("Exported all user files to %s", output_dir)
 
 
 def color(colors, export_type, output_file=None):
