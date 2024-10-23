@@ -6,12 +6,14 @@ import re
 import shutil
 import subprocess
 import urllib.parse
-import plistlib
-import datetime
-import tempfile
 
 from .settings import HOME, OS, CACHE_DIR
 from . import util
+
+if OS == "Darwin":
+    import plistlib
+    import datetime
+    import tempfile
 
 
 def get_desktop_env():
