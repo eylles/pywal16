@@ -77,6 +77,7 @@ def flatten_colors(colors):
     Flatten dicts and convert colors to util.Color()"""
     all_colors = {
         "wallpaper": colors["wallpaper"],
+        "checksum": colors["checksum"],
         "alpha": colors["alpha"],
         **colors["special"],
         **colors["colors"],
