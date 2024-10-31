@@ -14,7 +14,7 @@ from . import util
 def list_out():
     """List all themes in a pretty format."""
     dark_themes = [theme.name.replace(".json", "") for theme in list_themes()]
-    ligh_themes = [theme.name.replace(".json", "") for theme in list_themes(dark=False)]
+    light_themes = [theme.name.replace(".json", "") for theme in list_themes(dark=False)]
     user_themes = [theme.name.replace(".json", "") for theme in list_themes_user()]
 
     try:
@@ -48,7 +48,7 @@ def list_out():
         " -",
         "\n - ".join(
             t + " (last used)" if t == last_used_theme else t
-            for t in sorted(ligh_themes)
+            for t in sorted(light_themes)
         ),
     )
 
