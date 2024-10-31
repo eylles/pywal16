@@ -109,8 +109,8 @@ def set_desktop_wallpaper(desktop, img):
                      "org.gnome.desktop.background",
                      "picture-uri-dark", "file://" + urllib.parse.quote(img)])
         util.disown(["gsettings", "set",
-                      "org.gnome.desktop.background",
-                      "picture-uri", "file://" + urllib.parse.quote(img)])
+                     "org.gnome.desktop.background",
+                     "picture-uri", "file://" + urllib.parse.quote(img)])
 
     elif "mate" in desktop:
         util.disown(["gsettings", "set", "org.mate.background",

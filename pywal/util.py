@@ -335,6 +335,7 @@ def get_pid(name):
 
     return True
 
+
 def image_average_color(img):
     """ Get the average color of an image using imagemagick
     by resizing to 1x1"""
