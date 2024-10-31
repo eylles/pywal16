@@ -203,6 +203,7 @@ def ensure_contrast(colors, contrast, light, image):
 
     return colors
 
+
 def binary_luminance_adjust(luminance_desired, hue, s_min, s_max, v_min, v_max, iterations=10):
     """Use a binary method to adjust a color's value and/or saturation to produce the desired luminance"""
     for i in range(iterations):
@@ -221,6 +222,7 @@ def binary_luminance_adjust(luminance_desired, hue, s_min, s_max, v_min, v_max, 
             v_min = v
 
     return util.rgb_to_hex([int(channel * 255) for channel in colorsys.hsv_to_rgb(hue, s, v)])
+
 
 def cache_fname(img, backend, cols16, light, cache_dir, sat="", contrast=""):
     """Create the cache file name."""
@@ -287,7 +289,7 @@ def get(img, light=False, cols16=False, backend="wal", cache_dir=CACHE_DIR, sat=
         cache_name = cache_fname(img, backend, cols16, light, cache_dir, sat, "None")
     else:
         cache_name = cache_fname(img, backend, cols16, light, cache_dir, sat, float(contrast))
-    
+
     cache_file = os.path.join(*cache_name)
 
     # Check the wallpaper's checksum against the cache'

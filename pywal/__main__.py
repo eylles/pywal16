@@ -128,7 +128,7 @@ def get_args():
                      help="Skip reloading gtk/xrdb/i3/sway/polybar")
 
     arg.add_argument("--contrast", metavar="1.0-21.0",
-                     required = False, type=float, nargs='?',
+                     required=False, type=float, nargs='?',
                      help="Specify a minimum contrast ratio between palette "
                           "colors and the source image according to W3 "
                           "contrast specifications. Values between 1.5-4.5 "
@@ -208,7 +208,7 @@ def parse_args(parser):
     if args.w:
         cached_wallpaper = util.read_file(os.path.join(CACHE_DIR, "wal"))
         colors_plain = colors.get(cached_wallpaper[0], args.l, args.cols16, args.backend,
-                                  sat=args.saturate,contrast=args.contrast)
+                                  sat=args.saturate, contrast=args.contrast)
 
     if args.b:
         args.b = "#%s" % (args.b.strip("#"))
