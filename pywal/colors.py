@@ -142,10 +142,12 @@ def saturate_colors(colors, amount):
 
     return colors
 
+
 def ensure_contrast(colors, contrast, light, image):
     """Ensure user-specified W3 contrast of colors depending on dark or light theme."""
     # If no contrast checking was specified, do nothing
-    if not contrast or contrast == "": return colors
+    if not contrast or contrast == "":
+        return colors
 
     # Contrast must be within a predefined range
     if float(contrast) < 1 or float(contrast) > 21:
@@ -160,8 +162,10 @@ def ensure_contrast(colors, contrast, light, image):
     # This will modify all of the colors to be brighter or darker than the background
     # image depending on whether the user has specified for a dark or light theme
     try:
-        if light: luminance_desired = (background_luminance + 0.05) / float(contrast) - 0.05
-        else: luminance_desired = (background_luminance + 0.05) * float(contrast) - 0.05
+        if light:
+            luminance_desired = (background_luminance + 0.05) / float(contrast) - 0.05
+        else:
+            luminance_desired = (background_luminance + 0.05) * float(contrast) - 0.05
     except ValueError:
         logging.error("ensure_contrast(): Contrast valued could not be parsed")
         return colors
@@ -182,8 +186,10 @@ def ensure_contrast(colors, contrast, light, image):
         color = util.Color(colors[index])
 
         # If the color already has sufficient contrast, do nothing
-        if light and color.w3_luminance <= luminance_desired: continue
-        elif color.w3_luminance >= luminance_desired: continue
+        if light and color.w3_luminance <= luminance_desired:
+            continue
+        elif color.w3_luminance >= luminance_desired:
+            continue
 
         h, s, v = colorsys.rgb_to_hsv(float(color.red), float(color.green), float(color.blue))
 
