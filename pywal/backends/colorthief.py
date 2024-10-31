@@ -1,6 +1,7 @@
 """
 Generate a colorscheme using ColorThief.
 """
+
 import logging
 import sys
 

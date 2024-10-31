@@ -1,6 +1,7 @@
 """
 Reload programs.
 """
+
 import logging
 import os
 import shutil
@@ -21,8 +22,7 @@ def tty(tty_reload):
 
 def xrdb(xrdb_files=None):
     """Merge the colors into the X db so new terminals use them."""
-    xrdb_files = xrdb_files or \
-        [os.path.join(CACHE_DIR, "colors.Xresources")]
+    xrdb_files = xrdb_files or [os.path.join(CACHE_DIR, "colors.Xresources")]
 
     if shutil.which("xrdb") and OS != "Darwin":
         for file in xrdb_files:
@@ -55,19 +55,30 @@ def bspwm():
 
 
 def kitty():
-    """ Reload kitty colors. """
-    if (shutil.which("kitty")
-            and util.get_pid("kitty")):
-        if os.getenv('TERM') == 'xterm-kitty':
-            subprocess.call([
-                "kitty", "@", "set-colors", "--all",
-                os.path.join(CACHE_DIR, "colors-kitty.conf")
-            ])
+    """Reload kitty colors."""
+    if shutil.which("kitty") and util.get_pid("kitty"):
+        if os.getenv("TERM") == "xterm-kitty":
+            subprocess.call(
+                [
+                    "kitty",
+                    "@",
+                    "set-colors",
+                    "--all",
+                    os.path.join(CACHE_DIR, "colors-kitty.conf"),
+                ]
+            )
         else:
-            subprocess.call([
-                "kitty", "@", "--to", "unix:/tmp/kitty_pywal", "set-colors", "--all",
-                os.path.join(CACHE_DIR, "colors-kitty.conf")
-            ])
+            subprocess.call(
+                [
+                    "kitty",
+                    "@",
+                    "--to",
+                    "unix:/tmp/kitty_pywal",
+                    "set-colors",
+                    "--all",
+                    os.path.join(CACHE_DIR, "colors-kitty.conf"),
+                ]
+            )
 
 
 def polybar():
@@ -86,8 +97,7 @@ def colors(cache_dir=CACHE_DIR):
     """Reload colors. (Deprecated)"""
     sequences = os.path.join(cache_dir, "sequences")
 
-    logging.error("'wal -r' is deprecated: "
-                  "Use 'cat %s' instead.", sequences)
+    logging.error("'wal -r' is deprecated: " "Use 'cat %s' instead.", sequences)
 
     if os.path.isfile(sequences):
         print("".join(util.read_file(sequences)), end="")
