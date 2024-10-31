@@ -163,9 +163,13 @@ def ensure_contrast(colors, contrast, light, image):
     # image depending on whether the user has specified for a dark or light theme
     try:
         if light:
-            luminance_desired = (background_luminance + 0.05) / float(contrast) - 0.05
+            luminance_desired = (background_luminance + 0.05) / float(
+                contrast
+            ) - 0.05
         else:
-            luminance_desired = (background_luminance + 0.05) * float(contrast) - 0.05
+            luminance_desired = (background_luminance + 0.05) * float(
+                contrast
+            ) - 0.05
     except ValueError:
         logging.error("ensure_contrast(): Contrast valued could not be parsed")
         return colors
@@ -179,7 +183,7 @@ def ensure_contrast(colors, contrast, light, image):
 
     # Determine which colors should be modified / checked
     # ! For the time being this is just going to modify all the colors except 0 and 15
-    colors_to_contrast = range(1,15)
+    colors_to_contrast = range(1, 15)
 
     # Modify colors
     for index in colors_to_contrast:
@@ -191,26 +195,47 @@ def ensure_contrast(colors, contrast, light, image):
         elif color.w3_luminance >= luminance_desired:
             continue
 
-        h, s, v = colorsys.rgb_to_hsv(float(color.red), float(color.green), float(color.blue))
+        h, s, v = colorsys.rgb_to_hsv(
+            float(color.red), float(color.green), float(color.blue)
+        )
 
         # Determine how to modify the color based on its HSV characteristics
 
         # If the color is to be lighter than background, and the HSV color with value 1
         # has sufficient luminance, adjust by increasing value
-        if not light and util.Color(util.rgb_to_hex([int(channel * 255) for channel in colorsys.hsv_to_rgb(h, s, 1)])).w3_luminance >= luminance_desired:
-            colors[index] = binary_luminance_adjust(luminance_desired, h, s, s, v, 1)
+        if (
+            not light
+            and util.Color(
+                util.rgb_to_hex(
+                    [
+                        int(channel * 255)
+                        for channel in colorsys.hsv_to_rgb(h, s, 1)
+                    ]
+                )
+            ).w3_luminance
+            >= luminance_desired
+        ):
+            colors[index] = binary_luminance_adjust(
+                luminance_desired, h, s, s, v, 1
+            )
         # If the color is to be lighter than background and increasing value to 1 doesn't
         #  produce the desired luminance, additionally decrease saturation
         elif not light:
-            colors[index] = binary_luminance_adjust(luminance_desired, h, 0, s, 1, 1)
+            colors[index] = binary_luminance_adjust(
+                luminance_desired, h, 0, s, 1, 1
+            )
         # If the color is to be darker than background, produce desired luminance by decreasing value, and raising saturation
         else:
-            colors[index] = binary_luminance_adjust(luminance_desired, h, s, 1, 0, v)
+            colors[index] = binary_luminance_adjust(
+                luminance_desired, h, s, 1, 0, v
+            )
 
     return colors
 
 
-def binary_luminance_adjust(luminance_desired, hue, s_min, s_max, v_min, v_max, iterations=10):
+def binary_luminance_adjust(
+    luminance_desired, hue, s_min, s_max, v_min, v_max, iterations=10
+):
     """Use a binary method to adjust a color's value and/or saturation to produce the desired luminance"""
     for i in range(iterations):
         # Obtain a new color by averaging saturation and value
@@ -219,7 +244,17 @@ def binary_luminance_adjust(luminance_desired, hue, s_min, s_max, v_min, v_max, 
 
         # Compare the luminance of this color to the target luminance
         # If the color is too light, clamp the minimum saturation and maximum value
-        if util.Color(util.rgb_to_hex([int(channel * 255) for channel in colorsys.hsv_to_rgb(hue, s, v)])).w3_luminance >= luminance_desired:
+        if (
+            util.Color(
+                util.rgb_to_hex(
+                    [
+                        int(channel * 255)
+                        for channel in colorsys.hsv_to_rgb(hue, s, v)
+                    ]
+                )
+            ).w3_luminance
+            >= luminance_desired
+        ):
             s_min = s
             v_max = v
         # If the color is too dark, clamp the maximum saturation and minimum value
@@ -227,7 +262,9 @@ def binary_luminance_adjust(luminance_desired, hue, s_min, s_max, v_min, v_max, 
             s_max = s
             v_min = v
 
-    return util.rgb_to_hex([int(channel * 255) for channel in colorsys.hsv_to_rgb(hue, s, v)])
+    return util.rgb_to_hex(
+        [int(channel * 255) for channel in colorsys.hsv_to_rgb(hue, s, v)]
+    )
 
 
 def cache_fname(img, backend, cols16, light, cache_dir, sat="", contrast=""):
@@ -249,7 +286,11 @@ def cache_fname(img, backend, cols16, light, cache_dir, sat="", contrast=""):
             file_size,
             __cache_version__,
         ]
-        return [cache_dir, "schemes", "%s_%s_%s_%s_%s_%s_%s_%s_%s.json" % (*file_parts,)]
+        return [
+            cache_dir,
+            "schemes",
+            "%s_%s_%s_%s_%s_%s_%s_%s_%s.json" % (*file_parts,),
+        ]
     else:
         file_parts = [
             file_name,
@@ -261,7 +302,11 @@ def cache_fname(img, backend, cols16, light, cache_dir, sat="", contrast=""):
             file_size,
             __cache_version__,
         ]
-        return [cache_dir, "schemes", "%s_%s_%s_%s_%s_%s_%s_%s.json" % (*file_parts,)]
+        return [
+            cache_dir,
+            "schemes",
+            "%s_%s_%s_%s_%s_%s_%s_%s.json" % (*file_parts,),
+        ]
 
 
 def get_backend(backend):
@@ -288,13 +333,25 @@ def palette():
     print("\n")
 
 
-def get(img, light=False, cols16=False, backend="wal", cache_dir=CACHE_DIR, sat="", contrast=""):
+def get(
+    img,
+    light=False,
+    cols16=False,
+    backend="wal",
+    cache_dir=CACHE_DIR,
+    sat="",
+    contrast="",
+):
     """Generate a palette."""
     # home_dylan_img_jpg_backend_1.2.2.json
     if not contrast or contrast == "":
-        cache_name = cache_fname(img, backend, cols16, light, cache_dir, sat, "None")
+        cache_name = cache_fname(
+            img, backend, cols16, light, cache_dir, sat, "None"
+        )
     else:
-        cache_name = cache_fname(img, backend, cols16, light, cache_dir, sat, float(contrast))
+        cache_name = cache_fname(
+            img, backend, cols16, light, cache_dir, sat, float(contrast)
+        )
 
     cache_file = os.path.join(*cache_name)
 

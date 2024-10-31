@@ -1,6 +1,7 @@
 """
 Generate a colorscheme using Haishoku.
 """
+
 import logging
 import sys
 
