@@ -5,6 +5,8 @@
 <p align="center">
 <a href="./LICENSE.md"><img src="https://img.shields.io/badge/license-MIT-blue.svg"></a>
 <a href="https://pypi.python.org/pypi/pywal16/"><img src="https://img.shields.io/pypi/v/pywal16.svg"></a>
+<a href="https://liberapay.com/eylles/donate"><img alt="Donate using Liberapay" src="https://img.shields.io/liberapay/receives/eylles.svg?logo=liberapay"></a>
+<a href="https://liberapay.com/eylles/donate"><img alt="Donate using Liberapay" src="https://img.shields.io/liberapay/patrons/eylles.svg?logo=liberapay"></a>
 </p>
 
 <img src="https://i.imgur.com/V1FuvJP.png" alt="img" align="right" width="400px">
@@ -23,10 +25,3 @@ Terminal emulators and TTYs have their color-schemes updated in real-time with n
 
 [![Packaging status](https://repology.org/badge/vertical-allrepos/pywal16.svg)](https://repology.org/project/pywal16/versions)
 
-<p align="right">
-support me at:
-<br>
-<noscript><a href="https://liberapay.com/eylles/donate"><img alt="Donate using Liberapay" src="https://liberapay.com/assets/widgets/donate.svg"></a></noscript>
-<br>
-<img src="https://img.shields.io/liberapay/patrons/eylles.svg?logo=liberapay">
-</p>
