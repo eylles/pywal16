@@ -351,6 +351,19 @@ def get_pid(name):
     return True
 
 
+def has_im():
+    """Check to see if the user has im installed."""
+    if shutil.which("magick"):
+        return "magick"
+
+    if shutil.which("convert"):
+        return "convert"
+
+    logging.error("Problem running image averaging command.")
+    logging.error("Imagemagick wasn't found on your system.")
+    sys.exit(1)
+
+
 def image_average_color(img):
     """Get the average color of an image using imagemagick
     by resizing to 1x1"""
@@ -366,9 +379,10 @@ def image_average_color(img):
         '"%[fx:int(255*r+.5)],%[fx:int(255*g+.5)],%[fx:int(255*b+.5)]"',
         "txt:-",
     ]
+    magick_command = has_im()
     try:
         magick_output = subprocess.run(
-            ["magick", img] + cmd_flags, stdout=subprocess.PIPE
+            [magick_command, img] + cmd_flags, stdout=subprocess.PIPE
         )
     except subprocess.CalledProcessError as Err:
         logging.error(
