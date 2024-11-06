@@ -1,4 +1,5 @@
 """wal - setup.py"""
+
 import sys
 import setuptools
 
@@ -8,15 +9,15 @@ except ImportError:
     print("error: pywal requires Python 3.5 or greater.")
     sys.exit(1)
 
-is_win = sys.platform.startswith('win')
+is_win = sys.platform.startswith("win")
 
-LONG_DESC = open('README.md').read()
+LONG_DESC = open("README.md").read()
 VERSION = pywal.__version__
 DOWNLOAD = "https://github.com/eylles/pywal16/archive/%s.tar.gz" % VERSION
 
 install_requires = []
 if is_win:
-    install_requires += ['colorama']
+    install_requires += ["colorama"]
 
 setuptools.setup(
     name="pywal16",
@@ -42,13 +43,30 @@ setuptools.setup(
     python_requires=">=3.5",
     install_requires=install_requires,
     extras_require={
-        'colorthief': ['colorthief', ],  # known to work with 0.2.1
-        'colorz': ['colorz', ],  # NOTE heavy, scipy dependency
-        'fast-colorthief': ['fast-colorthief', ],
-        'haishoku': ['haishoku', ],
-        'modern_colorthief': ['modern_colorthief', ],
-        'all': ['colorthief', 'colorz', 'fast-colorthief', 'haishoku', 'modern_colorthief'],  # convience, all of the above
+        "colorthief": [
+            "colorthief",
+        ],  # known to work with 0.2.1
+        "colorz": [
+            "colorz",
+        ],  # NOTE heavy, scipy dependency
+        "fast-colorthief": [
+            "fast-colorthief",
+        ],
+        "haishoku": [
+            "haishoku",
+        ],
+        "modern_colorthief": [
+            "modern_colorthief",
+        ],
+        "all": [
+            "colorthief",
+            "colorz",
+            "fast-colorthief",
+            "haishoku",
+            "modern_colorthief",
+        ],  # convience, all of the above
     },
     test_suite="tests",
     include_package_data=True,
-    zip_safe=False)
+    zip_safe=False,
+)

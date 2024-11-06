@@ -1,6 +1,7 @@
 """
 Export colors in various formats.
 """
+
 import logging
 import os
 import re
@@ -11,7 +12,7 @@ from .settings import CACHE_DIR, CONF_DIR, MODULE_DIR
 
 def template(colors, input_file, output_file=None):
     """Read template file, substitute markers and
-       save the file elsewhere."""
+    save the file elsewhere."""
     # pylint: disable-msg=too-many-locals
     template_data = util.read_file_raw(input_file)
     for i, l in enumerate(template_data):
@@ -30,12 +31,14 @@ def template(colors, input_file, output_file=None):
                 # Get function name and arguments
                 func = func.split("(")
                 fname = func[0]
-                if fname[0] == '.':
+                if fname[0] == ".":
                     fname = fname[1:]
                 if not hasattr(new_color, fname):
                     logging.error(
                         "Syntax error in template file '%s' on line '%s'",
-                        input_file, i)
+                        input_file,
+                        i,
+                    )
                 function = getattr(new_color, fname)
 
                 # If the function is callable, call it
@@ -45,12 +48,12 @@ def template(colors, input_file, output_file=None):
                     else:
                         new_color = function()
                     # string to replace generated colors
-                    if func[0] != '.':
+                    if func[0] != ".":
                         replace_str += "."
                     replace_str += "(".join(func) + ")"
                 else:
                     # if it is an attribute i.e. rgb
-                    replace_str += '.' + fname
+                    replace_str += "." + fname
                     new_color = function
 
             if isinstance(new_color, util.Color):
@@ -58,24 +61,27 @@ def template(colors, input_file, output_file=None):
             # If replace the format placeholder with the new color
             if new_color is not colors[cname]:
                 new_color = str(new_color)
-                template_data[i] = l.replace("{"+replace_str+"}", new_color)
+                template_data[i] = l.replace("{" + replace_str + "}", new_color)
     try:
         template_data = "".join(template_data).format(**colors)
     except (ValueError, KeyError, AttributeError) as exc:
         logging.error(
-            "Syntax error in template file '%s': %r.",
-            input_file, exc)
+            "Syntax error in template file '%s': %r.", input_file, exc
+        )
         return
     util.save_file(template_data, output_file)
 
 
 def flatten_colors(colors):
     """Prepare colors to be exported.
-       Flatten dicts and convert colors to util.Color()"""
-    all_colors = {"wallpaper": colors["wallpaper"],
-                  "alpha": colors["alpha"],
-                  **colors["special"],
-                  **colors["colors"]}
+    Flatten dicts and convert colors to util.Color()"""
+    all_colors = {
+        "wallpaper": colors["wallpaper"],
+        "checksum": colors["checksum"],
+        "alpha": colors["alpha"],
+        **colors["special"],
+        **colors["colors"],
+    }
     return {k: util.Color(v) for k, v in all_colors.items()}
 
 
@@ -121,8 +127,7 @@ def every(colors, output_dir=CACHE_DIR):
     join = os.path.join  # Minor optimization.
     logging.info("Reading system templates from: %s", template_dir)
     logging.info("Reading user templates from: %s", template_dir_user)
-    for file in [*os.scandir(template_dir),
-                 *os.scandir(template_dir_user)]:
+    for file in [*os.scandir(template_dir), *os.scandir(template_dir_user)]:
         if file.name != ".DS_Store" and not file.name.endswith(".swp"):
             template(colors, file.path, join(output_dir, file.name))
 

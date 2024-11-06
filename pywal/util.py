@@ -18,11 +18,13 @@ fcntl_warning = ""
 
 try:
     import fcntl
+
     has_fcntl = True
 except ImportError:
     fcntl_warning = "{}, {}".format(
         "can't skip blocking io in current platform",
-        "program could hang indefinitely")
+        "program could hang indefinitely",
+    )
 
 
 class Color:
@@ -54,12 +56,18 @@ class Color:
     @property
     def rgba(self):
         """Convert a hex color to rgba."""
-        return "rgba(%s,%s,%s,%s)" % (*hex_to_rgb(self.hex_color), self.alpha_dec)
+        return "rgba(%s,%s,%s,%s)" % (
+            *hex_to_rgb(self.hex_color),
+            self.alpha_dec,
+        )
 
     @property
     def hex_argb(self):
         """Convert an alpha hex color to argb hex."""
-        return "#%02X%s" % (int(int(self.alpha_num) * 255 / 100), self.hex_color[1:])
+        return "#%02X%s" % (
+            int(int(self.alpha_num) * 255 / 100),
+            self.hex_color[1:],
+        )
 
     @property
     def alpha(self):
@@ -157,7 +165,11 @@ class Color:
             else:
                 color_channels[index] = ((channel + 0.055) / 1.055) ** 2.4
 
-        return (0.2126 * color_channels[0]) + (0.7152 * color_channels[1]) + (0.0722 * color_channels[2])
+        return (
+            (0.2126 * color_channels[0])
+            + (0.7152 * color_channels[1])
+            + (0.0722 * color_channels[2])
+        )
 
     def lighten(self, percent):
         """Lighten color by percent."""
@@ -211,8 +223,9 @@ def save_file(data, export_file):
         except PermissionError:
             logging.warning("Couldn't write to %s.", export_file)
         except BlockingIOError:
-            logging.warning("Couldn't write to %s, not accepting data",
-                            export_file)
+            logging.warning(
+                "Couldn't write to %s, not accepting data", export_file
+            )
     else:
         try:
             with open(export_file, "w") as file:
@@ -230,7 +243,7 @@ def save_file_json(data, export_file):
 
 
 def get_img_checksum(img):
-    checksum = hashlib.new('md5', usedforsecurity=False)
+    checksum = hashlib.new("md5", usedforsecurity=False)
     with open(img, "rb") as f:
         for chunk in iter(lambda: f.read(4096), b""):
             checksum.update(chunk)
@@ -246,7 +259,9 @@ def setup_logging():
     """Logging config."""
     logging.basicConfig(
         format=(
-            "[%(levelname)s\033[0m] " "\033[1;31m%(module)s\033[0m: " "%(message)s"
+            "[%(levelname)s\033[0m] "
+            "\033[1;31m%(module)s\033[0m: "
+            "%(message)s"
         ),
         level=logging.INFO,
         stream=sys.stdout,
@@ -335,8 +350,22 @@ def get_pid(name):
 
     return True
 
+
+def has_im():
+    """Check to see if the user has im installed."""
+    if shutil.which("magick"):
+        return "magick"
+
+    if shutil.which("convert"):
+        return "convert"
+
+    logging.error("Problem running image averaging command.")
+    logging.error("Imagemagick wasn't found on your system.")
+    sys.exit(1)
+
+
 def image_average_color(img):
-    """ Get the average color of an image using imagemagick
+    """Get the average color of an image using imagemagick
     by resizing to 1x1"""
     # Attempt to run the imagemagick command
     # Resizes to 1x1 and enumerates all pixel data (one pixel) to stdout
@@ -347,13 +376,18 @@ def image_average_color(img):
         "-resize",
         "1x1!",
         "-format",
-        "\"%[fx:int(255*r+.5)],%[fx:int(255*g+.5)],%[fx:int(255*b+.5)]\"",
-        "txt:-"
+        '"%[fx:int(255*r+.5)],%[fx:int(255*g+.5)],%[fx:int(255*b+.5)]"',
+        "txt:-",
     ]
+    magick_command = has_im()
     try:
-        magick_output = subprocess.run(["magick", img] + cmd_flags, stdout=subprocess.PIPE)
+        magick_output = subprocess.run(
+            [magick_command, img] + cmd_flags, stdout=subprocess.PIPE
+        )
     except subprocess.CalledProcessError as Err:
-        logging.error("Problem running image averaging command. Is imagemagick installed?")
+        logging.error(
+            "Problem running image averaging command. Is imagemagick installed?"
+        )
         logging.error("Imagemagick error: %s", Err)
         return ""
 

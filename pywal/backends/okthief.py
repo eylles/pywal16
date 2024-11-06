@@ -1,6 +1,7 @@
 """
 Generate a colorscheme using okthief.
 """
+
 import logging
 import shutil
 import subprocess
