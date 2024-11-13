@@ -66,7 +66,6 @@ setuptools.setup(
             "modern_colorthief",
         ],  # convience, all of the above
     },
-    test_suite="tests",
     include_package_data=True,
     zip_safe=False,
 )
