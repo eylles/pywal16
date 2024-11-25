@@ -268,10 +268,10 @@ def parse_args(parser):
         colors_plain = colors.get(
             image_file,
             args.l,
-            args.cols16,
             args.backend,
             sat=args.saturate,
-            contrast=args.contrast,
+            c16=args.cols16,
+            cst=args.contrast,
         )
 
     if args.theme:
@@ -287,10 +287,10 @@ def parse_args(parser):
         colors_plain = colors.get(
             cached_wallpaper[0],
             args.l,
-            args.cols16,
             args.backend,
             sat=args.saturate,
-            contrast=args.contrast,
+            c16=args.cols16,
+            cst=args.contrast,
         )
 
     if args.b:

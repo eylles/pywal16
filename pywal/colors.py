@@ -65,8 +65,13 @@ def colors_to_dict(colors, img):
     }
 
 
-def generic_adjust(colors, light, cols16):
-    """Generic color adjustment for themers."""
+def generic_adjust(colors, light, **kwargs):
+    """Generic color adjustment for themers.
+    :keyword args: c16 - [ lighten | darken ]
+    """
+    if 'c16' in kwargs:
+        cols16 = kwargs["c16"]
+
     if light:
         for color in colors:
             color = util.saturate_color(color, 0.60)
@@ -267,9 +272,17 @@ def binary_luminance_adjust(
     )
 
 
-def cache_fname(img, backend, cols16, light, cache_dir, sat="", contrast=""):
+def cache_fname(img, backend, light, cache_dir, sat="", **kwargs):
     """Create the cache file name."""
     color_type = "light" if light else "dark"
+    if 'c16' in kwargs:
+        cols16 = kwargs["c16"]
+    else:
+        cols16 = False
+    if 'cst' in kwargs:
+        contrast = kwargs["cst"]
+    else:
+        contrast = ""
     color_num = "16" if cols16 else "9"
     file_name = re.sub("[/|\\|.]", "_", img)
     file_size = os.path.getsize(img)
@@ -336,21 +349,35 @@ def palette():
 def get(
     img,
     light=False,
-    cols16=False,
     backend="wal",
     cache_dir=CACHE_DIR,
     sat="",
-    contrast="",
+    **kwargs,
 ):
-    """Generate a palette."""
+    """Generate a palette.
+    :keyword args:
+    c16: [ lighten | darken ] - generates a 16 color palette
+    cst: float                - applies contrast ratio to palette
+    """
+    if 'c16' in kwargs:
+        cols16 = kwargs["c16"]
+    else:
+        cols16 = False
+    if 'cst' in kwargs:
+        contrast = kwargs["cst"]
+    else:
+        contrast = ""
+
     # home_dylan_img_jpg_backend_1.2.2.json
     if not contrast or contrast == "":
         cache_name = cache_fname(
-            img, backend, cols16, light, cache_dir, sat, "None"
+            img, backend, light, cache_dir, sat,
+            c16=cols16, cst="None",
         )
     else:
         cache_name = cache_fname(
-            img, backend, cols16, light, cache_dir, sat, float(contrast)
+            img, backend, light, cache_dir, sat,
+            c16=cols16, cst=float(contrast)
         )
 
     cache_file = os.path.join(*cache_name)
@@ -377,7 +404,7 @@ def get(
 
         logging.info("Using %s backend.", backend)
         backend = sys.modules["pywal.backends.%s" % backend]
-        colors = getattr(backend, "get")(img, light, cols16)
+        colors = getattr(backend, "get")(img, light, c16=cols16)
 
         # Post-processing steps from command-line arguments
         colors = saturate_colors(colors, sat)
