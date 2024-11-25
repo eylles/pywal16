@@ -24,7 +24,10 @@ def gen_colors(img):
 
 
 def adjust(cols, light, **kwargs):
-    """Create palette."""
+    """Create palette.
+    :keyword-args:
+    -    c16: use 16 colors through specified method - [ "lighten" | "darken" ]
+    """
     if 'c16' in kwargs:
         cols16 = kwargs["c16"]
     else:
@@ -38,7 +41,10 @@ def adjust(cols, light, **kwargs):
 
 
 def get(img, light=False, **kwargs):
-    """Get colorscheme."""
+    """Get colorscheme.
+    :keyword-args:
+    -    c16: use 16 colors through specified method - [ "lighten" | "darken" ]
+    """
     if 'c16' in kwargs:
         cols16 = kwargs["c16"]
     else:
