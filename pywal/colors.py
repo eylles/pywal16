@@ -67,10 +67,13 @@ def colors_to_dict(colors, img):
 
 def generic_adjust(colors, light, **kwargs):
     """Generic color adjustment for themers.
-    :keyword args: c16 - [ lighten | darken ]
+    :keyword-args:
+    -    c16 - [ "lighten" | "darken" ]
     """
     if 'c16' in kwargs:
         cols16 = kwargs["c16"]
+    else:
+        cols16 = False
 
     if light:
         for color in colors:
@@ -273,7 +276,11 @@ def binary_luminance_adjust(
 
 
 def cache_fname(img, backend, light, cache_dir, sat="", **kwargs):
-    """Create the cache file name."""
+    """Create the cache file name.
+    :keyword-args:
+    -    c16: use 16 colors through specified method - [ "lighten" | "darken" ]
+    -    cst: palette contrast ratio - float
+    """
     color_type = "light" if light else "dark"
     if 'c16' in kwargs:
         cols16 = kwargs["c16"]
@@ -355,9 +362,9 @@ def get(
     **kwargs,
 ):
     """Generate a palette.
-    :keyword args:
-    c16: [ lighten | darken ] - generates a 16 color palette
-    cst: float                - applies contrast ratio to palette
+    :keyword-args:
+    -    c16: use 16 colors through specified method - [ "lighten" | "darken" ]
+    -    cst: apply contrast ratio to palette        - float
     """
     if 'c16' in kwargs:
         cols16 = kwargs["c16"]

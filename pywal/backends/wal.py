@@ -90,7 +90,10 @@ def gen_colors(img):
 
 def adjust(cols, light, **kwargs):
     """Adjust the generated colors and store them in a dict that
-    we will later save in json format."""
+    we will later save in json format.
+    :keyword-args:
+    -    c16: use 16 colors through specified method - [ "lighten" | "darken" ]
+    """
     if 'c16' in kwargs:
         cols16 = kwargs["c16"]
     else:
@@ -101,7 +104,10 @@ def adjust(cols, light, **kwargs):
 
 
 def get(img, light=False, **kwargs):
-    """Get colorscheme."""
+    """Get colorscheme.
+    :keyword-args:
+    -    c16: use 16 colors through specified method - [ "lighten" | "darken" ]
+    """
     if 'c16' in kwargs:
         cols16 = kwargs["c16"]
     else:
