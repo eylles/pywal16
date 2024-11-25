@@ -25,13 +25,21 @@ def gen_colors(img):
     return cols
 
 
-def adjust(cols, light, cols16):
+def adjust(cols, light, **kwargs):
     """Create palette."""
-    return colors.generic_adjust(cols, light, cols16)
+    if 'c16' in kwargs:
+        cols16 = kwargs["c16"]
+    else:
+        cols16 = False
+    return colors.generic_adjust(cols, light, c16=cols16)
 
 
-def get(img, light=False, cols16=False):
+def get(img, light=False, **kwargs):
     """Get colorscheme."""
+    if 'c16' in kwargs:
+        cols16 = kwargs["c16"]
+    else:
+        cols16 = False
     if not shutil.which("okthief"):
         logging.error("okthief wasn't found on your system.")
         logging.error("Try another backend. (wal --backend)")
@@ -39,4 +47,4 @@ def get(img, light=False, cols16=False):
 
     cols = gen_colors(img)
     cols[0] = util.darken_color(cols[0], 0.80)
-    return adjust(cols, light, cols16)
+    return adjust(cols, light, c16=cols16)
