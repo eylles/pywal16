@@ -26,9 +26,9 @@ def list_backends():
 def normalize_img_path(img: str):
     """Normalizes the image path for output."""
     if os.name == "nt":
-        # On Windows, the JSON.dump ends up outputting un-escaped backslash breaking
-        # the ability to read colors.json. Windows supports forward slash, so we can
-        # use that for now
+        # On Windows, the JSON.dump ends up outputting un-escaped backslash
+        # breaking the ability to read colors.json. Windows supports forward
+        # slash, so we can use that for now
         return img.replace("\\", "/")
     return img
 
@@ -70,7 +70,7 @@ def generic_adjust(colors, light, **kwargs):
     :keyword-args:
     -    c16 - [ "lighten" | "darken" ]
     """
-    if 'c16' in kwargs:
+    if "c16" in kwargs:
         cols16 = kwargs["c16"]
     else:
         cols16 = False
@@ -152,7 +152,8 @@ def saturate_colors(colors, amount):
 
 
 def ensure_contrast(colors, contrast, light, image):
-    """Ensure user-specified W3 contrast of colors depending on dark or light theme."""
+    """Ensure user-specified W3 contrast of colors
+    depending on dark or light theme."""
     # If no contrast checking was specified, do nothing
     if not contrast or contrast == "":
         return colors
@@ -167,8 +168,9 @@ def ensure_contrast(colors, contrast, light, image):
     background_luminance = background_color.w3_luminance
 
     # Calculate the required W3 luminance for the desired contrast ratio
-    # This will modify all of the colors to be brighter or darker than the background
-    # image depending on whether the user has specified for a dark or light theme
+    # This will modify all of the colors to be brighter or darker than the
+    # background image depending on whether the user has specified for a
+    # dark or light theme
     try:
         if light:
             luminance_desired = (background_luminance + 0.05) / float(
@@ -190,7 +192,8 @@ def ensure_contrast(colors, contrast, light, image):
         return colors
 
     # Determine which colors should be modified / checked
-    # ! For the time being this is just going to modify all the colors except 0 and 15
+    # ! For the time being this is just going to modify all the colors except
+    # 0 and 15
     colors_to_contrast = range(1, 15)
 
     # Modify colors
@@ -209,8 +212,8 @@ def ensure_contrast(colors, contrast, light, image):
 
         # Determine how to modify the color based on its HSV characteristics
 
-        # If the color is to be lighter than background, and the HSV color with value 1
-        # has sufficient luminance, adjust by increasing value
+        # If the color is to be lighter than background, and the HSV color
+        # with value 1 has sufficient luminance, adjust by increasing value
         if (
             not light
             and util.Color(
@@ -226,13 +229,15 @@ def ensure_contrast(colors, contrast, light, image):
             colors[index] = binary_luminance_adjust(
                 luminance_desired, h, s, s, v, 1
             )
-        # If the color is to be lighter than background and increasing value to 1 doesn't
-        #  produce the desired luminance, additionally decrease saturation
+        # If the color is to be lighter than background and increasing value
+        # to 1 doesn't produce the desired luminance, additionally decrease
+        # saturation
         elif not light:
             colors[index] = binary_luminance_adjust(
                 luminance_desired, h, 0, s, 1, 1
             )
-        # If the color is to be darker than background, produce desired luminance by decreasing value, and raising saturation
+        # If the color is to be darker than background, produce desired
+        # luminance by decreasing value, and raising saturation
         else:
             colors[index] = binary_luminance_adjust(
                 luminance_desired, h, s, 1, 0, v
@@ -244,14 +249,16 @@ def ensure_contrast(colors, contrast, light, image):
 def binary_luminance_adjust(
     luminance_desired, hue, s_min, s_max, v_min, v_max, iterations=10
 ):
-    """Use a binary method to adjust a color's value and/or saturation to produce the desired luminance"""
+    """Use a binary method to adjust a color's value and/or
+    saturation to produce the desired luminance"""
     for i in range(iterations):
         # Obtain a new color by averaging saturation and value
         s = (s_min + s_max) / 2
         v = (v_min + v_max) / 2
 
         # Compare the luminance of this color to the target luminance
-        # If the color is too light, clamp the minimum saturation and maximum value
+        # If the color is too light, clamp the minimum saturation
+        # and maximum value
         if (
             util.Color(
                 util.rgb_to_hex(
@@ -265,7 +272,8 @@ def binary_luminance_adjust(
         ):
             s_min = s
             v_max = v
-        # If the color is too dark, clamp the maximum saturation and minimum value
+        # If the color is too dark, clamp the maximum saturation
+        # and minimum value
         else:
             s_max = s
             v_min = v
@@ -282,11 +290,11 @@ def cache_fname(img, backend, light, cache_dir, sat="", **kwargs):
     -    cst: palette contrast ratio - float
     """
     color_type = "light" if light else "dark"
-    if 'c16' in kwargs:
+    if "c16" in kwargs:
         cols16 = kwargs["c16"]
     else:
         cols16 = False
-    if 'cst' in kwargs:
+    if "cst" in kwargs:
         contrast = kwargs["cst"]
     else:
         contrast = ""
@@ -366,11 +374,11 @@ def get(
     -    c16: use 16 colors through specified method - [ "lighten" | "darken" ]
     -    cst: apply contrast ratio to palette        - float
     """
-    if 'c16' in kwargs:
+    if "c16" in kwargs:
         cols16 = kwargs["c16"]
     else:
         cols16 = False
-    if 'cst' in kwargs:
+    if "cst" in kwargs:
         contrast = kwargs["cst"]
     else:
         contrast = ""

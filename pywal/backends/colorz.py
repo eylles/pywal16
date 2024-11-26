@@ -29,7 +29,7 @@ def adjust(cols, light, **kwargs):
     :keyword-args:
     -    c16: use 16 colors through specified method - [ "lighten" | "darken" ]
     """
-    if 'c16' in kwargs:
+    if "c16" in kwargs:
         cols16 = kwargs["c16"]
     else:
         cols16 = False
@@ -44,7 +44,7 @@ def get(img, light=False, **kwargs):
     :keyword-args:
     -    c16: use 16 colors through specified method - [ "lighten" | "darken" ]
     """
-    if 'c16' in kwargs:
+    if "c16" in kwargs:
         cols16 = kwargs["c16"]
     else:
         cols16 = False
