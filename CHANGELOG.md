@@ -7,6 +7,22 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.7.0] - 2024-11-27
+
+- Added `foot` terminal emulator template.
+- Added `zed` template.
+- Remove redundant template `colors.hs`.
+- Add `--contrast` option.
+- Enable MS Windows color output.
+- Use kwargs for the cols16 and contrast internal API.
+- Improved info log to include template directory paths.
+- Add optional dependencies to setup.py.
+- Made `checksum` available to the colorscheme dict.
+- Added `adjust_alpha` function to be used in templates.
+- Added support for MacOS Sonoma.
+- Added manpage `wa.1`.
+- Changed formatting to use `BLACK` formatter.
+
 ## [3.6.0] - 2024-07-04
 
 - Fixed empty message on KDE plasma when sending sequences.
@@ -781,7 +797,8 @@ Note to self: Don't flag releases before coffee.
 
 
 
-[Unreleased]: https://github.com/eylles/pywal16/compare/3.6.0...HEAD
+[Unreleased]: https://github.com/eylles/pywal16/compare/3.7.0...HEAD
+[3.7.0]: https://github.com/eylles/pywal16/compare/3.6.0...3.7.0
 [3.6.0]: https://github.com/eylles/pywal16/compare/3.5.4...3.6.0
 [3.5.4]: https://github.com/eylles/pywal16/compare/3.5.3...3.5.4
 [3.5.3]: https://github.com/eylles/pywal16/compare/3.5.2...3.5.3
