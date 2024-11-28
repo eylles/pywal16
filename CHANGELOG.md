@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.7.1] - 2024-11-27
+
+- Use test_file3.json in test_export.py.
+
 ## [3.7.0] - 2024-11-27
 
 - Added `foot` terminal emulator template.
@@ -797,7 +801,8 @@ Note to self: Don't flag releases before coffee.
 
 
 
-[Unreleased]: https://github.com/eylles/pywal16/compare/3.7.0...HEAD
+[Unreleased]: https://github.com/eylles/pywal16/compare/3.7.1...HEAD
+[3.7.1]: https://github.com/eylles/pywal16/compare/3.7.0...3.7.1
 [3.7.0]: https://github.com/eylles/pywal16/compare/3.6.0...3.7.0
 [3.6.0]: https://github.com/eylles/pywal16/compare/3.5.4...3.6.0
 [3.5.4]: https://github.com/eylles/pywal16/compare/3.5.3...3.5.4
