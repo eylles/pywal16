@@ -1,0 +1,188 @@
+.TH WAL 1  pywal16
+.SH NAME
+wal \- Generate colorschemes on the fly
+.SH SYNOPSIS
+.B wal
+.RB [ \-hclnqrRstvwe ]
+.RB [ -a
+.IR "alpha" ]
+.RB [ -b
+.IR background ]
+.RB [ --fg
+.IR foreground ]
+.RB [ --backend
+.IR [backend] ]
+.RB [ --theme
+.IR /path/to/file
+or
+.IR theme_name ]
+.RB [ --iterative ]
+.RB [ --cols16
+.IR [method] ]
+.RB [ --recursive ]
+.RB [ --saturate
+.IR 0.0-1.0 ]
+.RB [ --preview ]
+.RB [ --vte ]
+.RB [ -i
+.IR "/path/to/img.jpg" ]
+.RB [ -o
+.IR "script_name" ]
+.RB [ -p
+.IR "theme_name" ]
+.RB [ --contrast
+.IR [1.0-21.0] ]
+.SH DESCRIPTION
+wal is a tool that generates a color palette from the dominant colors in an image. It then applies the colors system-wide and on-the-fly in all of your favourite programs.
+.SH OPTIONS
+.TP
+.B "\-h, \-\-help"
+Print brief usage information to standard output and exit.
+
+.TP
+.BI "\-a " alpha
+Set terminal background transparency to
+.IR alpha .
+ *Only works in URxvt*
+
+.TP
+.BI "\-b " background
+Custom
+.IR background
+color to use.
+
+.TP
+.BI "\-\-fg " foreground
+Custom
+.IR foreground
+color to use.
+
+.TP
+.BI "\-\-backend " backend
+Which color backend to use. Use 'wal \-\-backend' to list backends.
+
+.TP
+.BI "\-f, \-\-theme " /path/to/file\ or\ theme_name
+Which colorscheme file to use. Use 'wal \-\-theme' to list builtin and user themes.
+
+.TP
+.BI "\-\-iterative "
+When pywal is given a directory as input and this flag is used: Go through the images in order instead of shuffled.
+
+.TP
+.BI "\-\-cols16 " method
+Use 16 color output, method is either
+.IR darken
+or
+.IR lighten
+default:
+.IR darken
+
+.TP
+.B "\-\-recursive "
+When pywal is given a directory as input and this flag is used: Search for images recursively in subdirectories instead of the root only.
+
+.TP
+.BI "\-\-saturate " [0.0-1.0]
+Set the color saturation.
+
+.TP
+.B "\-\-preview "
+Print the current color palette.
+
+.TP
+.B "\-\-vte "
+Fix text-artifacts printed in VTE terminals.
+
+.TP
+.B "\-c "
+Delete all cached colorschemes.
+
+.TP
+.BI "\-i " "/path/to/img.jpg"
+Which image or directory to use.
+
+.TP
+.B "\-l "
+Generate a light colorscheme.
+
+.TP
+.B "\-n "
+Skip setting the wallpaper.
+
+.TP
+.BI "\-o " "script_name"
+External script to run after "wal".
+
+.TP
+.BI "\-p " "theme_name"
+permanently save theme to
+.IR $XDG_CONFIG_HOME/wal/colorschemes
+with the specified
+.IR theme_name .
+
+.TP
+.B "\-q "
+Quiet mode, don't print anything.
+
+.TP
+.B "\-r "
+'wal -r' is deprecated: Use (cat ~/.cache/wal/sequences &) instead.
+
+.TP
+.B "\-R "
+Restore previous colorscheme.
+
+.TP
+.B "\-s "
+Skip changing colors in terminals.
+
+.TP
+.B "\-t "
+Skip changing colors in tty.
+
+.TP
+.B "\-v "
+Print "wal" version.
+
+.TP
+.B "\-w "
+Use last used wallpaper for color generation.
+
+.TP
+.B "\-e "
+Skip reloading gtk/xrdb/i3/sway/polybar
+
+.TP
+.IB "\-\-contrast " [1.0-21.0]
+Specify a minimum contrast ratio between palette colors and the source image according to W3 contrast specifications. Values between 1.5-4.5 typically work best.
+
+.SH TEMPLATEs
+.P
+Wal supports user defined template files. What this means is that similar to the export files in the
+.B $XDG_CACHE_HOME/wal/
+directory, you can create your own files which will be processed by pywal and spit out in this directory.
+.P
+The user defined files are read from
+.B $XDG_CONFIG_HOME/wal/templates/
+and are exported to
+.B $XDG_CACHE_HOME/wal/
+under the same name. Using this feature you can also overwrite the default export files
+.SH ORIGINAL AUTHOR
+.EX
+.EE
+Dylan Araps            <dylan.araps at gmail.com>
+.SH MAINTAINER
+.EX
+eylles                 <ed.ylles1997 at gmail.com>
+.EE
+.SH CONTRIBUTORS
+.EX
+For a list of contributors, run `git shortlog -s` in the nsxiv git repository.
+.EE
+.SH HOMEPAGE
+.TP
+Source code:
+.EE
+https://github.com/eylles/pywal16
+.EX
