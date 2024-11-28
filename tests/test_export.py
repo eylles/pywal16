@@ -8,7 +8,7 @@ from pywal import export
 from pywal import util
 
 
-COLORS = util.read_file_json("tests/test_files/test_file.json")
+COLORS = util.read_file_json("tests/test_files/test_file3.json")
 COLORS["colors"].update(COLORS["special"])
 
 TMP_DIR = "/tmp/wal"
