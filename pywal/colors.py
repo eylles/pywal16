@@ -297,12 +297,12 @@ def cache_fname(img, backend, light, cache_dir, sat="", **kwargs):
     if "cst" in kwargs:
         contrast = kwargs["cst"]
     else:
-        contrast = ""
+        contrast = False
     color_num = "16" if cols16 else "9"
     file_name = re.sub("[/|\\|.]", "_", img)
     file_size = os.path.getsize(img)
 
-    if cols16:
+    if cols16 and contrast:
         file_parts = [
             file_name,
             color_num,
@@ -319,10 +319,25 @@ def cache_fname(img, backend, light, cache_dir, sat="", **kwargs):
             "schemes",
             "%s_%s_%s_%s_%s_%s_%s_%s_%s.json" % (*file_parts,),
         ]
-    else:
+    if cols16 and (not contrast):
         file_parts = [
             file_name,
             color_num,
+            cols16,
+            color_type,
+            backend,
+            sat,
+            file_size,
+            __cache_version__,
+        ]
+        return [
+            cache_dir,
+            "schemes",
+            "%s_%s_%s_%s_%s_%s_%s_%s.json" % (*file_parts,),
+        ]
+    if (not cols16) and contrast:
+        file_parts = [
+            file_name,
             color_type,
             backend,
             sat,
@@ -333,7 +348,21 @@ def cache_fname(img, backend, light, cache_dir, sat="", **kwargs):
         return [
             cache_dir,
             "schemes",
-            "%s_%s_%s_%s_%s_%s_%s_%s.json" % (*file_parts,),
+            "%s_%s_%s_%s_%s_%s_%s.json" % (*file_parts,),
+        ]
+    else:
+        file_parts = [
+            file_name,
+            color_type,
+            backend,
+            sat,
+            file_size,
+            __cache_version__,
+        ]
+        return [
+            cache_dir,
+            "schemes",
+            "%s_%s_%s_%s_%s_%s.json" % (*file_parts,),
         ]
 
 
@@ -387,7 +416,7 @@ def get(
     if not contrast or contrast == "":
         cache_name = cache_fname(
             img, backend, light, cache_dir, sat,
-            c16=cols16, cst="None",
+            c16=cols16
         )
     else:
         cache_name = cache_fname(
