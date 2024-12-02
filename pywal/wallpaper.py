@@ -177,6 +177,9 @@ def set_desktop_wallpaper(desktop, img):
                 string % img,
             ]
         )
+
+    elif "hyprland" in desktop:
+        util.disown(["hyprpaper"])
     else:
         set_wm_wallpaper(img)
 
