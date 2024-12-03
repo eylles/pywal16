@@ -106,8 +106,7 @@ def waybar():
         util.disown(["killall", "waybar"])
         time.sleep(0.1)
         subprocess.call("waybar")
-        # subprocess.Popen("waybar").pid()
-        # print(shutil.which("waybar"))
+
 
 def colors(cache_dir=CACHE_DIR):
     """Reload colors. (Deprecated)"""
