@@ -323,9 +323,6 @@ def parse_args(parser):
         for cmd in args.o:
             util.disown([cmd])
 
-    if not args.e:
-        reload.gtk()
-
 
 def main():
     """Main script function."""
