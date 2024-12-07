@@ -9,6 +9,7 @@ import sys
 
 from .settings import CACHE_DIR, CONF_DIR, MODULE_DIR
 from . import util
+from . import colors
 
 
 def list_out():
@@ -128,8 +129,13 @@ def get_random_theme_user():
     return themes[0]
 
 
-def file(input_file, light=False):
+def file(input_file, light=False, **kwargs):
     """Import colorscheme from json file."""
+    if "c16" in kwargs:
+        cols16 = kwargs["c16"]
+    else:
+        cols16 = False
+
     util.create_dir(os.path.join(CONF_DIR, "colorschemes/light/"))
     util.create_dir(os.path.join(CONF_DIR, "colorschemes/dark/"))
 
@@ -164,7 +170,12 @@ def file(input_file, light=False):
             os.path.basename(theme_file),
             os.path.join(CACHE_DIR, "last_used_theme"),
         )
-        return parse(theme_file)
+        r_theme = parse(theme_file)
+        if cols16:
+            if r_theme["colors"]["color1"] == r_theme["colors"]["color9"]:
+                logging.info("requested theme uses 9 shades, converting to 16")
+                colors.shade_16(r_theme["colors"], light, cols16)
+        return r_theme
 
     logging.error("No %s colorscheme file found.", bri)
     logging.error("Try adding   '-l' to set light themes.")

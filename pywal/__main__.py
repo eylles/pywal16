@@ -275,7 +275,7 @@ def parse_args(parser):
         )
 
     if args.theme:
-        colors_plain = theme.file(args.theme, args.l)
+        colors_plain = theme.file(args.theme, args.l, c16=args.cols16)
         if args.i:
             colors_plain["wallpaper"] = args.i
 
