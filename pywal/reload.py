@@ -90,9 +90,7 @@ def firefox():
 def waybar():
     "Reload waybar colors"
     if shutil.which("waybar") and util.get_pid("waybar"):
-        util.disown(["killall", "waybar"])
-        time.sleep(0.1)
-        subprocess.call("waybar")
+        util.disown(["pkill", "-USR2", "waybar"])
 
 
 def colors(cache_dir=CACHE_DIR):
