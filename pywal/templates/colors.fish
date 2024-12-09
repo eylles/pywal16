@@ -1,25 +1,39 @@
-set fish_color_normal normal
-set fish_color_command {color3.strip}
-set fish_color_param {color11.strip}
-set fish_color_redirection $fish_color_param
-set fish_color_comment {color2.strip}
-set fish_color_error ff0000
-set fish_color_escape {color1.strip}
-set fish_color_operator $fish_color_escape
-set fish_color_end {color1.strip}
-set fish_color_quote {color2.strip}
 set fish_color_autosuggestion {color8.strip}
-set fish_color_user {color12.strip}
-set fish_color_host {color4.strip}
-set fish_color_valid_path --underline
-set fish_color_cwd {color4.strip}
-set fish_color_cwd_root red
-set fish_color_match --background=brblue
-set fish_color_search_match bryellow --background=brblack
-set fish_color_selection white --bold --background=brblack
-set fish_color_cancel -r
-set fish_pager_color_prefix white --bold --underline
-set fish_pager_color_completion {color15.strip} --background={color0.strip}
-set fish_pager_color_description $fish_color_quote yellow
-set fish_pager_color_progress {color6.strip} --background={color0.strip}
+set fish_color_cancel {color1.strip} '--reverse'
+set fish_color_command {color10.strip}
+set fish_color_comment {color8.strip}
+set fish_color_cwd {color2.strip}
+set fish_color_cwd_root {color1.strip}
+set fish_color_end {color3.strip}
+set fish_color_error {color1.strip}
+set fish_color_escape {color5.strip}
 set fish_color_history_current --bold
+set fish_color_host {color12.strip}
+set fish_color_host_remote {color12.strip}
+set fish_color_keyword {color5.strip}
+set fish_color_match --background={color4.strip}
+set fish_color_normal {foreground.strip}
+set fish_color_operator {color6.strip}
+set fish_color_option {color3.strip}
+set fish_color_param {color12.strip}
+set fish_color_quote {color11.strip}
+set fish_color_redirection {color5.strip}
+set fish_color_search_match --background={color8.strip}
+set fish_color_selection --background={color8.strip}
+set fish_color_status {color1.strip}
+set fish_color_user {color10.strip}
+set fish_color_valid_path --underline
+
+set fish_pager_color_background {background.strip}
+set fish_pager_color_completion {foreground.strip}
+set fish_pager_color_description {color8.strip}
+set fish_pager_color_prefix {color10.strip}
+set fish_pager_color_progress {color8.strip}
+set fish_pager_color_secondary_background {background.strip}
+set fish_pager_color_secondary_completion {foreground.strip}
+set fish_pager_color_secondary_description {color8.strip}
+set fish_pager_color_secondary_prefix {color10.strip}
+set fish_pager_color_selected_background --background={color8.strip}
+set fish_pager_color_selected_completion {foreground.strip}
+set fish_pager_color_selected_description {color8.strip}
+set fish_pager_color_selected_prefix {color10.strip}
