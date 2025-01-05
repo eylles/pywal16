@@ -15,12 +15,10 @@ import os
 import shutil
 import sys
 
-try:
+if sys.platform.startswith("win"):
     import colorama
 
-    colorama.just_fix_windows_console()  # NOOP for non-Windows
-except ImportError:
-    pass
+    colorama.just_fix_windows_console()
 
 from .settings import __version__, CACHE_DIR, CONF_DIR
 from . import colors
