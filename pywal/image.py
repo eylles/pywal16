@@ -18,7 +18,7 @@ def get_image_dir_recursive(img_dir):
     current_wall = wallpaper.get()
     current_wall = os.path.basename(current_wall)
 
-    file_types = (".png", ".jpg", ".jpeg", ".jpe", ".gif")
+    file_types = (".png", ".jpg", ".jpeg", ".jpe", ".gif", ".webp")
 
     images = []
     for path, _, files in os.walk(img_dir):
