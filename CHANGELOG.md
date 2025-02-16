@@ -7,6 +7,27 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.8.0] - 2025-02-15
+
+New features:
+- Added Dynamic shade conversion, using the `--cols16` flag will convert 9 shades themes to 16 shades.
+- Added Nested template directories, subdirectories with templates can be created inside the templates dir.
+- Added support for pywalfox.
+- Added support for waybar.
+- Added support for hyprpaper.
+- Added Dracula colorschemes.
+- Added ghostty template.
+- Added base16-kanagawa colorscheme.
+- Added color template for dwm urgent window patch.
+
+Bug fixes and Improvements:
+- Better colors for Fish.
+- Restrict colorama import only to ms windows.
+- Change dwm selection background to match dmenu.
+
+Removals:
+- gtk reloading, python 2 is obsolete and that method worked only for gtk2.
+
 ## [3.7.2] - 2024-11-29
 
 - make color.get and color.cache_fname API more backwards compatible.
@@ -805,7 +826,8 @@ Note to self: Don't flag releases before coffee.
 
 
 
-[Unreleased]: https://github.com/eylles/pywal16/compare/3.7.2...HEAD
+[Unreleased]: https://github.com/eylles/pywal16/compare/3.8.0...HEAD
+[3.8.0]: https://github.com/eylles/pywal16/compare/3.7.2...3.8.0
 [3.7.2]: https://github.com/eylles/pywal16/compare/3.7.1...3.7.2
 [3.7.1]: https://github.com/eylles/pywal16/compare/3.7.0...3.7.1
 [3.7.0]: https://github.com/eylles/pywal16/compare/3.6.0...3.7.0
