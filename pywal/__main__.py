@@ -29,6 +29,7 @@ from . import sequences
 from . import theme
 from . import util
 from . import wallpaper
+from . import donation
 
 
 def get_args():
@@ -333,6 +334,7 @@ def main():
 
     parse_args_exit(parser)
     parse_args(parser)
+    donation.donation_message()
 
 
 if __name__ == "__main__":
