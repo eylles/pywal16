@@ -179,6 +179,7 @@ def set_desktop_wallpaper(desktop, img):
         )
 
     elif "hyprland" in desktop and shutil.which("hyprpaper"):
+        util.disown(["hyprctl", "hyprpaper", "preload", ", " + img])
         util.disown(["hyprctl", "hyprpaper", "wallpaper", ", " + img])
     else:
         set_wm_wallpaper(img)
