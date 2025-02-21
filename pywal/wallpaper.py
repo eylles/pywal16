@@ -82,6 +82,10 @@ def set_wm_wallpaper(img):
     elif shutil.which("feh"):
         util.disown(["feh", "--bg-fill", img])
 
+    elif shutil.which("wbg"):
+        subprocess.call(["killall", "wbg"])
+        util.disown(["wbg", img])
+
     elif shutil.which("xwallpaper"):
         util.disown(["xwallpaper", "--zoom", img])
 
