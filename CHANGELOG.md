@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.8.1] - 2025-02-23
+Fixes:
+- Hyprland and Hyprpaper support working properly.
+
+New:
+- Hyprland colors template.
+- dwl colors template.
+- Added support for `wbg`.
+- Added catpuccin colorschemes.
+
 ## [3.8.0] - 2025-02-15
 
 New features:
@@ -826,7 +836,8 @@ Note to self: Don't flag releases before coffee.
 
 
 
-[Unreleased]: https://github.com/eylles/pywal16/compare/3.8.0...HEAD
+[Unreleased]: https://github.com/eylles/pywal16/compare/3.8.1...HEAD
+[3.8.1]: https://github.com/eylles/pywal16/compare/3.8.0...3.8.1
 [3.8.0]: https://github.com/eylles/pywal16/compare/3.7.2...3.8.0
 [3.7.2]: https://github.com/eylles/pywal16/compare/3.7.1...3.7.2
 [3.7.1]: https://github.com/eylles/pywal16/compare/3.7.0...3.7.1
