@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.8.2] - 2025-03-03
+Fixes:
+- Hyprland and Hyprpaper support actually this time.
+
+    New:
+- Fuzzel template.
+- Tofi template.
+- Mako template.
+- Zathura template.
+- webp image format support.
+
 ## [3.8.1] - 2025-02-23
 Fixes:
 - Hyprland and Hyprpaper support working properly.
@@ -836,7 +847,8 @@ Note to self: Don't flag releases before coffee.
 
 
 
-[Unreleased]: https://github.com/eylles/pywal16/compare/3.8.1...HEAD
+[Unreleased]: https://github.com/eylles/pywal16/compare/3.8.2...HEAD
+[3.8.2]: https://github.com/eylles/pywal16/compare/3.8.1...3.8.2
 [3.8.1]: https://github.com/eylles/pywal16/compare/3.8.0...3.8.1
 [3.8.0]: https://github.com/eylles/pywal16/compare/3.7.2...3.8.0
 [3.7.2]: https://github.com/eylles/pywal16/compare/3.7.1...3.7.2
