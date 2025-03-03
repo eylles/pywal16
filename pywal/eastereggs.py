@@ -29,7 +29,13 @@ poorly cobbled together one from a program or a premade theme rather than
 putting any form of effort in.
 """
 
+gimp = """
+GIMP = Green Is My Pepper
+"""
+
 
 def eemsg():
     if datetime.datetime.now().month == 4 and datetime.datetime.now().day == 1:
         print(ricing_feels_soulless)
+    if datetime.datetime.now().month == 3 and datetime.datetime.now().day == 16:
+        print(gimp)
