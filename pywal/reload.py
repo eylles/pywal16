@@ -102,6 +102,9 @@ def colors(cache_dir=CACHE_DIR):
     if os.path.isfile(sequences):
         print("".join(util.read_file(sequences)), end="")
 
+def termux():
+    if shutil.which("termux-reload-settings"):
+        util.disown(["termux-reload-settings"])
 
 def env(xrdb_file=None, tty_reload=True):
     """Reload environment."""
@@ -112,6 +115,7 @@ def env(xrdb_file=None, tty_reload=True):
     sway()
     polybar()
     waybar()
+    termux()
     firefox()
     logging.info("Reloaded environment.")
     tty(tty_reload)
