@@ -172,9 +172,16 @@ def set_desktop_wallpaper(desktop, img):
             d.currentConfigGroup = Array("Wallpaper", "org.kde.image",
             "General");d.writeConfig("Image", "%s")};
         """
+        if shutil.which("qdbus"):
+            use_qdbus = "qdbus"
+        elif shutil.which("qdbus6"):
+            use_qdbus = "qdbus6"
+        else:
+            logging.error("No qdbus or qdbus6 binary found")
+            return
         util.disown(
             [
-                "qdbus",
+                use_qdbus,
                 "org.kde.plasmashell",
                 "/PlasmaShell",
                 "org.kde.PlasmaShell.evaluateScript",
