@@ -172,12 +172,14 @@ def set_desktop_wallpaper(desktop, img):
             d.currentConfigGroup = Array("Wallpaper", "org.kde.image",
             "General");d.writeConfig("Image", "%s")};
         """
-        if shutil.which("qdbus"):
-            use_qdbus = "qdbus"
-        elif shutil.which("qdbus6"):
+        if shutil.which("qdbus6"):
             use_qdbus = "qdbus6"
+        elif shutil.which("qdbus5"):
+            use_qdbus = "qdbus5"
+        elif shutil.which("qdbus"):
+            use_qdbus = "qdbus"
         else:
-            logging.error("No qdbus or qdbus6 binary found")
+            logging.error("No qdbus6, qdbus5 or qdbus binary found")
             return
         util.disown(
             [
