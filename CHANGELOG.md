@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.8.3] - 2025-03-16
+New:
+- `retroarch` rgui colors template.
+- `termux` support.
+
+Fixes:
+- `KDE` 6.3.3 error where pywal would crash upon failing to set the wallpaper.
+
 ## [3.8.2] - 2025-03-03
 Fixes:
 - Hyprland and Hyprpaper support actually this time.
@@ -847,7 +855,8 @@ Note to self: Don't flag releases before coffee.
 
 
 
-[Unreleased]: https://github.com/eylles/pywal16/compare/3.8.2...HEAD
+[Unreleased]: https://github.com/eylles/pywal16/compare/3.8.3...HEAD
+[3.8.3]: https://github.com/eylles/pywal16/compare/3.8.2...3.8.3
 [3.8.2]: https://github.com/eylles/pywal16/compare/3.8.1...3.8.2
 [3.8.1]: https://github.com/eylles/pywal16/compare/3.8.0...3.8.1
 [3.8.0]: https://github.com/eylles/pywal16/compare/3.7.2...3.8.0
