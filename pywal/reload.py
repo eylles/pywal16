@@ -82,13 +82,13 @@ def sway():
 
 
 def firefox():
-    """reload pywalfox"""
+    """reload pywalfox."""
     if shutil.which("pywalfox"):
         util.disown(["pywalfox", "update"])
 
 
 def waybar():
-    "Reload waybar colors"
+    """Reload waybar colors."""
     if shutil.which("waybar") and util.get_pid("waybar"):
         util.disown(["pkill", "-USR2", "waybar"])
 
@@ -103,8 +103,14 @@ def colors(cache_dir=CACHE_DIR):
         print("".join(util.read_file(sequences)), end="")
 
 def termux():
+    """reload termux colors."""
     if shutil.which("termux-reload-settings"):
         util.disown(["termux-reload-settings"])
+
+def mako():
+    """Reload mako colors."""
+    if shutil.which("mako") and util.get_pid("mako"):
+        util.disown(["makoctl", "reload"])
 
 def env(xrdb_file=None, tty_reload=True):
     """Reload environment."""
@@ -116,6 +122,7 @@ def env(xrdb_file=None, tty_reload=True):
     polybar()
     waybar()
     termux()
+    mako()
     firefox()
     logging.info("Reloaded environment.")
     tty(tty_reload)
