@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.8.4] - 2025-03-25
+New:
+- Added rosepine colorschemes.
+- Support reloading of mako.
+
 ## [3.8.3] - 2025-03-16
 New:
 - `retroarch` rgui colors template.
@@ -855,7 +860,8 @@ Note to self: Don't flag releases before coffee.
 
 
 
-[Unreleased]: https://github.com/eylles/pywal16/compare/3.8.3...HEAD
+[Unreleased]: https://github.com/eylles/pywal16/compare/3.8.4...HEAD
+[3.8.4]: https://github.com/eylles/pywal16/compare/3.8.3...3.8.4
 [3.8.3]: https://github.com/eylles/pywal16/compare/3.8.2...3.8.3
 [3.8.2]: https://github.com/eylles/pywal16/compare/3.8.1...3.8.2
 [3.8.1]: https://github.com/eylles/pywal16/compare/3.8.0...3.8.1
