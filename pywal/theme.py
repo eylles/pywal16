@@ -107,6 +107,8 @@ def parse(theme_file):
 
     if "alpha" not in data:
         data["alpha"] = util.Color.alpha_num
+    else:
+        util.Color.alpha_num = data["alpha"]
 
     # Terminal.sexy format.
     if "color" in data:
