@@ -112,6 +112,11 @@ def mako():
     if shutil.which("mako") and util.get_pid("mako"):
         util.disown(["makoctl", "reload"])
 
+def nvim():
+    """Reload nvim colors."""
+    if shutil.which("nvim") and os.path.exists("/tmp/nvim.pipe"):
+        util.disown(["nvim", "--server", "/tmp/nvim.pipe", "--remote-send", ":colorscheme pywal16<CR>"])
+
 def env(xrdb_file=None, tty_reload=True):
     """Reload environment."""
     xrdb(xrdb_file)
@@ -120,6 +125,7 @@ def env(xrdb_file=None, tty_reload=True):
     kitty()
     sway()
     polybar()
+    nvim()
     waybar()
     termux()
     mako()
