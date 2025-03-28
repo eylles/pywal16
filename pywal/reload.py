@@ -114,8 +114,8 @@ def mako():
 
 def nvim():
     """Reload nvim colors."""
-    if shutil.which("nvim") and os.path.exists("/tmp/nvim.pipe"):
-        util.disown(["nvim", "--server", "/tmp/nvim.pipe", "--remote-send", ":colorscheme pywal16<CR>"])
+    if shutil.which("nvim-colo-reload") and util.get_pid("nvim"):
+        util.disown(["nvim-colo-reload"])
 
 def env(xrdb_file=None, tty_reload=True):
     """Reload environment."""
