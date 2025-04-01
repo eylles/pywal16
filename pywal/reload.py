@@ -102,20 +102,24 @@ def colors(cache_dir=CACHE_DIR):
     if os.path.isfile(sequences):
         print("".join(util.read_file(sequences)), end="")
 
+
 def termux():
     """reload termux colors."""
     if shutil.which("termux-reload-settings"):
         util.disown(["termux-reload-settings"])
+
 
 def mako():
     """Reload mako colors."""
     if shutil.which("mako") and util.get_pid("mako"):
         util.disown(["makoctl", "reload"])
 
+
 def nvim():
     """Reload nvim colors."""
     if shutil.which("nvim-colo-reload") and util.get_pid("nvim"):
         util.disown(["nvim-colo-reload"])
+
 
 def env(xrdb_file=None, tty_reload=True):
     """Reload environment."""
