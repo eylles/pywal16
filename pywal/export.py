@@ -14,6 +14,7 @@ class ExportFile:
     """A simple class for representing the few things
     needed to read a file and exporting it.
     """
+
     def __init__(self, abs_path, base_dir):
         self.name = os.path.basename(abs_path)
         self.path = abs_path
@@ -132,7 +133,7 @@ def walk(directory):
     """Walks a directory tree and yields files for export"""
     for root, _, files in os.walk(directory):
         for file in files:
-            yield(ExportFile(os.path.join(root, file), directory))
+            yield (ExportFile(os.path.join(root, file), directory))
 
 
 def every(colors, output_dir=CACHE_DIR):
