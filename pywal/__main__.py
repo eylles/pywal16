@@ -15,11 +15,20 @@ import os
 import shutil
 import sys
 
-try:
-    import colorama
-    colorama.just_fix_windows_console()
-except ImportError:
-    colorama = None
+if sys.platform.startswith("win"):
+    try:
+        import colorama
+        colorama.just_fix_windows_console()
+    except ImportError:
+        winterm = os.environ.get("TERMINAL")
+        if (winterm != "wezterm") and \
+           (winterm != "alacritty") and \
+           (winterm != "hyper") and \
+           (winterm != "kitty") and \
+           (winterm != "putty") and \
+           (winterm != "ghostty") and \
+           (winterm != "mintty"):
+            show_colorama_warning = True
 
 from .settings import __version__, CACHE_DIR, CONF_DIR
 from . import colors
@@ -332,6 +341,10 @@ def main():
     util.create_dir(os.path.join(CONF_DIR, "colorschemes/dark/"))
 
     util.setup_logging()
+
+    if show_colorama_warning:
+        logging.warning("colorama is not present")
+
     parser = get_args()
 
     parse_args_exit(parser)
