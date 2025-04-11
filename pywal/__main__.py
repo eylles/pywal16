@@ -20,13 +20,16 @@ if sys.platform.startswith("win"):
         import colorama
         colorama.just_fix_windows_console()
     except ImportError:
+        no_colorama_terms = [
+                "wezterm",
+                "alacritty",
+                "hyper",
+                "putty",
+                "ghostty",
+                "mintty",
+                ]
         winterm = os.environ.get("TERMINAL")
-        if (winterm != "wezterm") and \
-           (winterm != "alacritty") and \
-           (winterm != "hyper") and \
-           (winterm != "putty") and \
-           (winterm != "ghostty") and \
-           (winterm != "mintty"):
+        if winterm not in no_colorama_terms:
             show_colorama_warning = True
 
 from .settings import __version__, CACHE_DIR, CONF_DIR
