@@ -24,7 +24,6 @@ if sys.platform.startswith("win"):
         if (winterm != "wezterm") and \
            (winterm != "alacritty") and \
            (winterm != "hyper") and \
-           (winterm != "kitty") and \
            (winterm != "putty") and \
            (winterm != "ghostty") and \
            (winterm != "mintty"):
