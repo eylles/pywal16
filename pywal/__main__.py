@@ -15,6 +15,7 @@ import os
 import shutil
 import sys
 
+show_colorama_warning = False
 if sys.platform.startswith("win"):
     try:
         import colorama
