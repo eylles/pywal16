@@ -15,6 +15,19 @@ import os
 import shutil
 import sys
 
+from .settings import __version__, CACHE_DIR, CONF_DIR
+from . import colors
+from . import export
+from . import image
+from . import reload
+from . import sequences
+from . import theme
+from . import util
+from . import wallpaper
+from . import donation
+from . import eastereggs
+
+
 show_colorama_warning = False
 if sys.platform.startswith("win"):
     try:
@@ -32,18 +45,6 @@ if sys.platform.startswith("win"):
         if os.environ.get("TERMINAL") not in no_colorama_terms and \
            os.environ.get("TERM_PROGRAM") not in no_colorama_terms:
             show_colorama_warning = True
-
-from .settings import __version__, CACHE_DIR, CONF_DIR
-from . import colors
-from . import export
-from . import image
-from . import reload
-from . import sequences
-from . import theme
-from . import util
-from . import wallpaper
-from . import donation
-from . import eastereggs
 
 
 def get_args():
