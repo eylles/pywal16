@@ -28,8 +28,8 @@ if sys.platform.startswith("win"):
                 "ghostty",
                 "mintty",
                 ]
-        winterm = os.environ.get("TERMINAL")
-        if winterm not in no_colorama_terms:
+        if os.environ.get("TERMINAL") not in no_colorama_terms and \
+           os.environ.get("TERM_PROGRAM") not in no_colorama_terms:
             show_colorama_warning = True
 
 from .settings import __version__, CACHE_DIR, CONF_DIR
