@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.8.6] - 2025-04-14
+Fixes:
+- `pywal` no longer crashes on windows when `colorama` is not present.
+
 ## [3.8.5] - 2025-03-31
 New:
 - Added tokyonight colorschemes.
@@ -866,7 +870,8 @@ Note to self: Don't flag releases before coffee.
 
 
 
-[Unreleased]: https://github.com/eylles/pywal16/compare/3.8.5...HEAD
+[Unreleased]: https://github.com/eylles/pywal16/compare/3.8.6...HEAD
+[3.8.6]: https://github.com/eylles/pywal16/compare/3.8.5...3.8.6
 [3.8.5]: https://github.com/eylles/pywal16/compare/3.8.4...3.8.5
 [3.8.4]: https://github.com/eylles/pywal16/compare/3.8.3...3.8.4
 [3.8.3]: https://github.com/eylles/pywal16/compare/3.8.2...3.8.3
