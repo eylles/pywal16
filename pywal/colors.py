@@ -460,7 +460,6 @@ def get(
         "checksum"
     ] == util.get_img_checksum(img):
         colors = theme.file(cache_file)
-        colors["alpha"] = util.Color.alpha_num
         logging.info("Found cached colorscheme.")
 
     else:
