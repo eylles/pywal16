@@ -32,6 +32,7 @@ class Color:
     """Color formats."""
 
     alpha_num = "100"
+    passed_alpha_num = None
 
     def __init__(self, hex_color):
         self.hex_color = hex_color

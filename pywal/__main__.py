@@ -273,7 +273,8 @@ def parse_args(parser):
         sys.stdout = sys.stderr = open(os.devnull, "w")
 
     if args.a:
-        util.Color.alpha_num = args.a
+        util.Color.passed_alpha_num = args.a
+        util.Color.alpha_num = args.a or util.Color.alpha_num
 
     if args.i and not args.theme:
         image_file = image.get(

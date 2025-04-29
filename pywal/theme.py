@@ -105,7 +105,7 @@ def parse(theme_file):
     if "wallpaper" not in data:
         data["wallpaper"] = "None"
 
-    if "alpha" not in data:
+    if util.Color.passed_alpha_num or "alpha" not in data:
         data["alpha"] = util.Color.alpha_num
     else:
         util.Color.alpha_num = data["alpha"]
