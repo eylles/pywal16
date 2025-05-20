@@ -306,6 +306,25 @@ def lighten_color(color, amount):
     return rgb_to_hex(color)
 
 
+def alpha_integrify(alpha_value):
+    """
+    ensure the alpha string is an int between 0 and 100
+
+    return: int string between 0 an 100
+    """
+    # could be a string containing a float like 0.7
+    a = float(alpha_value)
+    if a < 1:
+        if a < 0:
+            a = abs(a)
+        a = a * 100
+        if a > 100:
+            a = 100
+    a = int(a)
+    a = str(a)
+    return a
+
+
 def blend_color(color, color2):
     """Blend two colors together."""
     r1, g1, b1 = hex_to_rgb(color)
