@@ -42,8 +42,9 @@ Print brief usage information to standard output and exit.
 .TP
 .BI "\-a " alpha
 Set terminal background transparency to
-.IR alpha .
- *Only works in URxvt*
+.IR alpha . 
+The value must be an integer between 0 and 100.
+ *Only works in URxvt and terminals that implement the OSC-11 interface*
 
 .TP
 .BI "\-b " background
