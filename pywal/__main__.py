@@ -273,6 +273,7 @@ def parse_args(parser):
         sys.stdout = sys.stderr = open(os.devnull, "w")
 
     if args.a:
+        util.alpha_integrify(args.a)
         util.Color.passed_alpha_num = args.a
         util.Color.alpha_num = args.a or util.Color.alpha_num
 
