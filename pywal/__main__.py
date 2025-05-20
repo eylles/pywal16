@@ -56,7 +56,8 @@ def get_args():
         "-a",
         metavar='"alpha"',
         help="Set terminal background transparency. \
-                           *Only works in URxvt*",
+              Must be a number between 0 and 100. \
+              *Only works in terminals that implement OSC-11 (URxvt)*",
     )
 
     arg.add_argument(
