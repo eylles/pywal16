@@ -94,11 +94,24 @@ GIMP = Green Is My Pepper
 """
 
 
+pywal_is_so_cute = """
+Pywal is so cute omg(⁄ ⁄•⁄ω⁄•⁄ ⁄)⁄ when you hold it on your hand and
+it starts working its like its nuzzling you (/ω＼) or when it perks up and
+look at you like" owo nya? :3c" hehe ~ pywal-kun is happy to see me!!（＾ワ＾）
+and the most adorable thing ever is when colorscheme-sama comes out but theyre
+rlly shy so u have to work hard!!(๑•̀ㅁ•́๑)✧ but when pywal-kun and
+colorscheme-sama meet and theyre blushing and all like "uwaaa~!" (ﾉ´ヮ´)ﾉ*: ･ﾟ
+hehehe~  pywal-kun is so adorable (●´Д｀●)・:*:・
+"""
+
+
 def eemsg():
     if datetime.datetime.now().month == 4 and datetime.datetime.now().day == 1:
         print(ricing_feels_soulless)
     if datetime.datetime.now().month == 3 and datetime.datetime.now().day == 16:
         print(gimp)
+    if datetime.datetime.now().month == 6 and datetime.datetime.now().day == 21:
+        print(pywal_is_so_cute)
     if datetime.datetime.now().month == 9 and datetime.datetime.now().day == 15:
         print(we_will_replace_x11)
     if datetime.datetime.now().month == 9 and datetime.datetime.now().day == 30:
