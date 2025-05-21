@@ -32,6 +32,34 @@ remain of your legacy is a codebase that is unmistakably poorly written.
 This is your fate. This is what you chose. There is no turning back
 """
 
+we_will_replace_x11 = """
+To you who stood in the X.Org Developer's Conference and waved banners of
+obsolence and chanted "You will not replace us," please know one thing:
+
+We will replace you.
+
+Despite your insistence to the contrary, know that you have sown the seeds of
+your own irrelevance. This is not to say that X.Org Developers will be
+marginalized and replaced. But rather that people who believe in superiority
+based on programming in C and C++ have no place in our modern society.
+
+Your ahistorical, empty idolatry to protocol "purity" will be consigned to the
+trash heap of history.
+
+You will be replaced by Wayland Developers such as myself. You will be replaced
+by the many fine people I work with and am friends with, people who come in all
+protocols, compositors and believe in every programming paradigm imaginable.
+You will be replaced by people like my mother, a former X.Org developer now
+transitioned into a Wayland protocol developer who abhors everything your
+display server and windowing system stand for.
+
+You will be replaced by people who believe in the Wayland project, in protocol
+proliferation, in compositor implementation, who reject your obsolete ways and
+choose to embrace the idea that there should be A unix desktop that does not
+depend on technology developed in the 80s, in 40 years no one will be a X.Org
+user as all your descendants will be Wayland users.
+"""
+
 ricing_feels_soulless = """
 Holy shit I just realized why ricing feels so soulless in the age of hyprland,
 it's because nobody respects color schemes anymore.
@@ -71,5 +99,7 @@ def eemsg():
         print(ricing_feels_soulless)
     if datetime.datetime.now().month == 3 and datetime.datetime.now().day == 16:
         print(gimp)
+    if datetime.datetime.now().month == 9 and datetime.datetime.now().day == 15:
+        print(we_will_replace_x11)
     if datetime.datetime.now().month == 9 and datetime.datetime.now().day == 30:
         print(are_we_wayland_yet)
