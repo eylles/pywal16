@@ -104,6 +104,10 @@ colorscheme-sama meet and theyre blushing and all like "uwaaa~!" (ﾉ´ヮ´)ﾉ
 hehehe~  pywal-kun is so adorable (●´Д｀●)・:*:・
 """
 
+the_finest_in_the_district = """
+Python, It's the finest in the district!
+"""
+
 
 def eemsg():
     if datetime.datetime.now().month == 4 and datetime.datetime.now().day == 1:
@@ -116,3 +120,6 @@ def eemsg():
         print(we_will_replace_x11)
     if datetime.datetime.now().month == 9 and datetime.datetime.now().day == 30:
         print(are_we_wayland_yet)
+
+    if datetime.datetime.now().month == 12 and datetime.datetime.now().day == 3:
+        print(the_finest_in_the_district)
