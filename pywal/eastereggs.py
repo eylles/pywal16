@@ -93,6 +93,10 @@ gimp = """
 GIMP = Green Is My Pepper
 """
 
+guido = """
+I'm not too worried about the associations with mob assassins
+that some people have. :-)
+"""
 
 pywal_is_so_cute = """
 Pywal is so cute omg(⁄ ⁄•⁄ω⁄•⁄ ⁄)⁄ when you hold it on your hand and
@@ -110,6 +114,8 @@ Python, It's the finest in the district!
 
 
 def eemsg():
+    if datetime.datetime.now().month == 1 and datetime.datetime.now().day == 31:
+        print(guido)
     if datetime.datetime.now().month == 4 and datetime.datetime.now().day == 1:
         print(ricing_feels_soulless)
     if datetime.datetime.now().month == 3 and datetime.datetime.now().day == 16:
