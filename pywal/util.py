@@ -318,12 +318,12 @@ def alpha_integrify(alpha_value):
     """
     # could be a string containing a float like 0.7
     a = float(alpha_value)
+    if a < 0:
+        a = abs(a)
     if a < 1:
-        if a < 0:
-            a = abs(a)
         a = a * 100
-        if a > 100:
-            a = 100
+    if a > 100:
+        a = 100
     a = int(a)
     a = str(a)
     return a
