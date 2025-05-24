@@ -149,7 +149,6 @@ def generic_adjust(colors, light, **kwargs):
         colors[0] = util.lighten_color(colors[0], 0.95)
         if cols16:
             shade_16(colors, light, cols16)
-
         else:
             colors[7] = util.darken_color(colors[0], 0.75)
             colors[8] = util.darken_color(colors[0], 0.25)
@@ -158,9 +157,21 @@ def generic_adjust(colors, light, **kwargs):
     else:
         if colors[0][1] != "0":  # the color may already be dark enough
             colors[0] = util.darken_color(colors[0], 0.40)  # just a bit darker
+
+        saturate_more = False
+        if colors[0][1] == "0":  # the color may not be saturated enough
+            saturate_more = True
+        if colors[0][3] == "0":  # the color may not be saturated enough
+            saturate_more = True
+        if colors[0][5] == "0":  # the color may not be saturated enough
+            saturate_more = True
+
+        if saturate_more:
+            colors[0] = util.lighten_color(colors[0], 0.03)
+            colors[0] = util.saturate_color(colors[0], 0.40)
+
         if cols16:
             shade_16(colors, light, cols16)
-
         else:
             colors[7] = util.lighten_color(colors[0], 0.75)
             colors[8] = util.lighten_color(colors[0], 0.35)
