@@ -79,6 +79,16 @@ def get_args():
     )
 
     arg.add_argument(
+        "--out-dir",
+        metavar="out_dir",
+        help="Cache dir to export themes. \
+              Default is 'XDG_CACHE_HOME/wal'. \
+              This can also be set with the env var: 'PYWAL_CACHE_DIR'",
+        type=str,
+        nargs="?",
+    )
+
+    arg.add_argument(
         "--theme",
         "-f",
         metavar="/path/to/file or theme_name",
@@ -296,6 +306,9 @@ def parse_args(parser):
         if args.i:
             colors_plain["wallpaper"] = args.i
 
+    if args.out_dir:
+        CACHE_DIR = args.out_dir
+
     if args.R:
         colors_plain = theme.file(os.path.join(CACHE_DIR, "colors.json"))
 
@@ -331,7 +344,7 @@ def parse_args(parser):
     if sys.stdout.isatty():
         colors.palette()
 
-    export.every(colors_plain)
+    export.every(colors_plain, CACHE_DIR)
 
     if not args.e:
         reload.env(tty_reload=not args.t)
