@@ -71,8 +71,10 @@ By default wal will export the built templates to
 .IR $XDG_CACHE_HOME/wal/ 
 
 The output dir for the templates can also be set with the
-.IR PYWAL_CACHE_DIR
-env var.
+.IR $PYWAL_CACHE_DIR
+env var, using this flag overrides the internal
+.IR CACHE_DIR
+variable taking precedence over $PYWAL_CACHE_DIR.
 
 .TP
 .BI "\-f, \-\-theme " /path/to/file\ or\ theme_name
