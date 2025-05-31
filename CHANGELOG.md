@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.8.7] - 2025-05-31
+Fixes:
+- Ensure alpha value is the correct type and is within valid range.
+- Increase saturation of very dark theme background colors.
+
+New:
+- Prefer the alpha value from flag over the theme alpha.
+- Allow the `--saturate` flag to affect colors 0 and 8.
+- Added the `--out-dir` flag to allow changing export dir, it overrides the value of '$PYWAL_CACHE_DIR'.
+
 ## [3.8.6] - 2025-04-14
 Fixes:
 - `pywal` no longer crashes on windows when `colorama` is not present.
@@ -870,7 +880,8 @@ Note to self: Don't flag releases before coffee.
 
 
 
-[Unreleased]: https://github.com/eylles/pywal16/compare/3.8.6...HEAD
+[Unreleased]: https://github.com/eylles/pywal16/compare/3.8.7...HEAD
+[3.8.7]: https://github.com/eylles/pywal16/compare/3.8.6...3.8.7
 [3.8.6]: https://github.com/eylles/pywal16/compare/3.8.5...3.8.6
 [3.8.5]: https://github.com/eylles/pywal16/compare/3.8.4...3.8.5
 [3.8.4]: https://github.com/eylles/pywal16/compare/3.8.3...3.8.4
