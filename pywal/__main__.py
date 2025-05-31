@@ -344,7 +344,10 @@ def parse_args(parser):
     if sys.stdout.isatty():
         colors.palette()
 
-    export.every(colors_plain, CACHE_DIR)
+    if args.out_dir:
+        export.every(colors_plain, CACHE_DIR)
+    else:
+        export.every(colors_plain)
 
     if not args.e:
         reload.env(tty_reload=not args.t)
