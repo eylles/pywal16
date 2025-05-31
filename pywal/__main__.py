@@ -306,9 +306,6 @@ def parse_args(parser):
         if args.i:
             colors_plain["wallpaper"] = args.i
 
-    if args.out_dir:
-        CACHE_DIR = args.out_dir
-
     if args.R:
         colors_plain = theme.file(os.path.join(CACHE_DIR, "colors.json"))
 
@@ -359,6 +356,8 @@ def parse_args(parser):
 
 def main():
     """Main script function."""
+    global CACHE_DIR
+    default_cache_dir = CACHE_DIR
     util.create_dir(os.path.join(CONF_DIR, "templates"))
     util.create_dir(os.path.join(CONF_DIR, "colorschemes/light/"))
     util.create_dir(os.path.join(CONF_DIR, "colorschemes/dark/"))
@@ -369,6 +368,12 @@ def main():
         logging.warning("colorama is not present")
 
     parser = get_args()
+
+    args = parser.parse_args()
+    if args.out_dir:
+        CACHE_DIR = args.out_dir
+    else:
+        CACHE_DIR = default_cache_dir
 
     parse_args_exit(parser)
     parse_args(parser)
