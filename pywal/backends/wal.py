@@ -73,16 +73,22 @@ def gen_colors(img):
     magick_command = has_im()
 
     raw_colors = try_gen_in_range(img, magick_command)
+    pattern = re.compile('#[A-Z0-9]{6}')
+    match = None
 
     try:
-        out = [re.search("#.{6}", str(col)).group(0) for col in raw_colors[1:]]
+        out = [
+            match.group() for col in raw_colors
+            if (match := pattern.search(str(col)))
+        ]
     except AttributeError:
         if magick_command == ["magick", "convert"]:
             logging.warning("magick convert failed, using only magick")
             magick_command = ["magick"]
             raw_colors = try_gen_in_range(img, magick_command)
             out = [
-                re.search("#.{6}", str(col)).group(0) for col in raw_colors[1:]
+                match.group() for col in raw_colors
+                if (match := pattern.search(str(col)))
             ]
 
     return out
