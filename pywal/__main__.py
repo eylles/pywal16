@@ -14,6 +14,7 @@ import logging
 import os
 import shutil
 import sys
+from PIL import Image
 
 from .settings import __version__, CACHE_DIR, CONF_DIR
 from . import colors
@@ -300,14 +301,17 @@ def parse_args(parser):
             c16=args.cols16,
             cst=args.contrast,
         )
+        colors.generate_color_images(colors_plain)
 
     if args.theme:
         colors_plain = theme.file(args.theme, args.l, c16=args.cols16)
+        colors.generate_color_images(colors_plain)
         if args.i:
             colors_plain["wallpaper"] = args.i
 
     if args.R:
         colors_plain = theme.file(os.path.join(CACHE_DIR, "colors.json"))
+        colors.generate_color_images(colors_plain)
 
     if args.w:
         cached_wallpaper = util.read_file(os.path.join(CACHE_DIR, "wal"))
@@ -319,6 +323,7 @@ def parse_args(parser):
             c16=args.cols16,
             cst=args.contrast,
         )
+        colors.generate_color_images(colors_plain)
 
     if args.b:
         args.b = "#%s" % (args.b.strip("#"))
@@ -383,3 +388,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+

@@ -8,6 +8,7 @@ import os
 import random
 import re
 import sys
+from PIL import Image
 
 from . import theme
 from . import util
@@ -32,6 +33,13 @@ def normalize_img_path(img: str):
         return img.replace("\\", "/")
     return img
 
+
+def generate_color_images(colors):
+    """Save palette colors as an image"""
+    img = Image.new('RGB', (16, 1))
+    for i, color in enumerate(colors['colors'].values()):
+        img.paste(Image.new('RGB', (1, 1), color), (i, 0))
+    img.save(os.path.join(CACHE_DIR, 'colors.png'))
 
 def colors_to_dict(colors, img):
     """Convert list of colors to pywal format."""
@@ -504,3 +512,4 @@ def get(
 def file(input_file):
     """Deprecated: symbolic link to --> theme.file"""
     return theme.file(input_file)
+
