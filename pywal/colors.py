@@ -183,7 +183,7 @@ def generic_adjust(colors, light, **kwargs):
 
 def saturate_colors(colors, amount):
     """Saturate all colors."""
-    if amount and float(amount) <= 0.0:
+    if amount and (float(amount) <= 1.0 and float(amount) >= -1.0):
         for i, _ in enumerate(colors):
             if i not in [7, 15]:
                 colors[i] = util.saturate_color(colors[i], float(amount))
