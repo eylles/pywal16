@@ -126,7 +126,7 @@ def get_args():
     )
 
     arg.add_argument(
-        "--saturate", metavar="0.0-1.0", help="Set the color saturation."
+        "--saturate", metavar="-1.0 - 1.0", help="Set the color saturation."
     )
 
     arg.add_argument(
