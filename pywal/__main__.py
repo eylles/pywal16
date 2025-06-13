@@ -14,7 +14,6 @@ import logging
 import os
 import shutil
 import sys
-from PIL import Image
 
 from .settings import __version__, CACHE_DIR, CONF_DIR
 from . import colors
