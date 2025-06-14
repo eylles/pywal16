@@ -8,6 +8,7 @@ import re
 
 from . import util
 from .settings import CACHE_DIR, CONF_DIR, MODULE_DIR
+from PIL import Image
 
 
 class ExportFile:
@@ -136,8 +137,17 @@ def walk(directory):
             yield (ExportFile(os.path.join(root, file), directory))
 
 
+def generate_color_images(colors, destdir):
+    """Save palette colors as an image"""
+    img = Image.new('RGB', (16, 1))
+    for i, color in enumerate(colors['colors'].values()):
+        img.paste(Image.new('RGB', (1, 1), color), (i, 0))
+    img.save(os.path.join(destdir, 'colors.png'))
+
+
 def every(colors, output_dir=CACHE_DIR):
     """Export all template files."""
+    generate_color_images(colors, output_dir)
     join = os.path.join  # Minor optimization.
     colors = flatten_colors(colors)
     template_dir = join(MODULE_DIR, "templates")
