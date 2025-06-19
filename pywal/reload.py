@@ -121,6 +121,12 @@ def nvim():
         util.disown(["nvim-colo-reload"])
 
 
+def ultrakill():
+    """Reload ultrakill colors."""
+    if shutil.which("ultrakill-wal"):
+        util.disown(["ultrakill-wal"])
+
+
 def env(xrdb_file=None, tty_reload=True):
     """Reload environment."""
     xrdb(xrdb_file)
