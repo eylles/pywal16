@@ -136,9 +136,25 @@ def walk(directory):
             yield (ExportFile(os.path.join(root, file), directory))
 
 
+def generate_color_images(colors, destdir):
+    """Save palette colors as an image"""
+    # Dynamically import.
+    # This keeps the dependencies "optional".
+    try:
+        from PIL import Image
+        img = Image.new('RGB', (16, 1))
+        for i, color in enumerate(colors['colors'].values()):
+            img.paste(Image.new('RGB', (1, 1), color), (i, 0))
+        img.save(os.path.join(destdir, 'colors.png'))
+    except ImportError:
+        # we do not want to do anything here
+        pass
+
+
 def every(colors, output_dir=CACHE_DIR):
     """Export all template files."""
     join = os.path.join  # Minor optimization.
+    generate_color_images(colors, output_dir)
     colors = flatten_colors(colors)
     template_dir = join(MODULE_DIR, "templates")
     template_dir_user = join(CONF_DIR, "templates")
