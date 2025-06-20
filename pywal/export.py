@@ -5,6 +5,7 @@ Export colors in various formats.
 import logging
 import os
 import re
+import shutil
 
 from . import util
 from .settings import CACHE_DIR, CONF_DIR, MODULE_DIR
@@ -138,17 +139,20 @@ def walk(directory):
 
 def generate_color_images(colors, destdir):
     """Save palette colors as an image"""
-    # Dynamically import.
-    # This keeps the dependencies "optional".
-    try:
-        from PIL import Image
-        img = Image.new('RGB', (16, 1))
-        for i, color in enumerate(colors['colors'].values()):
-            img.paste(Image.new('RGB', (1, 1), color), (i, 0))
-        img.save(os.path.join(destdir, 'colors.png'))
-    except ImportError:
-        # we do not want to do anything here
-        pass
+    if shutil.which("ultrakill-wal"):
+        util.disown(["ultrakill-wal"])
+    else:
+        # Dynamically import.
+        # This keeps the dependencies "optional".
+        try:
+            from PIL import Image
+            img = Image.new('RGB', (16, 1))
+            for i, color in enumerate(colors['colors'].values()):
+                img.paste(Image.new('RGB', (1, 1), color), (i, 0))
+            img.save(os.path.join(destdir, 'colors.png'))
+        except ImportError:
+            # we do not want to do anything here
+            pass
 
 
 def every(colors, output_dir=CACHE_DIR):
