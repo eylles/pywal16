@@ -186,7 +186,7 @@ def saturate_colors(colors, amount):
     if amount and (float(amount) <= 1.0 and float(amount) >= -1.0):
         for i, _ in enumerate(colors):
             if i not in [7, 15]:
-                colors[i] = util.saturate_color(colors[i], float(amount))
+                colors[i] = util.add_saturation(colors[i], float(amount))
 
     return colors
 
