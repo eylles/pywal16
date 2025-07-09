@@ -342,11 +342,27 @@ def blend_color(color, color2):
 
 
 def saturate_color(color, amount):
-    """Saturate a hex color."""
+    """Change saturation of a hex color to passed value."""
     r, g, b = hex_to_rgb(color)
     r, g, b = [x / 255.0 for x in (r, g, b)]
     h, l, s = colorsys.rgb_to_hls(r, g, b)
     s = amount
+    r, g, b = colorsys.hls_to_rgb(h, l, s)
+    r, g, b = [x * 255.0 for x in (r, g, b)]
+
+    return rgb_to_hex((int(r), int(g), int(b)))
+
+
+def add_saturation(color, amount):
+    """Add saturation to a hex color."""
+    r, g, b = hex_to_rgb(color)
+    r, g, b = [x / 255.0 for x in (r, g, b)]
+    h, l, s = colorsys.rgb_to_hls(r, g, b)
+    s = s + amount
+    if s > 1.0:
+        s = 1
+    if s < -1.0:
+        s = -1
     r, g, b = colorsys.hls_to_rgb(h, l, s)
     r, g, b = [x * 255.0 for x in (r, g, b)]
 
