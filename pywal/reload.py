@@ -72,7 +72,7 @@ def kitty():
 def polybar():
     """Reload polybar colors."""
     if shutil.which("polybar") and util.get_pid("polybar"):
-        util.disown(["pkill", "-USR1", "polybar"])
+        util.disown(["pkill", "-x", "-USR1", "polybar"])
 
 
 def sway():
@@ -90,7 +90,7 @@ def firefox():
 def waybar():
     """Reload waybar colors."""
     if shutil.which("waybar") and util.get_pid("waybar"):
-        util.disown(["pkill", "-USR2", "waybar"])
+        util.disown(["pkill", "-x", "-USR2", "waybar"])
 
 
 def colors(cache_dir=CACHE_DIR):
