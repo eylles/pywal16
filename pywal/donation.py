@@ -9,5 +9,5 @@ def donation_message():
         logging.info(donate_msg)
     else:
         msec_mod = datetime.datetime.now().microsecond % 20
-        if msec_mod >= 8:
+        if msec_mod >= 6:
             logging.info(donate_msg)
