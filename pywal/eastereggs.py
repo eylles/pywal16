@@ -114,18 +114,26 @@ Python, It's the finest in the district!
 
 
 def eemsg():
-    if datetime.datetime.now().month == 1 and datetime.datetime.now().day == 31:
-        print(guido)
-    if datetime.datetime.now().month == 4 and datetime.datetime.now().day == 1:
-        print(ricing_feels_soulless)
-    if datetime.datetime.now().month == 3 and datetime.datetime.now().day == 16:
-        print(gimp)
-    if datetime.datetime.now().month == 6 and datetime.datetime.now().day == 21:
-        print(pywal_is_so_cute)
-    if datetime.datetime.now().month == 9 and datetime.datetime.now().day == 15:
-        print(we_will_replace_x11)
-    if datetime.datetime.now().month == 9 and datetime.datetime.now().day == 30:
-        print(are_we_wayland_yet)
-
-    if datetime.datetime.now().month == 12 and datetime.datetime.now().day == 3:
-        print(the_finest_in_the_district)
+    msec_mod = datetime.datetime.now().microsecond % 20
+    if msec_mod >= 12:
+        if datetime.datetime.now().month == 1 and \
+                datetime.datetime.now().day == 31:
+            print(guido)
+        if datetime.datetime.now().month == 4 and \
+                datetime.datetime.now().day == 1:
+            print(ricing_feels_soulless)
+        if datetime.datetime.now().month == 3 and \
+                datetime.datetime.now().day == 16:
+            print(gimp)
+        if datetime.datetime.now().month == 6 and \
+                datetime.datetime.now().day == 21:
+            print(pywal_is_so_cute)
+        if datetime.datetime.now().month == 9 and \
+                datetime.datetime.now().day == 15:
+            print(we_will_replace_x11)
+        if datetime.datetime.now().month == 9 and \
+                datetime.datetime.now().day == 30:
+            print(are_we_wayland_yet)
+        if datetime.datetime.now().month == 12 and \
+                datetime.datetime.now().day == 3:
+            print(the_finest_in_the_district)
