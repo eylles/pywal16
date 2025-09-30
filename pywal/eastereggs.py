@@ -1,4 +1,5 @@
 import datetime
+import os
 
 are_we_wayland_yet = """
 You will never be a real display server. You have no hardware cursors,
@@ -114,26 +115,25 @@ Python, It's the finest in the district!
 
 
 def eemsg():
-    msec_mod = datetime.datetime.now().microsecond % 20
-    if msec_mod >= 12:
-        if datetime.datetime.now().month == 1 and \
-                datetime.datetime.now().day == 31:
-            print(guido)
-        if datetime.datetime.now().month == 4 and \
-                datetime.datetime.now().day == 1:
-            print(ricing_feels_soulless)
-        if datetime.datetime.now().month == 3 and \
-                datetime.datetime.now().day == 16:
-            print(gimp)
-        if datetime.datetime.now().month == 6 and \
-                datetime.datetime.now().day == 21:
-            print(pywal_is_so_cute)
-        if datetime.datetime.now().month == 9 and \
-                datetime.datetime.now().day == 15:
-            print(we_will_replace_x11)
-        if datetime.datetime.now().month == 9 and \
-                datetime.datetime.now().day == 30:
-            print(are_we_wayland_yet)
-        if datetime.datetime.now().month == 12 and \
-                datetime.datetime.now().day == 3:
-            print(the_finest_in_the_district)
+    no_fun_mode = int(os.getenv("NO_FUN", 0))
+    eastereggs = int(os.getenv("EASTEREGGS", 1))
+
+    if eastereggs and not no_fun_mode:
+        msec_mod = datetime.datetime.now().microsecond % 20
+        if msec_mod >= 12:
+            month = datetime.datetime.now().month
+            day = datetime.datetime.now().day
+            if month == 1 and day == 31:
+                print(guido)
+            if month == 4 and day == 1:
+                print(ricing_feels_soulless)
+            if month == 3 and day == 16:
+                print(gimp)
+            if month == 6 and day == 21:
+                print(pywal_is_so_cute)
+            if month == 9 and day == 15:
+                print(we_will_replace_x11)
+            if month == 9 and day == 30:
+                print(are_we_wayland_yet)
+            if month == 12 and day == 3:
+                print(the_finest_in_the_district)
