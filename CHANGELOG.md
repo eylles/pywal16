@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.8.10] - 2025-09-29
+Fixes:
+- Use exact name for waybar and polybar.
+- More reliable imagemagick output parsing.
+- Make the behaviour of the --saturation flag more intuitive.
+
+New:
+- `foot` consider alpha for the default template.
+- `ultrakill` palette generation.
+
 ## [3.8.9] - 2025-05-31
 Fixes:
 - Fix the fix that was not fixed with `--out-dir`.
@@ -888,7 +898,8 @@ Note to self: Don't flag releases before coffee.
 
 
 
-[Unreleased]: https://github.com/eylles/pywal16/compare/3.8.9...HEAD
+[Unreleased]: https://github.com/eylles/pywal16/compare/3.8.10...HEAD
+[3.8.10]: https://github.com/eylles/pywal16/compare/3.8.9...3.8.10
 [3.8.9]: https://github.com/eylles/pywal16/compare/3.8.8...3.8.9
 [3.8.8]: https://github.com/eylles/pywal16/compare/3.8.7...3.8.8
 [3.8.7]: https://github.com/eylles/pywal16/compare/3.8.6...3.8.7
