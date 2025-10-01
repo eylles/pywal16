@@ -6,6 +6,7 @@ import logging
 import os
 import re
 import shutil
+from typing import List, Tuple, Union, Optional
 
 from . import util
 from .settings import CACHE_DIR, CONF_DIR, MODULE_DIR
@@ -22,64 +23,236 @@ class ExportFile:
         self.relative_path = os.path.relpath(abs_path, base_dir)
 
 
+class Parser:
+    Name = str
+    Number = Union[int, float]
+    Argument = Number
+    Property = Name
+    Function = Tuple[Name, List[Argument]]
+    Color = Name
+    Marker = Tuple[Color, List[Function], Optional[Property]]
+
+    @staticmethod
+    def parse_name(s: str, i: int) -> Tuple[Name, int] | None:
+        """Parse a name from the given substring
+
+        Args:
+            s (str): The substring to parse the name from.
+            i (int): The starting index in the substring.
+
+        Returns:
+            (str,int): The name and the position after the name.
+            None: If a valid name is not found.
+        """
+        match = re.match(r"^[a-zA-Z][a-zA-Z0-9_]*", s[i:])
+        if match:
+            return match.group(0), match.end() + i
+        return None
+
+    @staticmethod
+    def parse_property(s: str, i: int) -> Tuple[Property, int] | None:
+        """Parse a property from a template file.
+
+        BNF Grammar of a property (the text after the last dot):
+
+        property ::= name
+        name ::= [a-zA-Z][a-zA-Z0-9_]*
+        """
+        return Parser.parse_name(s, i)
+
+    @staticmethod
+    def parse_number(s: str, i: int) -> Tuple[Number, int] | None:
+        """Parse a number (integer or float) from the given substring."""
+        match = re.match(r"^-?\d+(\.\d+)?", s[i:])
+        if match:
+            num_str = match.group(0)
+            if "." in num_str:
+                return float(num_str), match.end() + i
+            else:
+                return int(num_str), match.end() + i
+        return None
+
+    @staticmethod
+    def parse_argument(s: str, i: int) -> Tuple[Argument, int] | None:
+        return Parser.parse_number(s, i)
+
+    @staticmethod
+    def parse_args(s: str, i: int) -> Tuple[List[Argument], int] | None:
+        """Parse a list of arguments from a template file.
+
+        BNF Grammar of a list of arguments (the text inside the parentheses):
+
+        arguments ::= argument (',' argument)*
+        argument ::= number
+        """
+        match = re.match(r"^\(([^\)]*)\)", s[i:])
+        if not match:
+            return None
+        args_str = match.group(1)
+        args = []
+        if args_str:
+            for arg in args_str.split(","):
+                if (parsed := Parser.parse_argument(arg.strip(), 0)) is not None:
+                    args.append(parsed[0])  # the parsed number, ignore the position
+                else:
+                    return None  # an argument could not be parsed
+
+        if len(args) == 0 and args_str.strip():
+            return None  # there were arguments but none could be parsed
+
+        return args, match.end() + i
+
+    @staticmethod
+    def parse_function(s: str, i: int) -> Tuple[Function, int] | None:
+        """Parse a function from a template file.
+
+        BNF Grammar of a function (the text after the last dot):
+
+        function ::= name '(' (argument (',' argument)*)? ')'
+        """
+        # parse the function name
+        name = None
+        after_name_pos = i
+        if (parsed := Parser.parse_name(s, i)) is not None:
+            name, after_name_pos = parsed
+        else:
+            return None
+
+        # parse the arguments
+        args = None
+        if (parsed := Parser.parse_args(s, after_name_pos)) is not None:
+            args, match_end = parsed
+            return (name, args), match_end
+
+        return None
+
+    @staticmethod
+    def parse_marker(s: str) -> Tuple[Marker, int] | None:
+        """Parse a marker from a template file.
+
+        BNF Grammar of a marker (the text inside the curly braces):
+
+        marker ::= color ('.' function)* ('.' property)?
+        color ::= name
+        function ::= name '(' (argument (',' argument)*)? ')'
+        property ::= name
+        name ::= [a-zA-Z][a-zA-Z0-9_]*
+        argument ::= number
+
+        Args:
+            s (_type_): _description_
+        """
+        i = 0
+        # parse the color
+        color = None
+        after_color_pos = i
+        if (parsed := Parser.parse_name(s, i)) is not None:
+            color, after_color_pos = parsed
+        else:
+            return None
+
+        # parse functions and property
+        functions = []
+        prop = None
+        i = after_color_pos
+        while i < len(s):
+            if s[i] == ".":
+                i += 1
+                # try to parse a function first
+                if (parsed := Parser.parse_function(s, i)) is not None:
+                    func, after_func_pos = parsed
+                    functions.append(func)
+                    i = after_func_pos
+                # if no function, try to parse a property
+                elif (parsed := Parser.parse_property(s, i)) is not None:
+                    prop, after_prop_pos = parsed
+                    i = after_prop_pos
+                    break  # property must be the last element
+                else:
+                    return None  # neither function nor property found
+            else:
+                break  # no more functions or properties
+
+        if i != len(s):
+            return None  # not all input was consumed
+
+        return (color, functions, prop), i
+
+    @staticmethod
+    def execute_marker(colors: dict, marker: Marker) -> str:
+        """Execute a parsed marker and return the resulting color string."""
+        cname, funcs, prop = marker
+        if cname not in colors:
+            raise ValueError(f"Color '{cname}' not found in colors dictionary.")
+
+        new_color = util.Color(colors[cname].hex_color)
+
+        for func in funcs:
+            fname, args = func
+            if not hasattr(new_color, fname):
+                raise ValueError(f"Function '{fname}' not found in Color class.")
+            function = getattr(new_color, fname)
+            if callable(function):
+                new_color = function(*args) if args else function()
+            else:
+                new_color = function  # attribute access
+
+        if prop:
+            if not hasattr(new_color, prop):
+                raise ValueError(f"Property '{prop}' not found in Color class.")
+            new_color = getattr(new_color, prop)
+
+        return (
+            str(new_color).strip()
+            if isinstance(new_color, util.Color)
+            else str(new_color)
+        )
+
+
 def template(colors, input_file, output_file=None):
     """Read template file, substitute markers and
     save the file elsewhere."""
     # pylint: disable-msg=too-many-locals
     template_data = util.read_file_raw(input_file)
     for i, l in enumerate(template_data):
-        for match in re.finditer(r"(?<=(?<!\{))(\{([^{}]+)\})(?=(?!\}))", l):
-            # Get the color, and the functions associated with it
-            cname, _, funcs = match.group(2).partition(".")
-            # Check that functions are needed for this color
-            if len(funcs) == 0:
+        for match in re.finditer(
+            r"(?<=(?<!\{))(\{([^{}]+)\})(?=(?!\}))", l
+        ):  # find all {...} not surrounded by {}, and parse them
+            marker = None
+            if (parsed := Parser.parse_marker(match.group(2))) is not None:
+                marker, _ = parsed
+            if marker is None:
+                logging.error(
+                    "Syntax error in template file '%s' on line '%s'",
+                    input_file,
+                    i,
+                )
                 continue
-            # Build up a string which will be replaced with the new color
-            replace_str = cname
-            # Color to be modified copied into new one
-            new_color = util.Color(colors[cname].hex_color)
-            # Execute each function to be done
-            for func in filter(None, re.split(r"\)|\.", funcs)):
-                # Get function name and arguments
-                func = func.split("(")
-                fname = func[0]
-                if fname[0] == ".":
-                    fname = fname[1:]
-                if not hasattr(new_color, fname):
-                    logging.error(
-                        "Syntax error in template file '%s' on line '%s'",
-                        input_file,
-                        i,
-                    )
-                function = getattr(new_color, fname)
 
-                # If the function is callable, call it
-                if callable(function):
-                    if len(func) > 1:
-                        new_color = function(*func[1].split(","))
-                    else:
-                        new_color = function()
-                    # string to replace generated colors
-                    if func[0] != ".":
-                        replace_str += "."
-                    replace_str += "(".join(func) + ")"
-                else:
-                    # if it is an attribute i.e. rgb
-                    replace_str += "." + fname
-                    new_color = function
+            # attempt to execute the marker
+            replace_str = match.group(1)  # the full {marker}
+            try:
+                new_color = Parser.execute_marker(colors, marker)
+            except ValueError as exc:
+                logging.error(
+                    "Error executing marker in template file '%s' on line '%s': %r",
+                    input_file,
+                    i,
+                    exc,
+                )
+                continue
 
-            if isinstance(new_color, util.Color):
-                new_color = new_color.strip
-            # If replace the format placeholder with the new color
-            if new_color is not colors[cname]:
+            # If the new color is different from the original marker, replace it
+            if new_color is not colors[marker[0]]:
+                # If replace the format placeholder with the new color
                 new_color = str(new_color)
                 template_data[i] = l.replace("{" + replace_str + "}", new_color)
+                l = template_data[i]  # update the line for further replacements
+
     try:
         template_data = "".join(template_data).format(**colors)
     except (ValueError, KeyError, AttributeError) as exc:
-        logging.error(
-            "Syntax error in template file '%s': %r.", input_file, exc
-        )
+        logging.error("Syntax error in template file '%s': %r.", input_file, exc)
         return
     util.save_file(template_data, output_file)
 
