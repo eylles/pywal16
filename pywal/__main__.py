@@ -14,6 +14,7 @@ import logging
 import os
 import shutil
 import sys
+import textwrap
 
 from .settings import __version__, CACHE_DIR, CONF_DIR
 from . import colors
@@ -50,7 +51,21 @@ if sys.platform.startswith("win"):
 def get_args():
     """Get the script arguments."""
     description = "wal - Generate colorschemes on the fly"
-    arg = argparse.ArgumentParser(description=description)
+    config_notes = '''
+        configuration:
+        pywal16 supports the usage of the following env vars for configuration
+
+        env vars:
+          XDG_CONFIG_HOME       parent directory to the user wal/templates dir.
+          PYWAL_CACHE_DIR       directory for the built templates, default XDG_CACHE_HOME/wal dir.
+          NO_FUN                set to 1 to disable eastereggs.
+          EASTEREGGS            set to 0 to disable eastereggs, set to 1 to enable them.
+    '''
+    arg = argparse.ArgumentParser(
+            description=description,
+            formatter_class=argparse.RawDescriptionHelpFormatter,
+            epilog=textwrap.dedent(config_notes)
+            )
 
     arg.add_argument(
         "-a",
