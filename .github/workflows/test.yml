@@ -9,7 +9,7 @@ jobs:
             - name: Set up Python
               uses: actions/setup-python@v4
               with:
-                  python-version: "3.5" # minimum supported version
+                  python-version: "3.8"
             - name: Run tests
               run: |
                   python -m unittest discover -s tests -v
