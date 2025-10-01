@@ -1,0 +1,15 @@
+# run the unittests
+name: Test
+on: [push, pull_request]
+jobs:
+    test:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v5
+            - name: Set up Python
+              uses: actions/setup-python@v4
+              with:
+                  python-version: "3.5" # minimum supported version
+            - name: Run tests
+              run: |
+                  python -m unittest discover -s tests -v
