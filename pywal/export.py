@@ -134,7 +134,8 @@ class Parser:
 
         marker ::= color ('.' function)* ('.' property)?
         color ::= name
-        function ::= name '(' (argument (',' argument)*)? ')'
+        function ::= name arguments
+        arguments ::= '(' (argument (',' argument)*)? ')'
         property ::= name
         name ::= [a-zA-Z][a-zA-Z0-9_]*
         argument ::= number
@@ -319,10 +320,11 @@ def generate_color_images(colors, destdir):
         # This keeps the dependencies "optional".
         try:
             from PIL import Image
-            img = Image.new('RGB', (16, 1))
-            for i, color in enumerate(colors['colors'].values()):
-                img.paste(Image.new('RGB', (1, 1), color), (i, 0))
-            img.save(os.path.join(destdir, 'colors.png'))
+
+            img = Image.new("RGB", (16, 1))
+            for i, color in enumerate(colors["colors"].values()):
+                img.paste(Image.new("RGB", (1, 1), color), (i, 0))
+            img.save(os.path.join(destdir, "colors.png"))
         except ImportError:
             # we do not want to do anything here
             pass
