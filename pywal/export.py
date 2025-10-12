@@ -139,9 +139,6 @@ class Parser:
         property ::= name
         name ::= [a-zA-Z][a-zA-Z0-9_]*
         argument ::= number
-
-        Args:
-            s (_type_): _description_
         """
         i = 0
         # parse the color
@@ -196,7 +193,9 @@ class Parser:
             if callable(function):
                 new_color = function(*args) if args else function()
             else:
-                new_color = function  # attribute access
+                raise ValueError(
+                    f"The {fname} attribute of the Color class is not callable"
+                )
 
         if prop:
             if not hasattr(new_color, prop):
@@ -215,9 +214,9 @@ def template(colors, input_file, output_file=None):
     save the file elsewhere."""
     # pylint: disable-msg=too-many-locals
     template_data = util.read_file_raw(input_file)
-    for i, l in enumerate(template_data):
+    for i, line in enumerate(template_data):
         for match in re.finditer(
-            r"(?<=(?<!\{))(\{([^{}]+)\})(?=(?!\}))", l
+            r"(?<=(?<!\{))(\{([^{}]+)\})(?=(?!\}))", line
         ):  # find all {...} not surrounded by {}, and parse them
             marker = None
             if (parsed := Parser.parse_marker(match.group(2))) is not None:
@@ -228,12 +227,16 @@ def template(colors, input_file, output_file=None):
                     input_file,
                     i,
                 )
-                continue
+                return
 
             # attempt to execute the marker
             replace_str = match.group(1)  # the full {marker}
             try:
+                # execute the marker
                 new_color = Parser.execute_marker(colors, marker)
+                # replace the marker with its result
+                template_data[i] = line.replace(replace_str, new_color, 1)
+                line = template_data[i] # update the line for further replacements
             except ValueError as exc:
                 logging.error(
                     "Error executing marker in template file '%s' on line '%s': %r",
@@ -243,19 +246,7 @@ def template(colors, input_file, output_file=None):
                 )
                 continue
 
-            # If the new color is different from the original marker, replace it
-            if new_color is not colors[marker[0]]:
-                # If replace the format placeholder with the new color
-                new_color = str(new_color)
-                template_data[i] = l.replace("{" + replace_str + "}", new_color)
-                l = template_data[i]  # update the line for further replacements
-
-    try:
-        template_data = "".join(template_data).format(**colors)
-    except (ValueError, KeyError, AttributeError) as exc:
-        logging.error("Syntax error in template file '%s': %r.", input_file, exc)
-        return
-    util.save_file(template_data, output_file)
+    util.save_file("".join(template_data), output_file)
 
 
 def flatten_colors(colors):
@@ -271,7 +262,7 @@ def flatten_colors(colors):
     return {k: util.Color(v) for k, v in all_colors.items()}
 
 
-def get_export_type(export_type):
+def get_export_type(export_type: str):
     """Convert template type to the right filename."""
     return {
         "css": "colors.css",

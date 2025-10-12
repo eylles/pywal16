@@ -1,6 +1,5 @@
 """Test export functions."""
 
-import logging
 import unittest
 import shutil
 import os
@@ -121,6 +120,15 @@ class TestParser(unittest.TestCase):
             ),
         )
 
+        result = export.Parser.parse_marker("background.lighten(1)")
+        self.assertEqual(
+            result,
+            (
+                ("background", [("lighten", [1])], None),
+                21,
+            ),
+        )
+
         result = export.Parser.parse_marker("color0")
         self.assertEqual(result, (("color0", [], None), 6))
 
@@ -175,11 +183,25 @@ class TestParser(unittest.TestCase):
 
 
 class TestIssue13(unittest.TestCase):
-    TEMPLATE = """
+    TEMPLATE = r"""
 # Special
 background='{background}'
 foreground='{foreground}'
 cursor='{cursor}'
+
+# background colors
+backgroundl1='#{background.lighten(1)}'
+backgroundl2='#{background.lighten(2)}'
+backgroundl3='#{background.lighten(3)}'
+backgroundl4='#{background.lighten(4)}'
+backgroundl5='#{background.lighten(5)}'
+backgroundl6='#{background.lighten(10)}'
+backgroundd1='#{background.darken(1)}'
+backgroundd2='#{background.darken(2)}'
+backgroundd3='#{background.darken(3)}'
+backgroundd4='#{background.darken(4)}'
+backgroundd5='#{background.darken(5)}'
+backgroundd6='#{background.darken(10)}'
 
 # colors
 color0='{color0}'
@@ -199,7 +221,6 @@ color13='{color13}'
 color14='{color14}'
 color15='{color15}'
 
-
 # colors rgbspce
 color0='{color0.rgbspace}'
 color1='{color1.rgbspace}'
@@ -217,7 +238,6 @@ color12='{color12.rgbspace}'
 color13='{color13.rgbspace}'
 color14='{color14.rgbspace}'
 color15='{color15.rgbspace}'
-
 
 # Colors float
 color0='{color0.red} {color0.green} {color0.blue}'
@@ -274,6 +294,117 @@ color14='{color14.red_dec} {color14.green_dec} {color14.blue_dec}'
 color15='{color15.red_dec} {color15.green_dec} {color15.blue_dec}'
     """
 
+    EXPECTED = """
+# Special
+background='#1F211E'
+foreground='#F5F1F4'
+cursor='#F5F1F4'
+
+# background colors
+backgroundl1='##212320'
+backgroundl2='##232522'
+backgroundl3='##252724'
+backgroundl4='##272927'
+backgroundl5='##2a2c29'
+backgroundl6='##353734'
+backgroundd1='##1e201d'
+backgroundd2='##1e201d'
+backgroundd3='##1e201d'
+backgroundd4='##1d1f1c'
+backgroundd5='##1d1f1c'
+backgroundd6='##1b1d1b'
+
+# colors
+color0='#1F211E'
+color1='#4B7A85'
+color2='#CC6A93'
+color3='#5C9894'
+color4='#A0A89B'
+color5='#D1B9A9'
+color6='#E3D6D8'
+color7='#F5F1F4'
+color8='#666666'
+color9='#4B7A85'
+color10='#CC6A93'
+color11='#5C9894'
+color12='#A0A89B'
+color13='#D1B9A9'
+color14='#E3D6D8'
+color15='#F5F1F4'
+
+# colors rgbspce
+color0='31 33 30'
+color1='75 122 133'
+color2='204 106 147'
+color3='92 152 148'
+color4='160 168 155'
+color5='209 185 169'
+color6='227 214 216'
+color7='245 241 244'
+color8='102 102 102'
+color9='75 122 133'
+color10='204 106 147'
+color11='92 152 148'
+color12='160 168 155'
+color13='209 185 169'
+color14='227 214 216'
+color15='245 241 244'
+
+# Colors float
+color0='0.122 0.129 0.118'
+color1='0.294 0.478 0.522'
+color2='0.800 0.416 0.576'
+color3='0.361 0.596 0.580'
+color4='0.627 0.659 0.608'
+color5='0.820 0.725 0.663'
+color6='0.890 0.839 0.847'
+color7='0.961 0.945 0.957'
+color8='0.400 0.400 0.400'
+color9='0.294 0.478 0.522'
+color10='0.800 0.416 0.576'
+color11='0.361 0.596 0.580'
+color12='0.627 0.659 0.608'
+color13='0.820 0.725 0.663'
+color14='0.890 0.839 0.847'
+color15='0.961 0.945 0.957'
+
+# Colors hex
+color0='1F 21 1E'
+color1='4B 7A 85'
+color2='CC 6A 93'
+color3='5C 98 94'
+color4='A0 A8 9B'
+color5='D1 B9 A9'
+color6='E3 D6 D8'
+color7='F5 F1 F4'
+color8='66 66 66'
+color9='4B 7A 85'
+color10='CC 6A 93'
+color11='5C 98 94'
+color12='A0 A8 9B'
+color13='D1 B9 A9'
+color14='E3 D6 D8'
+color15='F5 F1 F4'
+
+# Colors dec
+color0='31 33 30'
+color1='75 122 133'
+color2='204 106 147'
+color3='92 152 148'
+color4='160 168 155'
+color5='209 185 169'
+color6='227 214 216'
+color7='245 241 244'
+color8='102 102 102'
+color9='75 122 133'
+color10='204 106 147'
+color11='92 152 148'
+color12='160 168 155'
+color13='209 185 169'
+color14='227 214 216'
+color15='245 241 244'
+    """
+
     def setUp(self) -> None:
         util.create_dir(TMP_DIR)
         # copy TEMPLATE to a tmp file
@@ -290,6 +421,7 @@ color15='{color15.red_dec} {color15.green_dec} {color15.blue_dec}'
         Test issue #13.
         just make sure this doesn't crash, and produces sane output
         """
+        self.maxDiff = None
         tmp_file = os.path.join(TMP_DIR, "issue13_template.txt")
         out_file = os.path.join(TMP_DIR, "issue13_output.txt")
 
@@ -302,9 +434,7 @@ color15='{color15.red_dec} {color15.green_dec} {color15.blue_dec}'
         with open(out_file, "r") as f:
             content = f.read()
 
-        logging.debug(content)
-
-        self.assertIn("# Colors dec\ncolor0='31 33 30'", content)
+        self.assertEqual(content, self.EXPECTED)
 
 
 if __name__ == "__main__":
