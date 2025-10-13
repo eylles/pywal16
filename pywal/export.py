@@ -245,8 +245,13 @@ def template(colors, input_file, output_file=None):
                     exc,
                 )
                 continue
+    # template_data is of type list, so we create template_string to do string
+    # replacement operations
+    template_string = "".join(template_data)
+    template_string = template_string.replace("{{", "{")
+    template_string = template_string.replace("}}", "}")
 
-    util.save_file("".join(template_data), output_file)
+    util.save_file("".join(template_string), output_file)
 
 
 def flatten_colors(colors):
