@@ -128,8 +128,10 @@ def get_args():
         nargs="?",
         default=False,
         const="darken",
-        choices=["darken", "lighten"],
-        help="Use 16 color output " '"darken" or "lighten" default: darken',
+        choices=["darken", "lighten", "dual"],
+        help="Use 16 color output "
+             '"darken", "lighten" or "dual" '
+             "default: darken",
     )
 
     arg.add_argument(
