@@ -35,13 +35,12 @@ setuptools.setup(
         "Environment :: X11 Applications",
         "License :: OSI Approved :: MIT License",
         "Operating System :: POSIX :: Linux",
-        "Programming Language :: Python :: 3.5",
-        "Programming Language :: Python :: 3.6",
+        "Programming Language :: Python :: 3.11",
     ],
     data_files=[('man/man1', ['data/man/man1/wal.1'])],
     packages=["pywal"],
     entry_points={"console_scripts": ["wal=pywal.__main__:main"]},
-    python_requires=">=3.5",
+    python_requires=">=3.11",
     install_requires=install_requires,
     extras_require={
         "colorthief": [
