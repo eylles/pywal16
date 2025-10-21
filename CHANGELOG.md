@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.8.11] - 2025-10-20
+Fixes:
+- Allow the wal backend to work with just 8 colors instead of requiring all 16
+- Template export parser
+
+New:
+- ENV vars to control the printing of the easteregg copypastas and texts
+- Unit tests on push and pr
+- dual method for cols16
+
 ## [3.8.10] - 2025-09-29
 Fixes:
 - Use exact name for waybar and polybar.
@@ -898,7 +908,8 @@ Note to self: Don't flag releases before coffee.
 
 
 
-[Unreleased]: https://github.com/eylles/pywal16/compare/3.8.10...HEAD
+[Unreleased]: https://github.com/eylles/pywal16/compare/3.8.11...HEAD
+[3.8.11]: https://github.com/eylles/pywal16/compare/3.8.10...3.8.11
 [3.8.10]: https://github.com/eylles/pywal16/compare/3.8.9...3.8.10
 [3.8.9]: https://github.com/eylles/pywal16/compare/3.8.8...3.8.9
 [3.8.8]: https://github.com/eylles/pywal16/compare/3.8.7...3.8.8
