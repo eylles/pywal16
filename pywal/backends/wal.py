@@ -54,7 +54,7 @@ def try_gen_in_range(img, magick_command):
     for i in range(0, 20, 1):
         raw_colors = imagemagick(16 + i, img, magick_command)
 
-        if len(raw_colors) > 7:
+        if len(raw_colors) > 16:
             break
 
         if i == 19:
