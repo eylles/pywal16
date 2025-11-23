@@ -59,8 +59,9 @@ def try_gen_in_range(img, magick_command):
 
         if i == 19:
             logging.error("Imagemagick couldn't generate a suitable palette.")
-            sys.exit(1)
-
+            logging.warning("will try to do palette concatenation, good results not guaranteed!")
+            while not len(raw_colors) > 16:
+                raw_colors = raw_colors + raw_colors
         else:
             logging.warning("Imagemagick couldn't generate a palette.")
             logging.warning("Trying a larger palette size %s", 16 + i)
