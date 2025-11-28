@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.8.12] - 2025-11-28
+Fixes:
+- Fix regression from 3.8.11 where some images would crash the wal backend.
+
+New:
+- Added ENV VAR to disable the donations message, consult the manpage.
+
 ## [3.8.11] - 2025-10-20
 Fixes:
 - Allow the wal backend to work with just 8 colors instead of requiring all 16
@@ -908,7 +915,8 @@ Note to self: Don't flag releases before coffee.
 
 
 
-[Unreleased]: https://github.com/eylles/pywal16/compare/3.8.11...HEAD
+[Unreleased]: https://github.com/eylles/pywal16/compare/3.8.12...HEAD
+[3.8.12]: https://github.com/eylles/pywal16/compare/3.8.11...3.8.12
 [3.8.11]: https://github.com/eylles/pywal16/compare/3.8.10...3.8.11
 [3.8.10]: https://github.com/eylles/pywal16/compare/3.8.9...3.8.10
 [3.8.9]: https://github.com/eylles/pywal16/compare/3.8.8...3.8.9
