@@ -72,40 +72,53 @@ def xfconf(img):
 
 def set_wm_wallpaper(img):
     """Set the wallpaper for non desktop environments."""
-    if shutil.which("swww"):
-        util.disown(["swww", "img", img])
+    session_type = os.getenv('XDG_SESSION_TYPE')
+    if session_type == "x11":
+        # setters for x11
+        if shutil.which("feh"):
+            util.disown(["feh", "--bg-fill", img])
 
-    elif shutil.which("swaybg"):
-        subprocess.call(["killall", "swaybg"])
-        util.disown(["swaybg", "-m", "fill", "-i", img])
+        elif shutil.which("xwallpaper"):
+            util.disown(["xwallpaper", "--zoom", img])
 
-    elif shutil.which("feh"):
-        util.disown(["feh", "--bg-fill", img])
+        elif shutil.which("nitrogen"):
+            util.disown(["nitrogen", "--set-zoom-fill", img])
 
-    elif shutil.which("wbg"):
-        subprocess.call(["killall", "wbg"])
-        util.disown(["wbg", img])
+        elif shutil.which("bgs"):
+            util.disown(["bgs", "-z", img])
 
-    elif shutil.which("xwallpaper"):
-        util.disown(["xwallpaper", "--zoom", img])
+        elif shutil.which("hsetroot"):
+            util.disown(["hsetroot", "-fill", img])
 
-    elif shutil.which("nitrogen"):
-        util.disown(["nitrogen", "--set-zoom-fill", img])
+        elif shutil.which("habak"):
+            util.disown(["habak", "-mS", img])
 
-    elif shutil.which("bgs"):
-        util.disown(["bgs", "-z", img])
+        elif shutil.which("display"):
+            util.disown(["display", "-backdrop", "-window", "root", img])
 
-    elif shutil.which("hsetroot"):
-        util.disown(["hsetroot", "-fill", img])
+        else:
+            logging.error("No wallpaper setter found.")
+            return
 
-    elif shutil.which("habak"):
-        util.disown(["habak", "-mS", img])
+    elif session_type == "wayland":
+        # setters for wayland
+        if shutil.which("swww"):
+            util.disown(["swww", "img", img])
 
-    elif shutil.which("display"):
-        util.disown(["display", "-backdrop", "-window", "root", img])
+        elif shutil.which("swaybg"):
+            subprocess.call(["killall", "swaybg"])
+            util.disown(["swaybg", "-m", "fill", "-i", img])
+
+        elif shutil.which("wbg"):
+            subprocess.call(["killall", "wbg"])
+            util.disown(["wbg", img])
+
+        else:
+            logging.error("No wallpaper setter found.")
+            return
 
     else:
-        logging.error("No wallpaper setter found.")
+        logging.error("Cannot set wallpaper for this session.")
         return
 
 
