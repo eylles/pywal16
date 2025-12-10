@@ -213,6 +213,15 @@ The user defined files are read from
 and are exported to
 .B $XDG_CACHE_HOME/wal/
 under the same name. Using this feature you can also overwrite the default export files
+
+.SH MISC
+.P
+The section for other important information to using pywal16 that does not fit a specific section.
+
+.TP
+.B "XDG_SESSION_TYPE"
+This env var is needed to set the wallpaper when running an environment consisting of a standalone x11 window manager or wayland compositor, ie not a full blown desktop environment, for example something like the i3 window manager or the sway compositor, this is because some setup may have the packages for (in this example) BOTH i3 and sway, so in previous releases swaybg would be ran as wallpaper setter regardless of the user running i3 or sway, now we check this env var and follow the corresponding chain of possible wallpaper setters.
+
 .SH ORIGINAL AUTHOR
 .EX
 .EE
