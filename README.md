@@ -5,6 +5,7 @@
 <p align="center">
 <a href="./LICENSE.md"><img src="https://img.shields.io/badge/license-MIT-blue.svg"></a>
 <a href="https://pypi.python.org/pypi/pywal16/"><img src="https://img.shields.io/pypi/v/pywal16.svg"></a>
+<a href="https://pypi.python.org/pypi/pywal/"><img src="https://img.shields.io/pypi/v/pywal.svg"></a>
 <a href="https://liberapay.com/eylles/donate"><img alt="Donate using Liberapay" src="https://img.shields.io/liberapay/receives/eylles.svg?logo=liberapay"></a>
 <a href="https://liberapay.com/eylles/donate"><img alt="Donate using Liberapay" src="https://img.shields.io/liberapay/patrons/eylles.svg?logo=liberapay"></a>
 </p>
@@ -24,4 +25,5 @@ Terminal emulators and TTYs have their color-schemes updated in real-time with n
 ### More: \[[Installation](https://github.com/eylles/pywal16/wiki/Installation)] \[[Getting Started](https://github.com/eylles/pywal16/wiki/Getting-Started)] \[[Customization](https://github.com/eylles/pywal16/wiki/Customization)] \[[Wiki](https://github.com/eylles/pywal16/wiki)] \[[Screenshots](https://www.reddit.com/r/unixporn/search?q=wal&restrict_sr=on&sort=relevance&t=all)] \[[Extras](https://github.com/eylles/pywal-extra)]
 
 [![Packaging status](https://repology.org/badge/vertical-allrepos/pywal16.svg)](https://repology.org/project/pywal16/versions)
+[![Packaging status](https://repology.org/badge/vertical-allrepos/pywal.svg)](https://repology.org/project/pywal/versions)
 
