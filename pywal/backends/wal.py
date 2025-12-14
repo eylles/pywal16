@@ -31,7 +31,7 @@ def imagemagick(color_count, img, magick_command):
     except subprocess.CalledProcessError as Err:
         logging.error("Imagemagick error: %s", Err)
         logging.error(
-            "IM 7 disables stdout by default, check the wiki for the fix."
+            "IM 7 disables stdout by default, check the manual or wiki to fix."
         )
         sys.exit(1)
     return output

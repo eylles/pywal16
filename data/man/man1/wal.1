@@ -222,6 +222,18 @@ The section for other important information to using pywal16 that does not fit a
 .B "XDG_SESSION_TYPE"
 This env var is needed to set the wallpaper when running an environment consisting of a standalone x11 window manager or wayland compositor, ie not a full blown desktop environment, for example something like the i3 window manager or the sway compositor, this is because some setup may have the packages for (in this example) BOTH i3 and sway, so in previous releases swaybg would be ran as wallpaper setter regardless of the user running i3 or sway, now we check this env var and follow the corresponding chain of possible wallpaper setters.
 
+.TP
+.B "ImageMagick 7 Policy"
+Back in about march 2024 ImageMagick 7 changed it's default policy to not allow writing to STDOUT, just locate the file 
+.B "/etc/ImageMagick-7/policy.xml"
+(if that is not the name in your distro consult the package file list) then find the line
+.B '<policy domain="path" rights="none" pattern="-"/>'
+and change rights="none" to rights="write"
+For convenience you could use the following sed command:
+sudo sed 's/policy domain="path" rights="none" pattern="-"/policy domain="path" rights="write" pattern="-"/' /etc/ImageMagick-7/policy.xml
+
+Worth noting that in distros like debian and derivates the ImageMagick policy is modified at packaging time to allow writes to STDOUT.
+
 .SH ORIGINAL AUTHOR
 .EX
 .EE
