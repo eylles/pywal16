@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.8.13] - 2025-12-13
+Fixes:
+- Fix issue where pywal16 would try to use wayland wallpaper setters in an x11 environment.
+
 ## [3.8.12] - 2025-11-28
 Fixes:
 - Fix regression from 3.8.11 where some images would crash the wal backend.
@@ -915,7 +919,8 @@ Note to self: Don't flag releases before coffee.
 
 
 
-[Unreleased]: https://github.com/eylles/pywal16/compare/3.8.12...HEAD
+[Unreleased]: https://github.com/eylles/pywal16/compare/3.8.13...HEAD
+[3.8.13]: https://github.com/eylles/pywal16/compare/3.8.12...3.8.13
 [3.8.12]: https://github.com/eylles/pywal16/compare/3.8.11...3.8.12
 [3.8.11]: https://github.com/eylles/pywal16/compare/3.8.10...3.8.11
 [3.8.10]: https://github.com/eylles/pywal16/compare/3.8.9...3.8.10
