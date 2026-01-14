@@ -26,7 +26,7 @@ def imagemagick(color_count, img, magick_command):
 
     try:
         output = subprocess.check_output(
-            [*magick_command, img, *flags], stderr=subprocess.STDOUT
+            [*magick_command.split(), img, *flags], stderr=subprocess.STDOUT
         ).splitlines()
     except subprocess.CalledProcessError as Err:
         logging.error("Imagemagick error: %s", Err)
@@ -39,11 +39,16 @@ def imagemagick(color_count, img, magick_command):
 
 def has_im():
     """Check to see if the user has im installed."""
+    magick_commands = []
+
     if shutil.which("magick"):
-        return ["magick", "convert"]
+        magick_commands.extend(["magick", "magick convert"])
 
     if shutil.which("convert"):
-        return ["convert"]
+        magick_commands.append("convert")
+
+    if len(magick_commands) > 0:
+        return magick_commands
 
     logging.error("Imagemagick wasn't found on your system.")
     logging.error("Try another backend. (wal --backend)")
@@ -69,30 +74,32 @@ def try_gen_in_range(img, magick_command):
 
 
 def gen_colors(img):
-    """Format the output from imagemagick into a list
-    of hex colors."""
-    magick_command = has_im()
+    """Format the output from imagemagick into a list of hex colors."""
+    magick_commands = has_im()
 
-    raw_colors = try_gen_in_range(img, magick_command)
-    pattern = re.compile('#[A-Z0-9]{6}')
-    match = None
+    for magick_command in magick_commands:
+        logging.debug(f"Trying {magick_command}...")
 
-    try:
-        out = [
-            match.group() for col in raw_colors
-            if (match := pattern.search(str(col)))
-        ]
-    except AttributeError:
-        if magick_command == ["magick", "convert"]:
-            logging.warning("magick convert failed, using only magick")
-            magick_command = ["magick"]
+        try:
             raw_colors = try_gen_in_range(img, magick_command)
-            out = [
-                match.group() for col in raw_colors
-                if (match := pattern.search(str(col)))
+            hex_colors = [
+                re.search("#.{6}", str(col)).group(0)
+                for col in raw_colors[1:]
             ]
 
-    return out
+            if not hex_colors:
+                logging.warning("Failed to generate colors.")
+                continue
+
+            while len(hex_colors) < 16:
+                logging.warning("will try to do palette concatenation, good results not guaranteed!")
+                hex_colors += hex_colors
+               
+        except AttributeError:
+            logging.warning(f"{magick_command} failed.")
+            continue
+
+    return hex_colors
 
 
 def adjust(cols, light, **kwargs):
