@@ -118,7 +118,17 @@ def set_wm_wallpaper(img):
             return
 
     else:
-        logging.error("Cannot set wallpaper for this session.")
+        if session_type:
+            logging.error(
+                    "Wallpaper setting not supported for"
+                    f" '{session_type}' session type."
+                    )
+        else:
+            logging.error("Cannot set wallpaper for this session.")
+        logging.error(
+                "Check XDG_SESSION_TYPE is set correctly"
+                " only x11 and wayland session types are supported."
+                )
         return
 
 
