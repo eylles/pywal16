@@ -48,10 +48,10 @@ def detect_display_protocol():
     """Detect the active display protocol (X11 or Wayland)."""
     if os.environ.get("WAYLAND_DISPLAY"):
         return "wayland"
-    
+
     if os.environ.get("DISPLAY") and not os.environ.get("WAYLAND_DISPLAY"):
         return "x11"
-    
+
     return None
 
 
