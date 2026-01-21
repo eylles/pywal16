@@ -219,16 +219,27 @@ under the same name. Using this feature you can also overwrite the default expor
 The section for other important information to using pywal16 that does not fit a specific section.
 
 .TP
-.B "DISPLAY, WAYLAND_DISPLAY"
-These env vars are used to detect the active display protocol when setting the wallpaper in environments consisting of a standalone X11 window manager or Wayland compositor (i.e. not a full desktop environment). This avoids relying on
+.B "XDG_SESSION_TYPE, DISPLAY, WAYLAND_DISPLAY"
+The
 .B XDG_SESSION_TYPE
-which may be set to "tty" on some setups (for example when starting X manually with startx). If
+env var is needed to set the wallpaper when running an environment consisting of a standalone x11 window manager or wayland compositor (i.e. not a full desktop environment).
+If 
+.B XDG_SESSION_TYPE
+is not available the
+.B DISPLAY
+and
 .B WAYLAND_DISPLAY
-is set, pywal16 treats the session as Wayland. If
+vars are used as fallback to detect the active display protocol. This avoids relying only on
+.B XDG_SESSION_TYPE
+which may be set to "tty" on some setups (for example when starting X manually with startx) or not set at all. If
+.B WAYLAND_DISPLAY
+is set, the session is treated as Wayland. If
 .B DISPLAY
 is set (and
 .B WAYLAND_DISPLAY
-is not), pywal16 treats the session as X11.
+is not), the session is treated as X11.
+
+This is necessary because some setup may have the packages for (example) BOTH i3 and sway, so in previous releases swaybg had priority over feh and would be ran as wallpaper setter regardless of the user currently running i3 or sway, these checks allow us to follow the corresponding chain of possible wallpaper setters.
 
 .TP
 .B "ImageMagick 7 Policy"
