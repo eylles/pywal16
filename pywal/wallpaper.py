@@ -44,6 +44,17 @@ def get_desktop_env():
     return None
 
 
+def detect_display_protocol():
+    """Detect the active display protocol (X11 or Wayland)."""
+    if os.environ.get("WAYLAND_DISPLAY"):
+        return "wayland"
+    
+    if os.environ.get("DISPLAY") and not os.environ.get("WAYLAND_DISPLAY"):
+        return "x11"
+    
+    return None
+
+
 def xfconf(img):
     """Call xfconf to set the wallpaper on XFCE."""
     xfconf_re = re.compile(
@@ -72,8 +83,8 @@ def xfconf(img):
 
 def set_wm_wallpaper(img):
     """Set the wallpaper for non desktop environments."""
-    session_type = os.getenv('XDG_SESSION_TYPE')
-    if session_type == "x11":
+    display_protocol = detect_display_protocol()
+    if display_protocol == "x11":
         # setters for x11
         if shutil.which("feh"):
             util.disown(["feh", "--bg-fill", img])
@@ -100,7 +111,7 @@ def set_wm_wallpaper(img):
             logging.error("No wallpaper setter found.")
             return
 
-    elif session_type == "wayland":
+    elif display_protocol == "wayland":
         # setters for wayland
         if shutil.which("swww"):
             util.disown(["swww", "img", img])
@@ -118,16 +129,11 @@ def set_wm_wallpaper(img):
             return
 
     else:
-        if session_type:
-            logging.error(
-                    "Wallpaper setting not supported for"
-                    f" '{session_type}' session type."
-                    )
-        else:
-            logging.error("Cannot set wallpaper for this session.")
         logging.error(
-                "Check XDG_SESSION_TYPE is set correctly"
-                " only x11 and wayland session types are supported."
+                "Display protocol could not be determined. "
+                "Detection requires either WAYLAND_DISPLAY (for Wayland) "
+                "or DISPLAY (for X11) environment variables to be set. "
+                "Only x11 and wayland display protocols are supported."
                 )
         return
 
