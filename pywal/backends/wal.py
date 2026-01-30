@@ -94,7 +94,7 @@ def gen_colors(img):
             while len(hex_colors) < 16:
                 logging.warning("will try to do palette concatenation, good results not guaranteed!")
                 hex_colors += hex_colors
-               
+            break
         except AttributeError:
             logging.warning(f"{magick_command} failed.")
             continue
