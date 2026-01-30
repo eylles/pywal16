@@ -71,14 +71,14 @@ def gen_colors_with_command(img, magick_command, beginning_color_count=16, itera
         if len(hex_colors) >= 16:
             break
 
-        if color_count == max_color_count:
-            logging.error("Imagemagick couldn't generate a suitable palette.")
-            logging.warning("will try to do palette concatenation, good results not guaranteed!")
-            while not len(hex_colors) > 16:
-                hex_colors.extend(hex_colors)
+        if color_count < max_color_count:
+            logging.warning(f"Imagemagick couldn't generate a palette with {magick_command}.")
+            logging.warning(f"Trying a larger palette size {color_count}.")
         else:
-            logging.warning("Imagemagick couldn't generate a palette.")
-            logging.warning("Trying a larger palette size %s", color_count)
+            logging.error(f"Imagemagick couldn't generate a suitable palette with {magick_command}.")
+            logging.warning("Will try to do palette concatenation, good results not guaranteed!")
+            while len(hex_colors) < 16:
+                hex_colors.extend(hex_colors)
     return hex_colors
 
 
@@ -93,7 +93,7 @@ def gen_colors(img):
             hex_colors = gen_colors_with_command(img, magick_command)
 
             if not hex_colors:
-                logging.warning("Failed to generate colors.")
+                logging.warning(f"Failed to generate colors with {magick_command}.")
                 continue
 
             break
