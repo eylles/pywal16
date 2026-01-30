@@ -89,19 +89,15 @@ def gen_colors(img):
     for magick_command in magick_commands:
         logging.debug(f"Trying {magick_command}...")
 
-        try:
-            hex_colors = gen_colors_with_command(img, magick_command)
+        hex_colors = gen_colors_with_command(img, magick_command)
 
-            if not hex_colors:
-                logging.warning(f"Failed to generate colors with {magick_command}.")
-                continue
-
-            break
-        except AttributeError:
-            logging.warning(f"{magick_command} failed.")
+        if not hex_colors:
+            logging.warning(f"Failed to generate colors with {magick_command}.")
             continue
 
-    return hex_colors
+        return hex_colors
+    
+    raise RuntimeError(f"Failed to generate color palette from {img} with these commands: {magick_commands}")
 
 
 def adjust(cols, light, **kwargs):
