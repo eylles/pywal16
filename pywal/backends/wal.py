@@ -56,22 +56,30 @@ def has_im():
 
 
 def gen_colors_with_command(img, magick_command, beginning_color_count=16, iteration_count = 20):
+    hex_pattern = re.compile(r"#[A-F0-9]{6}", re.IGNORECASE)
+
     max_color_count = beginning_color_count + iteration_count - 1
     for color_count in range(beginning_color_count, beginning_color_count + iteration_count):
-        raw_colors = imagemagick(color_count, img, magick_command)
+        raw_output = imagemagick(color_count, img, magick_command)
+        hex_colors = [
+            hex_pattern.search(str(col)).group()
+            for col in raw_output
+            if hex_pattern.search(str(col))
+        ]
 
-        if len(raw_colors) > 16:
+
+        if len(hex_colors) >= 16:
             break
 
         if color_count == max_color_count:
             logging.error("Imagemagick couldn't generate a suitable palette.")
             logging.warning("will try to do palette concatenation, good results not guaranteed!")
-            while not len(raw_colors) > 16:
-                raw_colors = raw_colors + raw_colors
+            while not len(hex_colors) > 16:
+                hex_colors.extend(hex_colors)
         else:
             logging.warning("Imagemagick couldn't generate a palette.")
             logging.warning("Trying a larger palette size %s", color_count)
-    return raw_colors
+    return hex_colors
 
 
 def gen_colors(img):
@@ -82,19 +90,12 @@ def gen_colors(img):
         logging.debug(f"Trying {magick_command}...")
 
         try:
-            raw_colors = gen_colors_with_command(img, magick_command)
-            hex_colors = [
-                re.search("#.{6}", str(col)).group(0)
-                for col in raw_colors[1:]
-            ]
+            hex_colors = gen_colors_with_command(img, magick_command)
 
             if not hex_colors:
                 logging.warning("Failed to generate colors.")
                 continue
 
-            while len(hex_colors) < 16:
-                logging.warning("will try to do palette concatenation, good results not guaranteed!")
-                hex_colors += hex_colors
             break
         except AttributeError:
             logging.warning(f"{magick_command} failed.")
