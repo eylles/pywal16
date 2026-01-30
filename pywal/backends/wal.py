@@ -56,6 +56,7 @@ def has_im():
 
 
 def gen_colors_with_command(img, magick_command, beginning_color_count=16, iteration_count = 20):
+    """Iteratively attempt to generate a 16-color palette using a specific Imagemagick command."""
     hex_pattern = re.compile(r"#[A-F0-9]{6}", re.IGNORECASE)
 
     max_color_count = beginning_color_count + iteration_count - 1
@@ -66,7 +67,6 @@ def gen_colors_with_command(img, magick_command, beginning_color_count=16, itera
             for col in raw_output
             if hex_pattern.search(str(col))
         ]
-
 
         if len(hex_colors) >= 16:
             break
@@ -83,7 +83,7 @@ def gen_colors_with_command(img, magick_command, beginning_color_count=16, itera
 
 
 def gen_colors(img):
-    """Format the output from imagemagick into a list of hex colors."""
+    """Try each Imagemagick command until a color palette is successfully generated."""
     magick_commands = has_im()
 
     for magick_command in magick_commands:
@@ -96,7 +96,7 @@ def gen_colors(img):
             continue
 
         return hex_colors
-    
+
     raise RuntimeError(f"Failed to generate color palette from {img} with these commands: {magick_commands}")
 
 
