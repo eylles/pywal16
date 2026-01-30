@@ -55,21 +55,22 @@ def has_im():
     sys.exit(1)
 
 
-def try_gen_in_range(img, magick_command):
-    for i in range(0, 20, 1):
-        raw_colors = imagemagick(16 + i, img, magick_command)
+def gen_colors_with_command(img, magick_command, beginning_color_count=16, iteration_count = 20):
+    max_color_count = beginning_color_count + iteration_count - 1
+    for color_count in range(beginning_color_count, beginning_color_count + iteration_count):
+        raw_colors = imagemagick(color_count, img, magick_command)
 
         if len(raw_colors) > 16:
             break
 
-        if i == 19:
+        if color_count == max_color_count:
             logging.error("Imagemagick couldn't generate a suitable palette.")
             logging.warning("will try to do palette concatenation, good results not guaranteed!")
             while not len(raw_colors) > 16:
                 raw_colors = raw_colors + raw_colors
         else:
             logging.warning("Imagemagick couldn't generate a palette.")
-            logging.warning("Trying a larger palette size %s", 16 + i)
+            logging.warning("Trying a larger palette size %s", color_count)
     return raw_colors
 
 
@@ -81,7 +82,7 @@ def gen_colors(img):
         logging.debug(f"Trying {magick_command}...")
 
         try:
-            raw_colors = try_gen_in_range(img, magick_command)
+            raw_colors = gen_colors_with_command(img, magick_command)
             hex_colors = [
                 re.search("#.{6}", str(col)).group(0)
                 for col in raw_colors[1:]
