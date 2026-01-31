@@ -9,7 +9,6 @@ import subprocess
 import sys
 
 from .. import colors
-from .. import util
 
 
 def imagemagick(color_count, img, magick_command):
