@@ -55,12 +55,17 @@ def has_im():
     sys.exit(1)
 
 
-def gen_colors_with_command(img, magick_command, beginning_color_count=16, iteration_count = 20):
-    """Iteratively attempt to generate a 16-color palette using a specific Imagemagick command."""
+def gen_colors_with_command(
+        img, magick_command, beginning_color_count=16, iteration_count=20
+        ):
+    """Iteratively attempt to generate a 16-color palette
+    using a specific Imagemagick command."""
     hex_pattern = re.compile(r"#[A-F0-9]{6}", re.IGNORECASE)
 
     max_color_count = beginning_color_count + iteration_count - 1
-    for color_count in range(beginning_color_count, beginning_color_count + iteration_count):
+    for color_count in range(
+            beginning_color_count, beginning_color_count + iteration_count
+            ):
         raw_output = imagemagick(color_count, img, magick_command)
         hex_colors = [
             hex_pattern.search(str(col)).group()
@@ -72,18 +77,30 @@ def gen_colors_with_command(img, magick_command, beginning_color_count=16, itera
             break
 
         if color_count < max_color_count:
-            logging.warning(f"Imagemagick couldn't generate a palette with {magick_command}.")
-            logging.warning(f"Trying a larger palette size {color_count}.")
+            logging.warning(
+                    "Imagemagick couldn't generate a "
+                    f"palette with {magick_command}."
+                    )
+            logging.warning(
+                    f"Trying a larger palette size {color_count}."
+                    )
         else:
-            logging.error(f"Imagemagick couldn't generate a suitable palette with {magick_command}.")
-            logging.warning("Will try to do palette concatenation, good results not guaranteed!")
+            logging.error(
+                    "Imagemagick couldn't generate a suitable palette "
+                    f"with {magick_command}."
+                    )
+            logging.warning(
+                    "Will try to do palette concatenation, "
+                    "good results not guaranteed!"
+                    )
             while len(hex_colors) < 16:
                 hex_colors.extend(hex_colors)
     return hex_colors
 
 
 def gen_colors(img):
-    """Try each Imagemagick command until a color palette is successfully generated."""
+    """Try each Imagemagick command until a color palette
+    is successfully generated."""
     magick_commands = has_im()
 
     for magick_command in magick_commands:
@@ -92,12 +109,17 @@ def gen_colors(img):
         hex_colors = gen_colors_with_command(img, magick_command)
 
         if not hex_colors:
-            logging.warning(f"Failed to generate colors with {magick_command}.")
+            logging.warning(
+                    f"Failed to generate colors with {magick_command}."
+                    )
             continue
 
         return hex_colors
 
-    raise RuntimeError(f"Failed to generate color palette from {img} with these commands: {magick_commands}")
+    raise RuntimeError(
+            "Failed to generate color palette from "
+            f"{img} with these commands: {magick_commands}"
+            )
 
 
 def adjust(cols, light, **kwargs):
