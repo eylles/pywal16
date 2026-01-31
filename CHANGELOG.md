@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.8.14] - 2026-01-30
+Fixes:
+- Fix wal backend issues.
+- Fix session type detection.
+
+NEW:
+- Add `awww` support.
+- Add section to manpage about XDG_SESSION_TYPE and how the session is detected.
+
 ## [3.8.13] - 2025-12-13
 Fixes:
 - Fix issue where pywal16 would try to use wayland wallpaper setters in an x11 environment.
@@ -919,7 +928,8 @@ Note to self: Don't flag releases before coffee.
 
 
 
-[Unreleased]: https://github.com/eylles/pywal16/compare/3.8.13...HEAD
+[Unreleased]: https://github.com/eylles/pywal16/compare/3.8.14...HEAD
+[3.8.14]: https://github.com/eylles/pywal16/compare/3.8.13...3.8.14
 [3.8.13]: https://github.com/eylles/pywal16/compare/3.8.12...3.8.13
 [3.8.12]: https://github.com/eylles/pywal16/compare/3.8.11...3.8.12
 [3.8.11]: https://github.com/eylles/pywal16/compare/3.8.10...3.8.11
