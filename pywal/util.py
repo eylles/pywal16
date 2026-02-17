@@ -187,6 +187,10 @@ class Color:
         percent = float(re.sub(r"[\D\.]", "", str(percent)))
         return Color(darken_color(self.hex_color, percent / 100))
 
+    def foxify(self, amount):
+        """Foxify color by amount."""
+        return Color(foxify_color(self.hex_color, amount))
+
     def saturate(self, percent):
         """Saturate a color."""
         percent = float(re.sub(r"[\D\.]", "", str(percent)))
@@ -308,6 +312,17 @@ def lighten_color(color, amount):
     """Lighten a hex color."""
     color = [int(col + (255 - col) * amount) for col in hex_to_rgb(color)]
     return rgb_to_hex(color)
+
+
+def foxify_color(color, f):
+    """pywalfox algorithm to lighten colors"""
+    pwf = float(f)
+    c = hex_to_rgb(color)
+    b = []
+    b.append(min((max(0, int(c[0] + (c[0] * pwf)))), 255))
+    b.append(min((max(0, int(c[1] + (c[1] * pwf)))), 255))
+    b.append(min((max(0, int(c[2] + (c[2] * pwf)))), 255))
+    return rgb_to_hex(b)
 
 
 def alpha_integrify(alpha_value):
