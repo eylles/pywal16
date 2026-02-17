@@ -12,6 +12,8 @@ wal \- Generate colorschemes on the fly
 .IR foreground ]
 .RB [ --backend
 .IR [backend] ]
+.RB [ --out-dir
+.IR [out_dir] ]
 .RB [ --theme
 .IR /path/to/file
 or
@@ -21,7 +23,7 @@ or
 .IR [method] ]
 .RB [ --recursive ]
 .RB [ --saturate
-.IR 0.0-1.0 ]
+.IR -1.0 - 1.0 ]
 .RB [ --preview ]
 .RB [ --vte ]
 .RB [ -i
@@ -42,8 +44,9 @@ Print brief usage information to standard output and exit.
 .TP
 .BI "\-a " alpha
 Set terminal background transparency to
-.IR alpha .
- *Only works in URxvt*
+.IR alpha . 
+The value must be an integer between 0 and 100.
+ *Only works in URxvt and terminals that implement the OSC-11 interface*
 
 .TP
 .BI "\-b " background
@@ -62,6 +65,18 @@ color to use.
 Which color backend to use. Use 'wal \-\-backend' to list backends.
 
 .TP
+.BI "\-\-out-dir " /path/to/output\ dir
+Directory to output the built template files. 
+By default wal will export the built templates to 
+.IR $XDG_CACHE_HOME/wal/ 
+
+The output dir for the templates can also be set with the
+.IR $PYWAL_CACHE_DIR
+env var, using this flag overrides the internal
+.IR CACHE_DIR
+variable taking precedence over $PYWAL_CACHE_DIR.
+
+.TP
 .BI "\-f, \-\-theme " /path/to/file\ or\ theme_name
 Which colorscheme file to use. Use 'wal \-\-theme' to list builtin and user themes.
 
@@ -72,10 +87,12 @@ When pywal is given a directory as input and this flag is used: Go through the i
 .TP
 .BI "\-\-cols16 " method
 Use 16 color mode, this will generate 16 color themes or convert 9 color themes to 16 colors.
-Method is either
+Method is one of
 .IR darken
-or
+,
 .IR lighten
+or
+.IR dual
 default:
 .IR darken
 
@@ -84,8 +101,9 @@ default:
 When pywal is given a directory as input and this flag is used: Search for images recursively in subdirectories instead of the root only.
 
 .TP
-.BI "\-\-saturate " [0.0-1.0]
+.BI "\-\-saturate " [-1.0 - 1.0]
 Set the color saturation.
+Interpret as percentage, ie: 1.00 = 100%, 0.50 = 50%,
 
 .TP
 .B "\-\-preview "
@@ -158,6 +176,30 @@ Skip reloading xrdb/i3/sway/polybar
 .IB "\-\-contrast " [1.0-21.0]
 Specify a minimum contrast ratio between palette colors and the source image according to W3 contrast specifications. Values between 1.5-4.5 typically work best.
 
+.SH CONFIGURATION
+.P
+Wal is configured through a handful of ENV VARS, the following ones are used:
+
+.TP
+.B "XDG_CONFIG_HOME"
+Parent directory to the user wal/templates dir.
+
+.TP
+.B "PYWAL_CACHE_DIR"
+Explicitly set the cache dir for the built templates, this has precedence over the XDG_CACHE_HOME/wal dir.
+
+.TP
+.B "NO_FUN"
+One of the env variables that control the display eastereggs, it acts as a negative switch, ie: setting it to 1 will disable the display of eastereggs while leaving this var unset or setting it to 0 will allow the display of eastereggs.
+
+.TP
+.B "EASTEREGGS"
+One of the env vars that control the display of eastereggs, it is a switch type variable, setting it to 0 will disable the display of eastereggs while setting it to 1 or leaving it unset will enable the display of eastereggs.
+
+.TP
+.B "JOBLESS_FAT_BASTARD_STOP_BEGGING_FOR_MONEY"
+This is the env var to control the display of the donations message, it acts as a negative switch, setting it to 1 will disable the donations message completely, leaving it unset or setting as 0 will allow the donations message to be displayed.
+
 .SH TEMPLATES
 .P
 Wal supports user defined template files. What this means is that similar to the export files in the
@@ -171,6 +213,46 @@ The user defined files are read from
 and are exported to
 .B $XDG_CACHE_HOME/wal/
 under the same name. Using this feature you can also overwrite the default export files
+
+.SH MISC
+.P
+The section for other important information to using pywal16 that does not fit a specific section.
+
+.TP
+.B "XDG_SESSION_TYPE, DISPLAY, WAYLAND_DISPLAY"
+The
+.B XDG_SESSION_TYPE
+env var is needed to set the wallpaper when running an environment consisting of a standalone x11 window manager or wayland compositor (i.e. not a full desktop environment).
+If 
+.B XDG_SESSION_TYPE
+is not available the
+.B DISPLAY
+and
+.B WAYLAND_DISPLAY
+vars are used as fallback to detect the active display protocol. This avoids relying only on
+.B XDG_SESSION_TYPE
+which may be set to "tty" on some setups (for example when starting X manually with startx) or not set at all. If
+.B WAYLAND_DISPLAY
+is set, the session is treated as Wayland. If
+.B DISPLAY
+is set (and
+.B WAYLAND_DISPLAY
+is not), the session is treated as X11.
+
+This is necessary because some setup may have the packages for (example) BOTH i3 and sway, so in previous releases swaybg had priority over feh and would be ran as wallpaper setter regardless of the user currently running i3 or sway, these checks allow us to follow the corresponding chain of possible wallpaper setters.
+
+.TP
+.B "ImageMagick 7 Policy"
+Back in about march 2024 ImageMagick 7 changed it's default policy to not allow writing to STDOUT, just locate the file 
+.B "/etc/ImageMagick-7/policy.xml"
+(if that is not the name in your distro consult the package file list) then find the line
+.B '<policy domain="path" rights="none" pattern="-"/>'
+and change rights="none" to rights="write"
+For convenience you could use the following sed command:
+sudo sed 's/policy domain="path" rights="none" pattern="-"/policy domain="path" rights="write" pattern="-"/' /etc/ImageMagick-7/policy.xml
+
+Worth noting that in distros like debian and derivates the ImageMagick policy is modified at packaging time to allow writes to STDOUT.
+
 .SH ORIGINAL AUTHOR
 .EX
 .EE

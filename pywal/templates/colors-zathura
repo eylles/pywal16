@@ -5,7 +5,7 @@ set completion-bg "{background}"
 set completion-fg "{foreground}"
 set completion-group-bg "{background}"
 set completion-group-fg "{color2}"
-set completion-highlight-bg "{foreground}"
+set completion-highlight-bg "{color2}"
 set completion-highlight-fg "{background}"
 
 set recolor-lightcolor "{background}"

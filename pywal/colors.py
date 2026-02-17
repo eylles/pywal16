@@ -65,6 +65,63 @@ def colors_to_dict(colors, img):
     }
 
 
+def get_color_names_list(colors_dict):
+    ret_list = []
+    # detect dict type
+    if "color0" in colors_dict:
+        ret_list = [
+                "color0", "color1", "color2", "color3",
+                "color4", "color5", "color6", "color7",
+                "color8", "color9", "color10", "color11",
+                "color12", "color13", "color14", "color15",
+              ]
+    else:
+        ret_list = [
+                0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15,
+              ]
+    return ret_list
+
+
+def shade_darken(colors, light):
+    k_v = []
+    k_v = get_color_names_list(colors)
+    if light:
+        colors[k_v[1]] = util.darken_color(colors[k_v[1]], 0.25)
+        colors[k_v[2]] = util.darken_color(colors[k_v[2]], 0.25)
+        colors[k_v[3]] = util.darken_color(colors[k_v[3]], 0.25)
+        colors[k_v[4]] = util.darken_color(colors[k_v[4]], 0.25)
+        colors[k_v[5]] = util.darken_color(colors[k_v[5]], 0.25)
+        colors[k_v[6]] = util.darken_color(colors[k_v[6]], 0.25)
+    else:
+        colors[k_v[1]] = util.darken_color(colors[k_v[1]], 0.25)
+        colors[k_v[2]] = util.darken_color(colors[k_v[2]], 0.25)
+        colors[k_v[3]] = util.darken_color(colors[k_v[3]], 0.25)
+        colors[k_v[4]] = util.darken_color(colors[k_v[4]], 0.25)
+        colors[k_v[5]] = util.darken_color(colors[k_v[5]], 0.25)
+        colors[k_v[6]] = util.darken_color(colors[k_v[6]], 0.25)
+
+
+def shade_lighten(colors, light):
+    k_v = []
+    k_v = get_color_names_list(colors)
+    if light:
+        colors[k_v[9]] = util.lighten_color(colors[k_v[1]], 0.25)
+        colors[k_v[10]] = util.lighten_color(colors[k_v[2]], 0.25)
+        colors[k_v[11]] = util.lighten_color(colors[k_v[3]], 0.25)
+        colors[k_v[12]] = util.lighten_color(colors[k_v[4]], 0.25)
+        colors[k_v[13]] = util.lighten_color(colors[k_v[5]], 0.25)
+        colors[k_v[14]] = util.lighten_color(colors[k_v[6]], 0.25)
+    else:
+        colors[k_v[9]] = util.lighten_color(colors[k_v[1]], 0.25)
+        colors[k_v[10]] = util.lighten_color(colors[k_v[2]], 0.25)
+        colors[k_v[11]] = util.lighten_color(colors[k_v[3]], 0.25)
+        colors[k_v[12]] = util.lighten_color(colors[k_v[4]], 0.25)
+        colors[k_v[13]] = util.lighten_color(colors[k_v[5]], 0.25)
+        colors[k_v[14]] = util.lighten_color(colors[k_v[6]], 0.25)
+        for i in range(9, 15):
+            colors[k_v[i]] = util.saturate_color(colors[k_v[i]], 0.40)
+
+
 def shade_16(colors, light, cols16):
     """Generic 16 color shading
     this function will apply the 16 color shading
@@ -74,61 +131,28 @@ def shade_16(colors, light, cols16):
     light:  boolean - werether the colorscheme is light
     cols16: str [lighten|darken] - method to generate the shades"""
 
-    # detect dict type
-    if "color0" in colors:
-        k_v = [
-                "color0", "color1", "color2", "color3",
-                "color4", "color5", "color6", "color7",
-                "color8", "color9", "color10", "color11",
-                "color12", "color13", "color14", "color15",
-              ]
-    else:
-        k_v = [
-                0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15,
-              ]
+    k_v = []
+    k_v = get_color_names_list(colors)
 
     if cols16:
         if light:
             colors[k_v[7]] = util.darken_color(colors[k_v[0]], 0.50)
             colors[k_v[8]] = util.darken_color(colors[k_v[0]], 0.25)
-            if cols16 == "lighten":
-                colors[k_v[9]] = util.lighten_color(colors[k_v[1]], 0.25)
-                colors[k_v[10]] = util.lighten_color(colors[k_v[2]], 0.25)
-                colors[k_v[11]] = util.lighten_color(colors[k_v[3]], 0.25)
-                colors[k_v[12]] = util.lighten_color(colors[k_v[4]], 0.25)
-                colors[k_v[13]] = util.lighten_color(colors[k_v[5]], 0.25)
-                colors[k_v[14]] = util.lighten_color(colors[k_v[6]], 0.25)
-                colors[k_v[15]] = util.darken_color(colors[k_v[0]], 0.75)
-            else:
-                colors[k_v[1]] = util.darken_color(colors[k_v[1]], 0.25)
-                colors[k_v[2]] = util.darken_color(colors[k_v[2]], 0.25)
-                colors[k_v[3]] = util.darken_color(colors[k_v[3]], 0.25)
-                colors[k_v[4]] = util.darken_color(colors[k_v[4]], 0.25)
-                colors[k_v[5]] = util.darken_color(colors[k_v[5]], 0.25)
-                colors[k_v[6]] = util.darken_color(colors[k_v[6]], 0.25)
-                colors[k_v[15]] = util.darken_color(colors[k_v[0]], 0.75)
+            colors[k_v[15]] = util.darken_color(colors[k_v[0]], 0.75)
+            if cols16 == "lighten" or cols16 == "dual":
+                shade_lighten(colors, light)
+            if cols16 == "darken" or cols16 == "dual":
+                shade_darken(colors, light)
         else:
             colors[k_v[7]] = util.lighten_color(colors[k_v[0]], 0.55)
             colors[k_v[7]] = util.saturate_color(colors[k_v[7]], 0.05)
             colors[k_v[8]] = util.lighten_color(colors[k_v[0]], 0.35)
             colors[k_v[8]] = util.saturate_color(colors[k_v[8]], 0.10)
             colors[k_v[15]] = util.lighten_color(colors[k_v[0]], 0.75)
-            if cols16 == "lighten":
-                colors[k_v[9]] = util.lighten_color(colors[k_v[1]], 0.25)
-                colors[k_v[10]] = util.lighten_color(colors[k_v[2]], 0.25)
-                colors[k_v[11]] = util.lighten_color(colors[k_v[3]], 0.25)
-                colors[k_v[12]] = util.lighten_color(colors[k_v[4]], 0.25)
-                colors[k_v[13]] = util.lighten_color(colors[k_v[5]], 0.25)
-                colors[k_v[14]] = util.lighten_color(colors[k_v[6]], 0.25)
-                for i in range(9, 15):
-                    colors[k_v[i]] = util.saturate_color(colors[k_v[i]], 0.40)
-            else:
-                colors[k_v[1]] = util.darken_color(colors[k_v[1]], 0.25)
-                colors[k_v[2]] = util.darken_color(colors[k_v[2]], 0.25)
-                colors[k_v[3]] = util.darken_color(colors[k_v[3]], 0.25)
-                colors[k_v[4]] = util.darken_color(colors[k_v[4]], 0.25)
-                colors[k_v[5]] = util.darken_color(colors[k_v[5]], 0.25)
-                colors[k_v[6]] = util.darken_color(colors[k_v[6]], 0.25)
+            if cols16 == "lighten" or cols16 == "dual":
+                shade_lighten(colors, light)
+            if cols16 == "darken" or cols16 == "dual":
+                shade_darken(colors, light)
 
 
 def generic_adjust(colors, light, **kwargs):
@@ -149,7 +173,6 @@ def generic_adjust(colors, light, **kwargs):
         colors[0] = util.lighten_color(colors[0], 0.95)
         if cols16:
             shade_16(colors, light, cols16)
-
         else:
             colors[7] = util.darken_color(colors[0], 0.75)
             colors[8] = util.darken_color(colors[0], 0.25)
@@ -158,9 +181,21 @@ def generic_adjust(colors, light, **kwargs):
     else:
         if colors[0][1] != "0":  # the color may already be dark enough
             colors[0] = util.darken_color(colors[0], 0.40)  # just a bit darker
+
+        saturate_more = False
+        if colors[0][1] == "0":  # the color may not be saturated enough
+            saturate_more = True
+        if colors[0][3] == "0":  # the color may not be saturated enough
+            saturate_more = True
+        if colors[0][5] == "0":  # the color may not be saturated enough
+            saturate_more = True
+
+        if saturate_more:
+            colors[0] = util.lighten_color(colors[0], 0.03)
+            colors[0] = util.saturate_color(colors[0], 0.40)
+
         if cols16:
             shade_16(colors, light, cols16)
-
         else:
             colors[7] = util.lighten_color(colors[0], 0.75)
             colors[8] = util.lighten_color(colors[0], 0.35)
@@ -172,10 +207,10 @@ def generic_adjust(colors, light, **kwargs):
 
 def saturate_colors(colors, amount):
     """Saturate all colors."""
-    if amount and float(amount) <= 1.0:
+    if amount and (float(amount) <= 1.0 and float(amount) >= -1.0):
         for i, _ in enumerate(colors):
-            if i not in [0, 7, 8, 15]:
-                colors[i] = util.saturate_color(colors[i], float(amount))
+            if i not in [7, 15]:
+                colors[i] = util.add_saturation(colors[i], float(amount))
 
     return colors
 

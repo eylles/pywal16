@@ -14,6 +14,7 @@ import logging
 import os
 import shutil
 import sys
+import textwrap
 
 from .settings import __version__, CACHE_DIR, CONF_DIR
 from . import colors
@@ -50,13 +51,28 @@ if sys.platform.startswith("win"):
 def get_args():
     """Get the script arguments."""
     description = "wal - Generate colorschemes on the fly"
-    arg = argparse.ArgumentParser(description=description)
+    config_notes = '''
+        configuration:
+        pywal16 supports the usage of the following env vars for configuration
+
+        env vars:
+          XDG_CONFIG_HOME       parent directory to the user wal/templates dir.
+          PYWAL_CACHE_DIR       directory for the built templates, default XDG_CACHE_HOME/wal dir.
+          NO_FUN                set to 1 to disable eastereggs.
+          EASTEREGGS            set to 0 to disable eastereggs, set to 1 to enable them.
+    '''
+    arg = argparse.ArgumentParser(
+            description=description,
+            formatter_class=argparse.RawDescriptionHelpFormatter,
+            epilog=textwrap.dedent(config_notes)
+            )
 
     arg.add_argument(
         "-a",
         metavar='"alpha"',
         help="Set terminal background transparency. \
-                           *Only works in URxvt*",
+              Must be a number between 0 and 100. \
+              *Only works in terminals that implement OSC-11 (URxvt)*",
     )
 
     arg.add_argument(
@@ -73,6 +89,16 @@ def get_args():
         help="Which color backend to use. \
                            Use 'wal --backend' to list backends.",
         const="list_backends",
+        type=str,
+        nargs="?",
+    )
+
+    arg.add_argument(
+        "--out-dir",
+        metavar="out_dir",
+        help="Cache dir to export themes. \
+              Default is 'XDG_CACHE_HOME/wal'. \
+              This can also be set with the env var: 'PYWAL_CACHE_DIR'",
         type=str,
         nargs="?",
     )
@@ -102,8 +128,10 @@ def get_args():
         nargs="?",
         default=False,
         const="darken",
-        choices=["darken", "lighten"],
-        help="Use 16 color output " '"darken" or "lighten" default: darken',
+        choices=["darken", "lighten", "dual"],
+        help="Use 16 color output "
+             '"darken", "lighten" or "dual" '
+             "default: darken",
     )
 
     arg.add_argument(
@@ -115,7 +143,7 @@ def get_args():
     )
 
     arg.add_argument(
-        "--saturate", metavar="0.0-1.0", help="Set the color saturation."
+        "--saturate", metavar="-1.0 - 1.0", help="Set the color saturation."
     )
 
     arg.add_argument(
@@ -273,6 +301,7 @@ def parse_args(parser):
         sys.stdout = sys.stderr = open(os.devnull, "w")
 
     if args.a:
+        util.alpha_integrify(args.a)
         util.Color.passed_alpha_num = args.a
         util.Color.alpha_num = args.a or util.Color.alpha_num
 
@@ -329,7 +358,10 @@ def parse_args(parser):
     if sys.stdout.isatty():
         colors.palette()
 
-    export.every(colors_plain)
+    if args.out_dir:
+        export.every(colors_plain, CACHE_DIR)
+    else:
+        export.every(colors_plain)
 
     if not args.e:
         reload.env(tty_reload=not args.t)
@@ -341,6 +373,8 @@ def parse_args(parser):
 
 def main():
     """Main script function."""
+    global CACHE_DIR
+    default_cache_dir = CACHE_DIR
     util.create_dir(os.path.join(CONF_DIR, "templates"))
     util.create_dir(os.path.join(CONF_DIR, "colorschemes/light/"))
     util.create_dir(os.path.join(CONF_DIR, "colorschemes/dark/"))
@@ -351,6 +385,12 @@ def main():
         logging.warning("colorama is not present")
 
     parser = get_args()
+
+    args = parser.parse_args()
+    if args.out_dir:
+        CACHE_DIR = args.out_dir
+    else:
+        CACHE_DIR = default_cache_dir
 
     parse_args_exit(parser)
     parse_args(parser)

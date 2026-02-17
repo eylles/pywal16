@@ -44,6 +44,17 @@ def get_desktop_env():
     return None
 
 
+def detect_display_protocol():
+    """Detect the active display protocol (X11 or Wayland)."""
+    if os.environ.get("WAYLAND_DISPLAY"):
+        return "wayland"
+
+    if os.environ.get("DISPLAY") and not os.environ.get("WAYLAND_DISPLAY"):
+        return "x11"
+
+    return None
+
+
 def xfconf(img):
     """Call xfconf to set the wallpaper on XFCE."""
     xfconf_re = re.compile(
@@ -72,40 +83,77 @@ def xfconf(img):
 
 def set_wm_wallpaper(img):
     """Set the wallpaper for non desktop environments."""
-    if shutil.which("swww"):
-        util.disown(["swww", "img", img])
+    session_type = os.getenv('XDG_SESSION_TYPE')
+    if not session_type:
+        logging.error(
+            "The XDG_SESSION_TYPE env var is not set "
+            "falling back to Display protocol detection."
+        )
+        session_type = detect_display_protocol()
 
-    elif shutil.which("swaybg"):
-        subprocess.call(["killall", "swaybg"])
-        util.disown(["swaybg", "-m", "fill", "-i", img])
+    if not session_type:
+        logging.error(
+            "Display protocol could not be determined. "
+            "Detection requires either WAYLAND_DISPLAY (for Wayland) "
+            "or DISPLAY (for X11) environment variables to be set. "
+            "Only x11 and wayland display protocols are supported."
+        )
 
-    elif shutil.which("feh"):
-        util.disown(["feh", "--bg-fill", img])
+    if session_type == "x11":
+        # setters for x11
+        if shutil.which("feh"):
+            util.disown(["feh", "--bg-fill", img])
 
-    elif shutil.which("wbg"):
-        subprocess.call(["killall", "wbg"])
-        util.disown(["wbg", img])
+        elif shutil.which("xwallpaper"):
+            util.disown(["xwallpaper", "--zoom", img])
 
-    elif shutil.which("xwallpaper"):
-        util.disown(["xwallpaper", "--zoom", img])
+        elif shutil.which("nitrogen"):
+            util.disown(["nitrogen", "--set-zoom-fill", img])
 
-    elif shutil.which("nitrogen"):
-        util.disown(["nitrogen", "--set-zoom-fill", img])
+        elif shutil.which("bgs"):
+            util.disown(["bgs", "-z", img])
 
-    elif shutil.which("bgs"):
-        util.disown(["bgs", "-z", img])
+        elif shutil.which("hsetroot"):
+            util.disown(["hsetroot", "-fill", img])
 
-    elif shutil.which("hsetroot"):
-        util.disown(["hsetroot", "-fill", img])
+        elif shutil.which("habak"):
+            util.disown(["habak", "-mS", img])
 
-    elif shutil.which("habak"):
-        util.disown(["habak", "-mS", img])
+        elif shutil.which("display"):
+            util.disown(["display", "-backdrop", "-window", "root", img])
 
-    elif shutil.which("display"):
-        util.disown(["display", "-backdrop", "-window", "root", img])
+        else:
+            logging.error("No wallpaper setter found.")
+            return
 
+    elif session_type == "wayland":
+        # setters for wayland
+        if shutil.which("swww"):
+            util.disown(["swww", "img", img])
+
+        elif shutil.which("awww"):
+            util.disown(["awww", "img", img])
+
+        elif shutil.which("swaybg"):
+            subprocess.call(["killall", "swaybg"])
+            util.disown(["swaybg", "-m", "fill", "-i", img])
+
+        elif shutil.which("wbg"):
+            subprocess.call(["killall", "wbg"])
+            util.disown(["wbg", img])
+
+        else:
+            logging.error("No wallpaper setter found.")
+            return
+
+    elif session_type:
+        logging.error(
+            "Wallpaper setting not supported for"
+            f" '{session_type}' session type."
+        )
     else:
-        logging.error("No wallpaper setter found.")
+        logging.error("Cannot set wallpaper for this session.")
+
         return
 
 

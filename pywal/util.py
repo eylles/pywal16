@@ -66,25 +66,29 @@ class Color:
     @property
     def hex_argb(self):
         """Convert an alpha hex color to argb hex."""
+        al_val = alpha_integrify(self.alpha_num)
         return "#%02X%s" % (
-            int(int(self.alpha_num) * 255 / 100),
+            int(int(al_val) * 255 / 100),
             self.hex_color[1:],
         )
 
     @property
     def alpha(self):
         """Add URxvt alpha value to color."""
-        return "[%s]%s" % (self.alpha_num, self.hex_color)
+        al_val = alpha_integrify(self.alpha_num)
+        return "[%s]%s" % (al_val, self.hex_color)
 
     @property
     def alpha_dec(self):
         """Export the alpha value as a decimal number in [0, 1]."""
-        return int(self.alpha_num) / 100
+        al_val = alpha_integrify(self.alpha_num)
+        return int(al_val) / 100
 
     @property
     def alpha_hex(self):
         """Export the alpha value as a hexdecimal number in [00, FF]."""
-        return "%02X" % (int(int(self.alpha_num) * 255 / 100))
+        al_val = alpha_integrify(self.alpha_num)
+        return "%02X" % (int(int(al_val) * 255 / 100))
 
     @property
     def decimal(self):
@@ -320,6 +324,24 @@ def foxify_color(color, f):
     b.append(min((max(0, int(c[2] + (c[2] * pwf)))), 255))
     return rgb_to_hex(b)
 
+  
+def alpha_integrify(alpha_value):
+    """
+    ensure the alpha string is an int between 0 and 100
+
+    return: int string between 0 an 100
+    """
+    # could be a string containing a float like 0.7
+    a = float(alpha_value)
+    if a < 0:
+        a = abs(a)
+    if a < 1:
+        a = a * 100
+    if a > 100:
+        a = 100
+    a = int(a)
+    a = str(a)
+    return a
 
 def blend_color(color, color2):
     """Blend two colors together."""
@@ -334,11 +356,31 @@ def blend_color(color, color2):
 
 
 def saturate_color(color, amount):
-    """Saturate a hex color."""
+    """Change saturation of a hex color to passed value.
+
+    new_saturation = amount"""
     r, g, b = hex_to_rgb(color)
     r, g, b = [x / 255.0 for x in (r, g, b)]
     h, l, s = colorsys.rgb_to_hls(r, g, b)
     s = amount
+    r, g, b = colorsys.hls_to_rgb(h, l, s)
+    r, g, b = [x * 255.0 for x in (r, g, b)]
+
+    return rgb_to_hex((int(r), int(g), int(b)))
+
+
+def add_saturation(color, amount):
+    """Add saturation to a hex color.
+
+    new_saturation = color_saturation + amount"""
+    r, g, b = hex_to_rgb(color)
+    r, g, b = [x / 255.0 for x in (r, g, b)]
+    h, l, s = colorsys.rgb_to_hls(r, g, b)
+    s = s + amount
+    if s > 1.0:
+        s = 1
+    if s < -1.0:
+        s = -1
     r, g, b = colorsys.hls_to_rgb(h, l, s)
     r, g, b = [x * 255.0 for x in (r, g, b)]
 

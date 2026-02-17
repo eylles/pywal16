@@ -7,6 +7,64 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.8.14] - 2026-01-30
+Fixes:
+- Fix wal backend issues.
+- Fix session type detection.
+
+NEW:
+- Add `awww` support.
+- Add section to manpage about XDG_SESSION_TYPE and how the session is detected.
+
+## [3.8.13] - 2025-12-13
+Fixes:
+- Fix issue where pywal16 would try to use wayland wallpaper setters in an x11 environment.
+
+## [3.8.12] - 2025-11-28
+Fixes:
+- Fix regression from 3.8.11 where some images would crash the wal backend.
+
+New:
+- Added ENV VAR to disable the donations message, consult the manpage.
+
+## [3.8.11] - 2025-10-20
+Fixes:
+- Allow the wal backend to work with just 8 colors instead of requiring all 16
+- Template export parser
+
+New:
+- ENV vars to control the printing of the easteregg copypastas and texts
+- Unit tests on push and pr
+- dual method for cols16
+
+## [3.8.10] - 2025-09-29
+Fixes:
+- Use exact name for waybar and polybar.
+- More reliable imagemagick output parsing.
+- Make the behaviour of the --saturation flag more intuitive.
+
+New:
+- `foot` consider alpha for the default template.
+- `ultrakill` palette generation.
+
+## [3.8.9] - 2025-05-31
+Fixes:
+- Fix the fix that was not fixed with `--out-dir`.
+
+## [3.8.8] - 2025-05-31
+Fixes:
+- Error during color export.
+
+## [3.8.7] - 2025-05-31
+Fixes:
+- Ensure alpha value is the correct type and is within valid range.
+- Increase saturation of very dark theme background colors.
+
+New:
+- Prefer the alpha value from flag over the theme alpha.
+- Allow the `--saturate` flag to affect colors 0 and 8.
+- Added the `--out-dir` flag to allow changing export dir, it overrides the value of '$PYWAL_CACHE_DIR'.
+
 ## [3.8.6] - 2025-04-14
 Fixes:
 - `pywal` no longer crashes on windows when `colorama` is not present.
@@ -870,7 +928,15 @@ Note to self: Don't flag releases before coffee.
 
 
 
-[Unreleased]: https://github.com/eylles/pywal16/compare/3.8.6...HEAD
+[Unreleased]: https://github.com/eylles/pywal16/compare/3.8.14...HEAD
+[3.8.14]: https://github.com/eylles/pywal16/compare/3.8.13...3.8.14
+[3.8.13]: https://github.com/eylles/pywal16/compare/3.8.12...3.8.13
+[3.8.12]: https://github.com/eylles/pywal16/compare/3.8.11...3.8.12
+[3.8.11]: https://github.com/eylles/pywal16/compare/3.8.10...3.8.11
+[3.8.10]: https://github.com/eylles/pywal16/compare/3.8.9...3.8.10
+[3.8.9]: https://github.com/eylles/pywal16/compare/3.8.8...3.8.9
+[3.8.8]: https://github.com/eylles/pywal16/compare/3.8.7...3.8.8
+[3.8.7]: https://github.com/eylles/pywal16/compare/3.8.6...3.8.7
 [3.8.6]: https://github.com/eylles/pywal16/compare/3.8.5...3.8.6
 [3.8.5]: https://github.com/eylles/pywal16/compare/3.8.4...3.8.5
 [3.8.4]: https://github.com/eylles/pywal16/compare/3.8.3...3.8.4
