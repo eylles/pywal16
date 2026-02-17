@@ -324,7 +324,7 @@ def foxify_color(color, f):
     b.append(min((max(0, int(c[2] + (c[2] * pwf)))), 255))
     return rgb_to_hex(b)
 
-  
+
 def alpha_integrify(alpha_value):
     """
     ensure the alpha string is an int between 0 and 100
@@ -342,6 +342,7 @@ def alpha_integrify(alpha_value):
     a = int(a)
     a = str(a)
     return a
+
 
 def blend_color(color, color2):
     """Blend two colors together."""
