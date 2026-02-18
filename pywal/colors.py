@@ -183,6 +183,12 @@ def shade_16(colors, light, cols16):
                 shade_lighten(colors, light)
             if cols16 == "darken" or cols16 == "dual":
                 shade_darken(colors, light)
+            if cols16 == "foxify-lighten" or cols16 == "foxify-dual":
+                logging.info("shading with foxify-lighten.")
+                shade_foxify_lighten(colors, light)
+            if cols16 == "foxify-darken" or cols16 == "foxify-dual":
+                logging.info("shading with foxify-darken.")
+                shade_foxify_darken(colors, light)
         else:
             colors[k_v[7]] = util.lighten_color(colors[k_v[0]], 0.55)
             colors[k_v[7]] = util.saturate_color(colors[k_v[7]], 0.05)
@@ -193,6 +199,12 @@ def shade_16(colors, light, cols16):
                 shade_lighten(colors, light)
             if cols16 == "darken" or cols16 == "dual":
                 shade_darken(colors, light)
+            if cols16 == "foxify-lighten" or cols16 == "foxify-dual":
+                logging.info("shading with foxify-lighten.")
+                shade_foxify_lighten(colors, light)
+            if cols16 == "foxify-darken" or cols16 == "foxify-dual":
+                logging.info("shading with foxify-darken.")
+                shade_foxify_darken(colors, light)
 
 
 def generic_adjust(colors, light, **kwargs):
