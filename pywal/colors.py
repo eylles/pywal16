@@ -122,6 +122,46 @@ def shade_lighten(colors, light):
             colors[k_v[i]] = util.saturate_color(colors[k_v[i]], 0.40)
 
 
+def shade_foxify_darken(colors, light):
+    k_v = []
+    k_v = get_color_names_list(colors)
+    if light:
+        colors[k_v[1]] = util.foxify_color(colors[k_v[1]], -0.25)
+        colors[k_v[2]] = util.foxify_color(colors[k_v[2]], -0.25)
+        colors[k_v[3]] = util.foxify_color(colors[k_v[3]], -0.25)
+        colors[k_v[4]] = util.foxify_color(colors[k_v[4]], -0.25)
+        colors[k_v[5]] = util.foxify_color(colors[k_v[5]], -0.25)
+        colors[k_v[6]] = util.foxify_color(colors[k_v[6]], -0.25)
+    else:
+        for i in range(1, 6):
+            colors[k_v[i]] = util.saturate_color(colors[k_v[i]], 0.40)
+        colors[k_v[1]] = util.foxify_color(colors[k_v[1]], -0.25)
+        colors[k_v[2]] = util.foxify_color(colors[k_v[2]], -0.25)
+        colors[k_v[3]] = util.foxify_color(colors[k_v[3]], -0.25)
+        colors[k_v[4]] = util.foxify_color(colors[k_v[4]], -0.25)
+        colors[k_v[5]] = util.foxify_color(colors[k_v[5]], -0.25)
+        colors[k_v[6]] = util.foxify_color(colors[k_v[6]], -0.25)
+
+
+def shade_foxify_lighten(colors, light):
+    k_v = []
+    k_v = get_color_names_list(colors)
+    if light:
+        colors[k_v[9]] = util.foxify_color(colors[k_v[1]], 0.25)
+        colors[k_v[10]] = util.foxify_color(colors[k_v[2]], 0.25)
+        colors[k_v[11]] = util.foxify_color(colors[k_v[3]], 0.25)
+        colors[k_v[12]] = util.foxify_color(colors[k_v[4]], 0.25)
+        colors[k_v[13]] = util.foxify_color(colors[k_v[5]], 0.25)
+        colors[k_v[14]] = util.foxify_color(colors[k_v[6]], 0.25)
+    else:
+        colors[k_v[9]] = util.foxify_color(colors[k_v[1]], 0.25)
+        colors[k_v[10]] = util.foxify_color(colors[k_v[2]], 0.25)
+        colors[k_v[11]] = util.foxify_color(colors[k_v[3]], 0.25)
+        colors[k_v[12]] = util.foxify_color(colors[k_v[4]], 0.25)
+        colors[k_v[13]] = util.foxify_color(colors[k_v[5]], 0.25)
+        colors[k_v[14]] = util.foxify_color(colors[k_v[6]], 0.25)
+
+
 def shade_16(colors, light, cols16):
     """Generic 16 color shading
     this function will apply the 16 color shading
