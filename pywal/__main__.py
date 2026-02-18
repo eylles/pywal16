@@ -128,9 +128,11 @@ def get_args():
         nargs="?",
         default=False,
         const="darken",
-        choices=["darken", "lighten", "dual"],
+        choices=["darken", "lighten", "dual", "foxify-darken",
+                 "foxify-lighten", "foxify-dual"],
         help="Use 16 color output "
-             '"darken", "lighten" or "dual" '
+             '"darken", "lighten", "dual", '
+             '"foxify-darken", "foxify-lighten" or "foxify-dual" '
              "default: darken",
     )
 
