@@ -75,6 +75,11 @@ def polybar():
         util.disown(["pkill", "-x", "-USR1", "polybar"])
 
 
+def yasb():
+    """Reload yasb colors."""
+    if shutil.which("yasb.exe") and "yasb.exe" in subprocess.run(["tasklist"], capture_output=True, text=True).stdout:
+        subprocess.Popen(["yasbc", "reload", "-s"])
+
 def sway():
     """Reload sway colors."""
     if shutil.which("swaymsg") and util.get_pid("sway"):
@@ -129,6 +134,7 @@ def env(xrdb_file=None, tty_reload=True):
     kitty()
     sway()
     polybar()
+    yasb()
     nvim()
     waybar()
     termux()
