@@ -100,7 +100,7 @@ def send(colors, cache_dir=CACHE_DIR, to_send=True, vte_fix=False):
     if to_send:
         for dev in devices:
             if dev == "/dev/pts/0":
-                if os.environ.get("DESKTOP_SESSION") == "plasma":
+                if os.environ.get("XDG_CURRENT_DESKTOP") == "KDE" or os.environ.get("DESKTOP_SESSION") == "plasma":
                     continue
             util.save_file(sequences, dev)
 
