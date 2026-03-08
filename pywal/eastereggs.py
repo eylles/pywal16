@@ -113,10 +113,13 @@ the_finest_in_the_district = """
 Python, It's the finest in the district!
 """
 
+int_true = 1
+int_false = 0
+
 
 def eemsg():
-    no_fun_mode = int(os.getenv("NO_FUN", 0))
-    eastereggs = int(os.getenv("EASTEREGGS", 1))
+    no_fun_mode = int(os.getenv("NO_FUN", int_false))
+    eastereggs = int(os.getenv("EASTEREGGS", int_true))
 
     if eastereggs and not no_fun_mode:
         msec_mod = datetime.datetime.now().microsecond % 20
