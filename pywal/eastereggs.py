@@ -116,10 +116,31 @@ Python, It's the finest in the district!
 int_true = 1
 int_false = 0
 
+# should the small 1/2 line easter eggs be shown?
+# | NO_FUN | EASTEREGGS | eastereggs |
+# | ------ | ---------- | ---------- |
+# |   F    |     F      |     F      |
+# |   F    |     V      |     V      |
+# |   V    |     F      |     F      |
+# |   V    |     V      |     F      |
+
+
+# should the multi line shitpotsts be shown?
+# | NO_FUN | EASTEREGGS | SHITPOSTS | shitposts |
+# | ------ | ---------- | --------- | --------- |
+# |   F    |     F      |     F     |     F     |
+# |   F    |     V      |     F     |     F     |
+# |   V    |     F      |     F     |     F     |
+# |   V    |     V      |     F     |     F     |
+# |   F    |     F      |     V     |     F     |
+# |   F    |     V      |     V     |     V     |
+# |   V    |     F      |     V     |     F     |
+# |   V    |     V      |     V     |     F     |
 
 def eemsg():
     no_fun_mode = int(os.getenv("NO_FUN", int_false))
     eastereggs = int(os.getenv("EASTEREGGS", int_true))
+    show_shitposts = int(os.getenv("SHITPOSTS", int_false))
 
     if eastereggs and not no_fun_mode:
         msec_mod = datetime.datetime.now().microsecond % 20
@@ -129,14 +150,18 @@ def eemsg():
             if month == 1 and day == 31:
                 print(guido)
             if month == 4 and day == 1:
-                print(ricing_feels_soulless)
+                if show_shitposts:
+                    print(ricing_feels_soulless)
             if month == 3 and day == 16:
                 print(gimp)
             if month == 6 and day == 21:
-                print(pywal_is_so_cute)
+                if show_shitposts:
+                    print(pywal_is_so_cute)
             if month == 9 and day == 15:
-                print(we_will_replace_x11)
+                if show_shitposts:
+                    print(we_will_replace_x11)
             if month == 9 and day == 30:
-                print(are_we_wayland_yet)
+                if show_shitposts:
+                    print(are_we_wayland_yet)
             if month == 12 and day == 3:
                 print(the_finest_in_the_district)
