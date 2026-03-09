@@ -60,6 +60,7 @@ def get_args():
           PYWAL_CACHE_DIR       directory for the built templates, default XDG_CACHE_HOME/wal dir.
           NO_FUN                set to 1 to disable eastereggs.
           EASTEREGGS            set to 0 to disable eastereggs, set to 1 to enable them.
+          SHITPOSTS             set to 1 to enable shitposts.
     '''
     arg = argparse.ArgumentParser(
             description=description,
