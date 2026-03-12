@@ -318,13 +318,14 @@ def foxify_color(color, f):
     """pywalfox algorithm to lighten colors"""
     pwf = float(f)
     c = hex_to_rgb(color)
-    c[0] = max(c[0], 10)
-    c[1] = max(c[1], 10)
-    c[2] = max(c[2], 10)
-    b = []
-    b.append(min((max(0, int(c[0] + (c[0] * pwf)))), 255))
-    b.append(min((max(0, int(c[1] + (c[1] * pwf)))), 255))
-    b.append(min((max(0, int(c[2] + (c[2] * pwf)))), 255))
+    b = [
+        max(c[0], 10),
+        max(c[1], 10),
+        max(c[2], 10)
+        ]
+    b[0] = (min((max(0, int(b[0] + (b[0] * pwf)))), 255))
+    b[1] = (min((max(0, int(b[1] + (b[1] * pwf)))), 255))
+    b[2] = (min((max(0, int(b[2] + (b[2] * pwf)))), 255))
     return rgb_to_hex(b)
 
 
