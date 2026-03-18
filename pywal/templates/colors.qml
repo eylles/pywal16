@@ -1,0 +1,22 @@
+import QtQuick
+QtObject {
+    readonly property string background: "{background}"
+    readonly property string foreground: "{foreground}"
+    readonly property string cursor: "{cursor}"
+    readonly property string color0: "{color0}"
+    readonly property string color1: "{color1}"
+    readonly property string color2: "{color2}"
+    readonly property string color3: "{color3}"
+    readonly property string color4: "{color4}"
+    readonly property string color5: "{color5}"
+    readonly property string color6: "{color6}"
+    readonly property string color7: "{color7}"
+    readonly property string color8: "{color8}"
+    readonly property string color9: "{color9}"
+    readonly property string color10: "{color10}"
+    readonly property string color11: "{color11}"
+    readonly property string color12: "{color12}"
+    readonly property string color13: "{color13}"
+    readonly property string color14: "{color14}"
+    readonly property string color15: "{color15}"
+}
