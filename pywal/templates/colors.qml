@@ -1,70 +1,54 @@
 import QtQuick
 QtObject {
-    readonly property string background: "{background}"
-    readonly property string foreground: "{foreground}"
-    readonly property string cursor: "{cursor}"
-
-    readonly property string color0: "{color0}"
-    readonly property string color0Light: "{color0.lighten(50)}"
-    readonly property string color0Dark: "{color0.darken(50)}"
-
-    readonly property string color1: "{color1}"
-    readonly property string color1Light: "{color1.lighten(50)}"
-    readonly property string color1Dark: "{color1.darken(50)}"
-
-    readonly property string color2: "{color2}"
-    readonly property string color2Light: "{color2.lighten(50)}"
-    readonly property string color2Dark: "{color2.darken(50)}"
-
-    readonly property string color3: "{color3}"
-    readonly property string color3Light: "{color3.lighten(50)}"
-    readonly property string color3Dark: "{color3.darken(50)}"
-
-    readonly property string color4: "{color4}"
-    readonly property string color4Light: "{color4.lighten(50)}"
-    readonly property string color4Dark: "{color4.darken(50)}"
-
-    readonly property string color5: "{color5}"
-    readonly property string color5Light: "{color5.lighten(50)}"
-    readonly property string color5Dark: "{color5.darken(50)}"
-
-    readonly property string color6: "{color6}"
-    readonly property string color6Light: "{color6.lighten(50)}"
-    readonly property string color6Dark: "{color6.darken(50)}"
-
-    readonly property string color7: "{color7}"
-    readonly property string color7Light: "{color7.lighten(50)}"
-    readonly property string color7Dark: "{color7.darken(50)}"
-
-    readonly property string color8: "{color8}"
-    readonly property string color8Light: "{color8.lighten(50)}"
-    readonly property string color8Dark: "{color8.darken(50)}"
-
-    readonly property string color9: "{color9}"
-    readonly property string color9Light: "{color9.lighten(50)}"
-    readonly property string color9Dark: "{color9.darken(50)}"
-
-    readonly property string color10: "{color10}"
-    readonly property string color10Light: "{color10.lighten(50)}"
-    readonly property string color10Dark: "{color10.darken(50)}"
-
-    readonly property string color11: "{color11}"
-    readonly property string color11Light: "{color11.lighten(50)}"
-    readonly property string color11Dark: "{color11.darken(50)}"
-
-    readonly property string color12: "{color12}"
-    readonly property string color12Light: "{color12.lighten(50)}"
-    readonly property string color12Dark: "{color12.darken(50)}"
-
-    readonly property string color13: "{color13}"
-    readonly property string color13Light: "{color13.lighten(50)}"
-    readonly property string color13Dark: "{color13.darken(50)}"
-
-    readonly property string color14: "{color14}"
-    readonly property string color14Light: "{color14.lighten(50)}"
-    readonly property string color14Dark: "{color14.darken(50)}"
-
-    readonly property string color15: "{color15}"
-    readonly property string color15Light: "{color15.lighten(50)}"
-    readonly property string color15Dark: "{color15.darken(50)}"
+    readonly property color background: "{background}"
+    readonly property color foreground: "{foreground}"
+    readonly property color cursor: "{cursor}"
+    readonly property color color0: "{color0}"
+    readonly property color color0Light: Qt.lighter(color0, 1.5)
+    readonly property color color0Dark: Qt.darker(color0, 1.5)
+    readonly property color color1: "{color1}"
+    readonly property color color1Light: Qt.lighter(color1, 1.5)
+    readonly property color color1Dark: Qt.darker(color1, 1.5)
+    readonly property color color2: "{color2}"
+    readonly property color color2Light: Qt.lighter(color2, 1.5)
+    readonly property color color2Dark: Qt.darker(color2, 1.5)
+    readonly property color color3: "{color3}"
+    readonly property color color3Light: Qt.lighter(color3, 1.5)
+    readonly property color color3Dark: Qt.darker(color3, 1.5)
+    readonly property color color4: "{color4}"
+    readonly property color color4Light: Qt.lighter(color4, 1.5)
+    readonly property color color4Dark: Qt.darker(color4, 1.5)
+    readonly property color color5: "{color5}"
+    readonly property color color5Light: Qt.lighter(color5, 1.5)
+    readonly property color color5Dark: Qt.darker(color5, 1.5)
+    readonly property color color6: "{color6}"
+    readonly property color color6Light: Qt.lighter(color6, 1.5)
+    readonly property color color6Dark: Qt.darker(color6, 1.5)
+    readonly property color color7: "{color7}"
+    readonly property color color7Light: Qt.lighter(color7, 1.5)
+    readonly property color color7Dark: Qt.darker(color7, 1.5)
+    readonly property color color8: "{color8}"
+    readonly property color color8Light: Qt.lighter(color8, 1.5)
+    readonly property color color8Dark: Qt.darker(color8, 1.5)
+    readonly property color color9: "{color9}"
+    readonly property color color9Light: Qt.lighter(color9, 1.5)
+    readonly property color color9Dark: Qt.darker(color9, 1.5)
+    readonly property color color10: "{color10}"
+    readonly property color color10Light: Qt.lighter(color10, 1.5)
+    readonly property color color10Dark: Qt.darker(color10, 1.5)
+    readonly property color color11: "{color11}"
+    readonly property color color11Light: Qt.lighter(color11, 1.5)
+    readonly property color color11Dark: Qt.darker(color11, 1.5)
+    readonly property color color12: "{color12}"
+    readonly property color color12Light: Qt.lighter(color12, 1.5)
+    readonly property color color12Dark: Qt.darker(color12, 1.5)
+    readonly property color color13: "{color13}"
+    readonly property color color13Light: Qt.lighter(color13, 1.5)
+    readonly property color color13Dark: Qt.darker(color13, 1.5)
+    readonly property color color14: "{color14}"
+    readonly property color color14Light: Qt.lighter(color14, 1.5)
+    readonly property color color14Dark: Qt.darker(color14, 1.5)
+    readonly property color color15: "{color15}"
+    readonly property color color15Light: Qt.lighter(color15, 1.5)
+    readonly property color color15Dark: Qt.darker(color15, 1.5)
 }
