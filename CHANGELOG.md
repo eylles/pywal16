@@ -7,6 +7,23 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.8.15] - 2026-04-10
+NEW:
+- foxify methods for --cols16 shading
+- support for yasb.
+- Added `wezterm` terminal emulator template.
+- Added `flow` launcher template.
+- Added `btop` template.
+- Added `` template.
+
+Fixes:
+- foot terminal template
+- use the XDG_CURRENT_DESKTOP var for the plasma workaround
+
+Changes:
+- Improved `retroarch` template.
+- Improved the way eastereggs are handled
+
 ## [3.8.14] - 2026-01-30
 Fixes:
 - Fix wal backend issues.
@@ -928,7 +945,8 @@ Note to self: Don't flag releases before coffee.
 
 
 
-[Unreleased]: https://github.com/eylles/pywal16/compare/3.8.14...HEAD
+[Unreleased]: https://github.com/eylles/pywal16/compare/3.8.15...HEAD
+[3.8.15]: https://github.com/eylles/pywal16/compare/3.8.14...3.8.15
 [3.8.14]: https://github.com/eylles/pywal16/compare/3.8.13...3.8.14
 [3.8.13]: https://github.com/eylles/pywal16/compare/3.8.12...3.8.13
 [3.8.12]: https://github.com/eylles/pywal16/compare/3.8.11...3.8.12
