@@ -11,10 +11,10 @@ theme[title]="{foreground}"
 theme[hi_fg]="{color9}"
 
 # Background color of selected item in processes box
-theme[selected_bg]="{color12}"
+theme[selected_bg]="{color4.darken(5%)}"
 
 # Foreground color of selected item in processes box
-theme[selected_fg]="{foreground}"
+theme[selected_fg]="{foreground.lighten(15%)}"
 
 # Color of inactive/disabled text
 theme[inactive_fg]="{color7.darken(25%)}"
