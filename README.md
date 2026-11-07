@@ -24,6 +24,13 @@ Terminal emulators and TTYs have their color-schemes updated in real-time with n
 
 ### More: \[[Installation](https://github.com/eylles/pywal16/wiki/Installation)] \[[Getting Started](https://github.com/eylles/pywal16/wiki/Getting-Started)] \[[Customization](https://github.com/eylles/pywal16/wiki/Customization)] \[[Wiki](https://github.com/eylles/pywal16/wiki)] \[[Screenshots](https://www.reddit.com/r/unixporn/search?q=wal&restrict_sr=on&sort=relevance&t=all)] \[[Extras](https://github.com/eylles/pywal-extra)]
 
+### NOTE: default name change
+
+The default distribution of this project at the Python Package Index (PyPI) is moving from pywal16 to pywal, for the rest of 2026 and during 2027 both distribution namespaces will receive the same updates but the current plan
+is starting 2028 to sundown the `pywal16` distribution in pypi, this is done in order to prioritize the vastly more popular `pywal` distribution and to prevent long term hogging of multiple names on pypi for the same package
+for that reason the default name of the package in setup.py is changing from "pywal16" to "pywal" this should not affect those that package pywal16 for the various distributions beyond having a .whl or a tar.gz with a different
+name when running `python -m build` which ought to be a tiny change to adapt to.
+
 [![Packaging status](https://repology.org/badge/vertical-allrepos/pywal16.svg)](https://repology.org/project/pywal16/versions)
 [![Packaging status](https://repology.org/badge/vertical-allrepos/pywal.svg)](https://repology.org/project/pywal/versions)
 
