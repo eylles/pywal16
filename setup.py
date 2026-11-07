@@ -20,7 +20,7 @@ if is_win:
     install_requires += ["colorama"]
 
 setuptools.setup(
-    name="pywal16",
+    name="pywal",
     version=VERSION,
     author="Dylan Araps",
     author_email="dylan.araps@gmail.com",

@@ -53,7 +53,7 @@ def get_args():
     description = "wal - Generate colorschemes on the fly"
     config_notes = '''
         configuration:
-        pywal16 supports the usage of the following env vars for configuration
+        wal supports the usage of the following env vars for configuration
 
         env vars:
           XDG_CONFIG_HOME       parent directory to the user wal/templates dir.
