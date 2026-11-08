@@ -14,7 +14,9 @@ from .. import util
 def gen_colors(img):
     """Generate a colorscheme using img2colscheme."""
     cmd = ["img2colscheme"]
-    return subprocess.check_output([*cmd, img]).splitlines()
+    lines = subprocess.check_output([*cmd, img]).splitlines()
+    # Grab index 1 (the 2nd column), ignoring any empty lines
+    return [line.split()[1] for line in lines if line.strip()]
 
 
 def adjust(cols, light, **kwargs):
