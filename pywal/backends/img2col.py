@@ -29,10 +29,11 @@ def adjust(cols, light, **kwargs):
     else:
         cols16 = False
     vibrant = [
-        util.saturate_color(util.lighten_color(col, 0.10), 0.20)
+        util.saturate_color(util.foxify_color(col, 0.15), 0.34)
         for col in cols[8:]
     ]
     raw_colors = [*vibrant, *vibrant]
+    raw_colors[0] = util.darken_color(raw_colors[0], 0.51)
 
     return colors.generic_adjust(raw_colors, light, c16=cols16)
 
